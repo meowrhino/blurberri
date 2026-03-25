@@ -1,0 +1,467 @@
+/* =========================================================
+   GLOBAL · RESET · VARIABLES
+   ========================================================= */
+:root {
+  --gray-dark: #808080;
+  --gray-light: #c8c8c8;
+  --gray-content: #d2d2d2;
+  --about-bg: #4a4a4a;
+  --games-bg: #6b4a5e;
+  --anim-bedrotting: #1a1225;
+  --anim-deadcrush: #152040;
+  --anim-default: #111;
+  --frame-margin: 3vh;
+  --font-script: "Dancing Script", cursive;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: var(--gray-dark);
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =========================================================
+   LOGO (fixed top-left)
+   ========================================================= */
+.logo {
+  position: fixed;
+  top: var(--frame-margin);
+  left: var(--frame-margin);
+  z-index: 1000;
+}
+.logo img {
+  height: clamp(50px, 8vh, 90px);
+  width: auto;
+}
+
+/* =========================================================
+   NAVIGATION (fixed corners) — injected by nav.js
+   ========================================================= */
+.nav-top-right {
+  position: fixed;
+  top: var(--frame-margin);
+  right: var(--frame-margin);
+  display: flex;
+  gap: 1rem;
+  z-index: 1000;
+}
+
+.nav-bottom-center {
+  position: fixed;
+  bottom: var(--frame-margin);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5rem;
+  z-index: 1000;
+}
+
+.nav-link {
+  font-family: var(--font-script);
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  color: #444;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.nav-link:hover {
+  color: #111;
+}
+.nav-link.active {
+  color: #000;
+  font-weight: 700;
+}
+
+/* Back link for detail pages */
+.nav-back {
+  position: fixed;
+  top: var(--frame-margin);
+  right: var(--frame-margin);
+  font-family: var(--font-script);
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  color: #ccc;
+  text-decoration: underline;
+  z-index: 1000;
+}
+.nav-back:hover {
+  color: #fff;
+}
+
+/* =========================================================
+   CONTENT FRAME — the lighter inner box (anakatana style)
+   ========================================================= */
+#content-frame {
+  position: fixed;
+  top: 12vh;
+  bottom: 8vh;
+  left: 8vw;
+  right: 8vw;
+  background-color: var(--gray-content);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* =========================================================
+   HOME SECTIONS
+   ========================================================= */
+.home-section {
+  display: none;
+  padding: 2rem;
+  min-height: 100%;
+}
+.home-section.active {
+  display: block;
+}
+
+/* Animaciones grid — scattered look */
+.anim-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  padding: 2rem 0;
+}
+.anim-thumb {
+  display: block;
+  width: clamp(120px, 22vw, 250px);
+  transition: transform 0.3s;
+}
+.anim-thumb:nth-child(1) { transform: translateY(10%); }
+.anim-thumb:nth-child(2) { transform: translateY(-15%); }
+.anim-thumb:nth-child(3) { transform: translateY(5%); }
+.anim-thumb:nth-child(4) { transform: translateY(-8%); }
+.anim-thumb:hover {
+  transform: scale(1.05);
+}
+.anim-thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Sketchbook gallery */
+.sketch-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.sketch-gallery img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Coming soon placeholder */
+.coming-soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  font-family: var(--font-script);
+  font-size: 2rem;
+  color: #999;
+}
+
+/* =========================================================
+   PAGE TITLE (script font, top-left or mirrored bottom-right)
+   ========================================================= */
+.page-title {
+  position: fixed;
+  font-family: var(--font-script);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 400;
+  z-index: 100;
+  pointer-events: none;
+}
+
+body[data-page-type="about"] .page-title {
+  top: 3vh;
+  left: 5vw;
+  color: #ccc;
+}
+
+body[data-page-type="games"] .page-title {
+  color: rgba(255, 255, 255, 0.4);
+}
+body[data-page-type="games"] .page-title:first-of-type {
+  top: 3vh;
+  left: 5vw;
+}
+body[data-page-type="games"] .page-title--bottom {
+  bottom: 3vh;
+  right: 5vw;
+  transform: rotate(180deg);
+}
+
+body[data-page-type="animacion"] .page-title {
+  color: rgba(255, 255, 255, 0.3);
+}
+body[data-page-type="animacion"] .page-title:first-of-type {
+  top: 3vh;
+  left: 5vw;
+}
+body[data-page-type="animacion"] .page-title--bottom {
+  bottom: 3vh;
+  right: 5vw;
+  transform: rotate(180deg);
+}
+
+/* =========================================================
+   ABOUT PAGE
+   ========================================================= */
+body[data-page-type="about"] {
+  background-color: var(--about-bg);
+  color: #ddd;
+}
+
+#about-container {
+  position: fixed;
+  top: 12vh;
+  bottom: 10vh;
+  left: 8vw;
+  right: 8vw;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.about-layout {
+  display: flex;
+  gap: 2rem;
+  flex: 1;
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .about-layout {
+    flex-direction: column;
+  }
+}
+
+.about-visual {
+  flex: 0 0 40%;
+  display: flex;
+  justify-content: center;
+}
+.about-visual video {
+  max-height: 60vh;
+  width: auto;
+  max-width: 100%;
+}
+
+.about-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+  line-height: 1.6;
+}
+
+.about-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.7rem;
+  color: #aaa;
+}
+.about-footer-text {
+  flex: 1;
+  min-width: 200px;
+}
+.about-logos {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.about-logos img {
+  height: 40px;
+  width: auto;
+}
+
+/* =========================================================
+   GAMES PAGE — DRESS UP
+   ========================================================= */
+body[data-page-type="games"] {
+  background-color: var(--games-bg);
+  color: #fff;
+}
+
+#dressup-container {
+  position: fixed;
+  top: 10vh;
+  bottom: 10vh;
+  left: 5vw;
+  right: 5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+@media (max-width: 768px) {
+  #dressup-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.dressup-frame {
+  position: relative;
+  height: 70vh;
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dressup-marco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 2;
+}
+.dressup-layers {
+  position: relative;
+  width: 60%;
+  height: 85%;
+  z-index: 1;
+}
+.dressup-layers img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Controls */
+.dressup-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.control-label {
+  font-family: var(--font-script);
+  font-size: 1rem;
+  min-width: 60px;
+  text-align: center;
+  display: none; /* hidden, arrows are self-explanatory */
+}
+.arrow-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s;
+}
+.arrow-btn:hover {
+  transform: scale(1.1);
+}
+.arrow-btn img {
+  height: clamp(30px, 5vh, 50px);
+  width: auto;
+}
+
+/* =========================================================
+   ANIMACION DETAIL PAGE
+   ========================================================= */
+body[data-page-type="animacion"] {
+  background-color: var(--anim-default);
+  color: #fff;
+}
+
+/* Ornamental motif */
+.anim-motivo {
+  position: fixed;
+  width: clamp(200px, 40vw, 500px);
+  height: auto;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+.anim-motivo--top {
+  top: -5%;
+  left: -5%;
+}
+.anim-motivo--bottom {
+  bottom: -5%;
+  right: -5%;
+  transform: rotate(180deg);
+}
+
+#anim-video-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: clamp(300px, 60vw, 900px);
+}
+#anim-video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Per-animation color themes */
+body.anim-bedrotting { background-color: var(--anim-bedrotting); }
+body.anim-deadcrush { background-color: var(--anim-deadcrush); }
+body.anim-24hdog { background-color: #1a1a1a; }
+body.anim-eisbaer { background-color: #0d1520; }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 600px) {
+  #content-frame {
+    left: 4vw;
+    right: 4vw;
+    top: 14vh;
+    bottom: 10vh;
+  }
+  .logo img {
+    height: 45px;
+  }
+  .anim-thumb {
+    width: 42vw;
+  }
+  .sketch-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #about-container {
+    left: 4vw;
+    right: 4vw;
+  }
+}

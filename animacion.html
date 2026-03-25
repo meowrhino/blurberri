@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Animación — Blurberrie</title>
+</head>
+
+<body data-page-type="animacion">
+    <h1 class="page-title" id="anim-title"></h1>
+    <h1 class="page-title page-title--bottom" id="anim-title-bottom"></h1>
+
+    <!-- Motivo decorativo de fondo -->
+    <img src="data/_ANIMATION/motivo.png" alt="" class="anim-motivo anim-motivo--top">
+    <img src="data/_ANIMATION/motivo.png" alt="" class="anim-motivo anim-motivo--bottom">
+
+    <div id="anim-video-container">
+        <video id="anim-video" controls playsinline>
+            <!-- src se inyecta por JS -->
+        </video>
+    </div>
+
+    <script src="js/nav.js"></script>
+    <script src="js/animacion.js"></script>
+</body>
+
+</html>
