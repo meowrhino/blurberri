@@ -7,11 +7,15 @@
   --gray-content: #d2d2d2;
   --about-bg: #4a4a4a;
   --games-bg: #6b4a5e;
+  --games-container: #5a3d50;
   --anim-bedrotting: #1a1225;
   --anim-deadcrush: #152040;
   --anim-default: #111;
-  --frame-margin: 3vh;
-  --font-script: "Dancing Script", cursive;
+  --frame-inset-y: 5dvh;
+  --frame-inset-x: 5dvw;
+  --font-text: "Jua", sans-serif;
+  --font-menu: "Playwrite US Trad Guides", cursive;
+  --font-title: "Ballet", cursive;
 }
 
 * {
@@ -26,7 +30,7 @@ html, body {
 }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: var(--font-text);
   background-color: var(--gray-dark);
   color: #333;
 }
@@ -41,8 +45,8 @@ a {
    ========================================================= */
 .logo {
   position: fixed;
-  top: var(--frame-margin);
-  left: var(--frame-margin);
+  top: 1dvh;
+  left: 1.5dvw;
   z-index: 1000;
 }
 .logo img {
@@ -55,26 +59,25 @@ a {
    ========================================================= */
 .nav-top-right {
   position: fixed;
-  top: var(--frame-margin);
-  right: var(--frame-margin);
+  top: 1.5dvh;
+  right: 2dvw;
   display: flex;
   gap: 1rem;
   z-index: 1000;
 }
 
 .nav-bottom-center {
-  position: fixed;
-  bottom: var(--frame-margin);
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   gap: 1.5rem;
+  justify-content: center;
+  padding: 0.8rem 0;
   z-index: 1000;
+  flex-shrink: 0;
 }
 
 .nav-link {
-  font-family: var(--font-script);
-  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  font-family: var(--font-menu);
+  font-size: clamp(0.75rem, 1.4vw, 1rem);
   color: #444;
   text-decoration: underline;
   cursor: pointer;
@@ -91,10 +94,10 @@ a {
 /* Back link for detail pages */
 .nav-back {
   position: fixed;
-  top: var(--frame-margin);
-  right: var(--frame-margin);
-  font-family: var(--font-script);
-  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  top: 1.5dvh;
+  right: 2dvw;
+  font-family: var(--font-menu);
+  font-size: clamp(0.75rem, 1.4vw, 1rem);
   color: #ccc;
   text-decoration: underline;
   z-index: 1000;
@@ -104,18 +107,33 @@ a {
 }
 
 /* =========================================================
-   CONTENT FRAME — the lighter inner box (anakatana style)
+   PAGE CONTAINER — 90dvw × 90dvh inner box (anakatana style)
    ========================================================= */
 #content-frame {
   position: fixed;
-  top: 12vh;
-  bottom: 8vh;
-  left: 8vw;
-  right: 8vw;
+  top: var(--frame-inset-y);
+  bottom: var(--frame-inset-y);
+  left: var(--frame-inset-x);
+  right: var(--frame-inset-x);
   background-color: var(--gray-content);
+  display: flex;
+  flex-direction: column;
+}
+
+.content-scroll {
+  flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
+}
+
+.page-container {
+  position: fixed;
+  top: var(--frame-inset-y);
+  bottom: var(--frame-inset-y);
+  left: var(--frame-inset-x);
+  right: var(--frame-inset-x);
+  z-index: 1;
 }
 
 /* =========================================================
@@ -149,9 +167,10 @@ a {
 .anim-thumb:nth-child(2) { transform: translateY(-15%); }
 .anim-thumb:nth-child(3) { transform: translateY(5%); }
 .anim-thumb:nth-child(4) { transform: translateY(-8%); }
-.anim-thumb:hover {
-  transform: scale(1.05);
-}
+.anim-thumb:nth-child(1):hover { transform: translateY(10%) scale(1.05); }
+.anim-thumb:nth-child(2):hover { transform: translateY(-15%) scale(1.05); }
+.anim-thumb:nth-child(3):hover { transform: translateY(5%) scale(1.05); }
+.anim-thumb:nth-child(4):hover { transform: translateY(-8%) scale(1.05); }
 .anim-thumb img {
   width: 100%;
   height: auto;
@@ -177,17 +196,17 @@ a {
   align-items: center;
   justify-content: center;
   min-height: 100%;
-  font-family: var(--font-script);
+  font-family: var(--font-text);
   font-size: 2rem;
   color: #999;
 }
 
 /* =========================================================
-   PAGE TITLE (script font, top-left or mirrored bottom-right)
+   PAGE TITLE (Ballet font, corners)
    ========================================================= */
 .page-title {
   position: fixed;
-  font-family: var(--font-script);
+  font-family: var(--font-title);
   font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 400;
   z-index: 100;
@@ -195,8 +214,8 @@ a {
 }
 
 body[data-page-type="about"] .page-title {
-  top: 3vh;
-  left: 5vw;
+  top: 2dvh;
+  left: 3dvw;
   color: #ccc;
 }
 
@@ -204,12 +223,12 @@ body[data-page-type="games"] .page-title {
   color: rgba(255, 255, 255, 0.4);
 }
 body[data-page-type="games"] .page-title:first-of-type {
-  top: 3vh;
-  left: 5vw;
+  top: 2dvh;
+  left: 3dvw;
 }
 body[data-page-type="games"] .page-title--bottom {
-  bottom: 3vh;
-  right: 5vw;
+  bottom: 2dvh;
+  right: 3dvw;
   transform: rotate(180deg);
 }
 
@@ -217,12 +236,12 @@ body[data-page-type="animacion"] .page-title {
   color: rgba(255, 255, 255, 0.3);
 }
 body[data-page-type="animacion"] .page-title:first-of-type {
-  top: 3vh;
-  left: 5vw;
+  top: 2dvh;
+  left: 3dvw;
 }
 body[data-page-type="animacion"] .page-title--bottom {
-  bottom: 3vh;
-  right: 5vw;
+  bottom: 2dvh;
+  right: 3dvw;
   transform: rotate(180deg);
 }
 
@@ -302,6 +321,25 @@ body[data-page-type="about"] {
   width: auto;
 }
 
+/* Decorative floating elements */
+.about-deco {
+  position: fixed;
+  pointer-events: none;
+  z-index: 50;
+}
+.about-deco--angel {
+  top: 5vh;
+  right: 25vw;
+  width: clamp(80px, 12vw, 160px);
+  height: auto;
+}
+.about-deco--key {
+  top: 3vh;
+  right: 12vw;
+  width: clamp(40px, 6vw, 80px);
+  height: auto;
+}
+
 /* =========================================================
    GAMES PAGE — DRESS UP
    ========================================================= */
@@ -310,31 +348,53 @@ body[data-page-type="games"] {
   color: #fff;
 }
 
-#dressup-container {
-  position: fixed;
-  top: 10vh;
-  bottom: 10vh;
-  left: 5vw;
-  right: 5vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-}
-@media (max-width: 768px) {
-  #dressup-container {
-    flex-direction: column;
-    gap: 1rem;
-  }
+body[data-page-type="games"] .page-container {
+  background-color: var(--games-container);
 }
 
-.dressup-frame {
-  position: relative;
-  height: 70vh;
-  aspect-ratio: 3 / 4;
+#dressup-container {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
+}
+
+/* Arrow columns on left and right */
+.dressup-arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 70%;
+  gap: 1rem;
+}
+
+.arrow-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s;
+}
+.arrow-btn:hover {
+  transform: scale(1.15);
+}
+.arrow-btn img {
+  height: clamp(28px, 5vh, 50px);
+  width: auto;
+}
+.arrow-btn--deco img {
+  height: clamp(24px, 4vh, 40px);
+}
+
+/* Frame */
+.dressup-frame {
+  position: relative;
+  height: 75%;
+  aspect-ratio: 3 / 4;
+  flex-shrink: 0;
 }
 .dressup-marco {
   position: absolute;
@@ -345,53 +405,34 @@ body[data-page-type="games"] {
   pointer-events: none;
   z-index: 2;
 }
+
+/* Character layers — stacked absolutely, full height inside frame */
 .dressup-layers {
-  position: relative;
-  width: 60%;
-  height: 85%;
+  position: absolute;
+  top: 5%;
+  bottom: 3%;
+  left: 10%;
+  right: 10%;
   z-index: 1;
 }
 .dressup-layers img {
   position: absolute;
+  left: 0;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  height: 100%;
-  width: auto;
-  object-fit: contain;
+  width: 100%;
+  height: auto;
 }
 
-/* Controls */
-.dressup-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-.control-row {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-.control-label {
-  font-family: var(--font-script);
-  font-size: 1rem;
-  min-width: 60px;
-  text-align: center;
-  display: none; /* hidden, arrows are self-explanatory */
-}
-.arrow-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: transform 0.15s;
-}
-.arrow-btn:hover {
-  transform: scale(1.1);
-}
-.arrow-btn img {
-  height: clamp(30px, 5vh, 50px);
-  width: auto;
+@media (max-width: 600px) {
+  #dressup-container {
+    gap: 0.3rem;
+  }
+  .dressup-frame {
+    height: 60%;
+  }
+  .dressup-arrows {
+    height: 60%;
+  }
 }
 
 /* =========================================================
@@ -400,6 +441,13 @@ body[data-page-type="games"] {
 body[data-page-type="animacion"] {
   background-color: var(--anim-default);
   color: #fff;
+}
+
+body[data-page-type="animacion"] .page-container {
+  background-color: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Ornamental motif */
@@ -422,12 +470,8 @@ body[data-page-type="animacion"] {
 }
 
 #anim-video-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: clamp(300px, 55vw, 800px);
   z-index: 1;
-  width: clamp(300px, 60vw, 900px);
 }
 #anim-video {
   width: 100%;
@@ -437,19 +481,21 @@ body[data-page-type="animacion"] {
 
 /* Per-animation color themes */
 body.anim-bedrotting { background-color: var(--anim-bedrotting); }
+body.anim-bedrotting .page-container { background-color: rgba(255, 255, 255, 0.06); }
 body.anim-deadcrush { background-color: var(--anim-deadcrush); }
+body.anim-deadcrush .page-container { background-color: rgba(255, 255, 255, 0.07); }
 body.anim-24hdog { background-color: #1a1a1a; }
+body.anim-24hdog .page-container { background-color: rgba(255, 255, 255, 0.06); }
 body.anim-eisbaer { background-color: #0d1520; }
+body.anim-eisbaer .page-container { background-color: rgba(255, 255, 255, 0.07); }
 
 /* =========================================================
    RESPONSIVE
    ========================================================= */
 @media (max-width: 600px) {
-  #content-frame {
-    left: 4vw;
-    right: 4vw;
-    top: 14vh;
-    bottom: 10vh;
+  :root {
+    --frame-inset-y: 5dvh;
+    --frame-inset-x: 3dvw;
   }
   .logo img {
     height: 45px;
@@ -461,7 +507,7 @@ body.anim-eisbaer { background-color: #0d1520; }
     grid-template-columns: repeat(2, 1fr);
   }
   #about-container {
-    left: 4vw;
-    right: 4vw;
+    left: 3dvw;
+    right: 3dvw;
   }
 }

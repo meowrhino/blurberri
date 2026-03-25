@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ballet&family=Jua&family=Playwrite+US+Trad+Guides&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <title>Dress me — Blurberrie</title>
 </head>
@@ -15,7 +15,25 @@
     <h1 class="page-title">Dress me</h1>
     <h1 class="page-title page-title--bottom">Dress me</h1>
 
+    <div class="page-container">
     <div id="dressup-container">
+        <!-- Left arrows -->
+        <div class="dressup-arrows dressup-arrows--left">
+            <button class="arrow-btn" data-cat="pelo" data-dir="-1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set01_left.png" alt="prev pelo">
+            </button>
+            <button class="arrow-btn arrow-btn--deco" data-cat="tops" data-dir="-1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set02_left.png" alt="prev tops">
+            </button>
+            <button class="arrow-btn" data-cat="bottoms" data-dir="-1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set01_left.png" alt="prev bottoms">
+            </button>
+            <button class="arrow-btn arrow-btn--deco" data-cat="shoes" data-dir="-1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set02_left.png" alt="prev shoes">
+            </button>
+        </div>
+
+        <!-- Frame + character -->
         <div class="dressup-frame">
             <img src="data/games/DRESS UP GAME/MARCO/marco.png" alt="" class="dressup-marco">
             <div class="dressup-layers" id="dressup-layers">
@@ -23,45 +41,22 @@
             </div>
         </div>
 
-        <!-- Controles -->
-        <div class="dressup-controls">
-            <div class="control-row">
-                <button class="arrow-btn" data-cat="pelo" data-dir="-1">
-                    <img src="data/games/DRESS UP GAME/FLECHAS/set01_left.png" alt="prev">
-                </button>
-                <span class="control-label">pelo</span>
-                <button class="arrow-btn" data-cat="pelo" data-dir="1">
-                    <img src="data/games/DRESS UP GAME/FLECHAS/set01_right.png" alt="next">
-                </button>
-            </div>
-            <div class="control-row">
-                <button class="arrow-btn" data-cat="tops" data-dir="-1">
-                    <img src="data/games/DRESS UP GAME/FLECHAS/set02_left.png" alt="prev">
-                </button>
-                <span class="control-label">tops</span>
-                <button class="arrow-btn" data-cat="tops" data-dir="1">
-                    <img src="data/games/DRESS UP GAME/FLECHAS/set02_right.png" alt="next">
-                </button>
-            </div>
-            <div class="control-row">
-                <button class="arrow-btn" data-cat="bottoms" data-dir="-1">
-                    <img src="data/games/DRESS UP GAME/FLECHAS/set01_left.png" alt="prev">
-                </button>
-                <span class="control-label">bottoms</span>
-                <button class="arrow-btn" data-cat="bottoms" data-dir="1">
-                    <img src="data/games/DRESS UP GAME/FLECHAS/set01_right.png" alt="next">
-                </button>
-            </div>
-            <div class="control-row">
-                <button class="arrow-btn" data-cat="shoes" data-dir="-1">
-                    <img src="data/games/DRESS UP GAME/FLECHAS/set02_left.png" alt="prev">
-                </button>
-                <span class="control-label">shoes</span>
-                <button class="arrow-btn" data-cat="shoes" data-dir="1">
-                    <img src="data/games/DRESS UP GAME/FLECHAS/set02_right.png" alt="next">
-                </button>
-            </div>
+        <!-- Right arrows -->
+        <div class="dressup-arrows dressup-arrows--right">
+            <button class="arrow-btn" data-cat="pelo" data-dir="1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set01_right.png" alt="next pelo">
+            </button>
+            <button class="arrow-btn arrow-btn--deco" data-cat="tops" data-dir="1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set02_right.png" alt="next tops">
+            </button>
+            <button class="arrow-btn" data-cat="bottoms" data-dir="1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set01_right.png" alt="next bottoms">
+            </button>
+            <button class="arrow-btn arrow-btn--deco" data-cat="shoes" data-dir="1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set02_right.png" alt="next shoes">
+            </button>
         </div>
+    </div>
     </div>
 
     <script src="js/nav.js"></script>

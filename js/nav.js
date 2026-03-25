@@ -25,8 +25,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(back);
   }
 
-  // === BOTTOM CENTER NAV (home only — section tabs) ===
+  // === BOTTOM CENTER NAV (home only — section tabs inside content-frame) ===
   if (pageType === "home") {
+    const frame = document.getElementById("content-frame");
+    if (!frame) return;
+
+    // Wrap existing sections in a scroll container
+    const scrollWrapper = document.createElement("div");
+    scrollWrapper.className = "content-scroll";
+    while (frame.firstChild) {
+      scrollWrapper.appendChild(frame.firstChild);
+    }
+    frame.appendChild(scrollWrapper);
+
+    // Create bottom tabs inside the frame
     const bottomCenter = document.createElement("div");
     bottomCenter.classList.add("nav-bottom-center");
     const tabs = [
@@ -45,16 +57,18 @@ document.addEventListener("DOMContentLoaded", () => {
       a.addEventListener("click", (e) => {
         e.preventDefault();
         // Hide all sections
-        document.querySelectorAll(".home-section").forEach(s => s.classList.remove("active"));
+        scrollWrapper.querySelectorAll(".home-section").forEach(s => s.classList.remove("active"));
         // Show target
         document.getElementById(tab.id)?.classList.add("active");
         // Update active link
         bottomCenter.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
         a.classList.add("active");
+        // Scroll to top
+        scrollWrapper.scrollTop = 0;
       });
       bottomCenter.appendChild(a);
     });
 
-    document.body.appendChild(bottomCenter);
+    frame.appendChild(bottomCenter);
   }
 });
