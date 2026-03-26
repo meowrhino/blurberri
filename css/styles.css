@@ -153,19 +153,16 @@ body[data-page-type="games"] .nav-link.active {
    HOME SECTIONS
    ========================================================= */
 .home-section {
-  display: none;
+  position: absolute;
+  inset: 0;
   padding: 2rem;
-  min-height: 100%;
   opacity: 0;
-  transition: opacity 0.4s ease;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s;
 }
 .home-section.active {
-  display: block;
   opacity: 1;
-}
-.home-section.fade-out {
-  display: block;
-  opacity: 0;
+  visibility: visible;
 }
 /* Sketchbook needs full height for horizontal scroll */
 #sec-sketchbook {
