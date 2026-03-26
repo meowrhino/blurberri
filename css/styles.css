@@ -523,13 +523,16 @@ body[data-page-type="animacion"] .page-container {
 /* Positions set randomly by animacion.js */
 
 #anim-video-container {
-  max-width: clamp(300px, 55vw, 800px);
-  max-height: 85%;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 #anim-video {
-  max-width: 100%;
-  max-height: 85vh;
+  max-width: 90%;
+  max-height: 90%;
   object-fit: contain;
   display: block;
 }

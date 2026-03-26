@@ -41,16 +41,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.documentElement.style.setProperty("--anim-btn-color", anim.colorBotones);
   }
 
-  // Randomize motivo positions
-  document.querySelectorAll(".anim-motivo").forEach(motivo => {
-    const top = -10 + Math.random() * 80;
-    const left = -10 + Math.random() * 80;
-    const rotation = Math.random() * 360;
-    const scale = 0.8 + Math.random() * 0.6;
-    motivo.style.top = top + "%";
-    motivo.style.left = left + "%";
-    motivo.style.right = "auto";
-    motivo.style.bottom = "auto";
-    motivo.style.transform = `rotate(${rotation}deg) scale(${scale})`;
-  });
+  // Position motivos: left-upper half + right-lower half
+  const motivos = document.querySelectorAll(".anim-motivo");
+  if (motivos.length >= 2) {
+    // First motivo: left half, upper area
+    const m1 = motivos[0];
+    m1.style.top = (-5 + Math.random() * 30) + "%";
+    m1.style.left = (-10 + Math.random() * 30) + "%";
+    m1.style.right = "auto";
+    m1.style.bottom = "auto";
+    m1.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
+
+    // Second motivo: right half, lower area
+    const m2 = motivos[1];
+    m2.style.bottom = (-5 + Math.random() * 30) + "%";
+    m2.style.right = (-10 + Math.random() * 30) + "%";
+    m2.style.top = "auto";
+    m2.style.left = "auto";
+    m2.style.transform = `rotate(${160 + Math.random() * 40}deg)`;
+  }
 });
