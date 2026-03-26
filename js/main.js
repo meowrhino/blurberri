@@ -69,19 +69,20 @@ if (document.readyState === "loading") {
 
 // Generate well-distributed random positions for thumbnails
 function generateRandomPositions(count) {
-  // Divide the grid into zones to ensure spread, then add jitter
+  // Divide the full area into zones, then add jitter
+  // Thumbnail is ~14vw wide, so leave ~15% margin to avoid clipping
   const cols = Math.ceil(Math.sqrt(count));
   const rows = Math.ceil(count / cols);
-  const cellW = 75 / cols;  // usable width range (5% to 80%)
-  const cellH = 55 / rows;  // usable height range (3% to 58%)
+  const cellW = 85 / cols;   // full width range (0% to 85%)
+  const cellH = 70 / rows;   // full height range (0% to 70%)
   const positions = [];
 
   for (let i = 0; i < count; i++) {
     const col = i % cols;
     const row = Math.floor(i / cols);
     // Base position in cell + random jitter within cell
-    const left = 5 + col * cellW + Math.random() * (cellW * 0.6);
-    const top = 3 + row * cellH + Math.random() * (cellH * 0.6);
+    const left = col * cellW + Math.random() * (cellW * 0.7);
+    const top = row * cellH + Math.random() * (cellH * 0.7);
     positions.push({ top: top + "%", left: left + "%" });
   }
 
