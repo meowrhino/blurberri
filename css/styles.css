@@ -38,7 +38,7 @@ body {
 /* Page transitions */
 body.page-exit {
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.5s ease;
 }
 /* Hide elements instantly if entering via transition (prevents flash) */
 html.transitioning .page-container,

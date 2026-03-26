@@ -57,11 +57,11 @@ function applyColors(cfg) {
 // ─── PAGE TRANSITIONS ──────────────────────────────────────
 function playExit(callback) {
   document.body.classList.add("page-exit");
-  setTimeout(callback, 300);
+  setTimeout(callback, 500);
 }
 
 function playEntrance() {
-  // Elements animate in sequence: bg (instant) → container → titles → content
+  // Elements animate in sequence with calm pacing (~1.8s total)
   const container = document.querySelector(".page-container, #about-container");
   const titleLeft = document.querySelector(".page-title:first-of-type, .logo");
   const titleRight = document.querySelector(".page-title--bottom");
@@ -72,46 +72,46 @@ function playEntrance() {
   [container, titleLeft, titleRight, nav, navBottom].forEach(el => {
     if (el) { el.style.opacity = "0"; el.style.transition = "none"; }
   });
-  if (titleLeft) { titleLeft.style.transform = "translateX(-30px)"; titleLeft.style.transition = "none"; }
+  if (titleLeft) { titleLeft.style.transform = "translateX(-40px)"; titleLeft.style.transition = "none"; }
   if (titleRight) {
     const isRotated = titleRight.classList.contains("page-title--bottom");
-    titleRight.style.transform = isRotated ? "rotate(180deg) translateX(-30px)" : "translateX(30px)";
+    titleRight.style.transform = isRotated ? "rotate(180deg) translateX(-40px)" : "translateX(40px)";
     titleRight.style.transition = "none";
   }
 
   // Force reflow
   void document.body.offsetWidth;
 
-  // Sequence: container (0ms) → titles (150ms) → nav (400ms)
+  // Sequence: container (200ms) → title left (600ms) → title right (900ms) → nav (1200ms)
   setTimeout(() => {
-    if (container) { container.style.transition = "opacity 0.4s ease"; container.style.opacity = "1"; }
-  }, 0);
+    if (container) { container.style.transition = "opacity 0.7s ease"; container.style.opacity = "1"; }
+  }, 200);
 
   setTimeout(() => {
-    if (titleLeft) { titleLeft.style.transition = "opacity 0.4s ease, transform 0.5s ease"; titleLeft.style.opacity = "1"; titleLeft.style.transform = "translateX(0)"; }
-  }, 150);
+    if (titleLeft) { titleLeft.style.transition = "opacity 0.6s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)"; titleLeft.style.opacity = "1"; titleLeft.style.transform = "translateX(0)"; }
+  }, 600);
 
   setTimeout(() => {
     if (titleRight) {
       const isRotated = titleRight.classList.contains("page-title--bottom");
-      titleRight.style.transition = "opacity 0.4s ease, transform 0.5s ease";
+      titleRight.style.transition = "opacity 0.6s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)";
       titleRight.style.opacity = "1";
       titleRight.style.transform = isRotated ? "rotate(180deg) translateX(0)" : "translateX(0)";
     }
-  }, 250);
+  }, 900);
 
   setTimeout(() => {
     [nav, navBottom].forEach(el => {
-      if (el) { el.style.transition = "opacity 0.3s ease"; el.style.opacity = "1"; }
+      if (el) { el.style.transition = "opacity 0.5s ease"; el.style.opacity = "1"; }
     });
-  }, 400);
+  }, 1200);
 
   // Clean up inline styles after animation
   setTimeout(() => {
     [container, titleLeft, titleRight, nav, navBottom].forEach(el => {
       if (el) { el.style.transition = ""; el.style.opacity = ""; el.style.transform = ""; }
     });
-  }, 1000);
+  }, 2200);
 }
 
 // ─── NAV BUILDERS ──────────────────────────────────────────
