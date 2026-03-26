@@ -1,16 +1,19 @@
 {
   "home": {
-    "bgColor": "#808080",
+    "bg": "#808080",
     "containerBg": "#d2d2d2",
-    "colorBotones": "#444",
-    "colorBotonesActiveHover": "#000"
+    "botones": "#444",
+    "botonesActiveHover": "#000"
   },
 
   "about": {
-    "bgColor": "#4a4a4a",
+    "bg": "#4a4a4a",
     "containerBg": "rgba(60, 60, 60, 0.8)",
-    "colorBotones": "#ccc",
-    "colorBotonesActiveHover": "#fff",
+    "botones": "#ccc",
+    "botonesActiveHover": "#fff",
+    "titulo": {
+      "color": "#ccc"
+    },
     "decos": [
       {
         "src": "data/_ABOUT/RECURSOS/angel_alphatest.webm",
@@ -40,58 +43,79 @@
   },
 
   "games": {
-    "bgColor": "#6b4a5e",
+    "bg": "#6b4a5e",
     "containerBg": "#5a3d50",
-    "colorBotones": "#ccc",
-    "colorBotonesActiveHover": "#fff",
-    "colorTexto": "#fff",
-    "colorTextoDecorativo": "#ddd"
+    "botones": "#ccc",
+    "botonesActiveHover": "#fff",
+    "titulo": {
+      "color": "rgba(255, 255, 255, 0.4)"
+    }
   },
 
   "animaciones": [
     {
       "name": "Bedrotting",
       "slug": "bedrotting",
-      "color1": "#1a1225",
-      "color2": "rgba(255, 255, 255, 0.06)",
-      "color3": "#c9a0dc",
-      "colorBotones": "#ccc",
-      "colorBotonesActive": "#fff",
-      "colorBotonesHover": "#fff",
-      "textoDecorativo": "Bedrotting"
+      "bg": "#1a1225",
+      "containerBg": "rgba(255, 255, 255, 0.06)",
+      "botones": "#ccc",
+      "botonesActiveHover": "#fff",
+      "titulo": {
+        "texto": "Bedrotting",
+        "color": "#c9a0dc",
+        "opacidad": 0.3
+      },
+      "motivo": {
+        "opacidad": 0.12
+      }
     },
     {
       "name": "24h Dog",
       "slug": "24hdog",
-      "color1": "#1a1a1a",
-      "color2": "rgba(255, 255, 255, 0.06)",
-      "color3": "#e8c170",
-      "colorBotones": "#ccc",
-      "colorBotonesActive": "#fff",
-      "colorBotonesHover": "#fff",
-      "textoDecorativo": "24h Dog"
+      "bg": "#1a1a1a",
+      "containerBg": "rgba(255, 255, 255, 0.06)",
+      "botones": "#ccc",
+      "botonesActiveHover": "#fff",
+      "titulo": {
+        "texto": "24h Dog",
+        "color": "#e8c170",
+        "opacidad": 0.3
+      },
+      "motivo": {
+        "opacidad": 0.12
+      }
     },
     {
       "name": "Deadcrush",
       "slug": "deadcrush",
-      "color1": "#152040",
-      "color2": "rgba(255, 255, 255, 0.07)",
-      "color3": "#7eb8da",
-      "colorBotones": "#ccc",
-      "colorBotonesActive": "#fff",
-      "colorBotonesHover": "#fff",
-      "textoDecorativo": "Deadcrush"
+      "bg": "#152040",
+      "containerBg": "rgba(255, 255, 255, 0.07)",
+      "botones": "#ccc",
+      "botonesActiveHover": "#fff",
+      "titulo": {
+        "texto": "Deadcrush",
+        "color": "#7eb8da",
+        "opacidad": 0.3
+      },
+      "motivo": {
+        "opacidad": 0.12
+      }
     },
     {
       "name": "Eisbär",
       "slug": "eisbaer",
-      "color1": "#0d1520",
-      "color2": "rgba(255, 255, 255, 0.07)",
-      "color3": "#a0c8e0",
-      "colorBotones": "#ccc",
-      "colorBotonesActive": "#fff",
-      "colorBotonesHover": "#fff",
-      "textoDecorativo": "Eisbär"
+      "bg": "#0d1520",
+      "containerBg": "rgba(255, 255, 255, 0.07)",
+      "botones": "#ccc",
+      "botonesActiveHover": "#fff",
+      "titulo": {
+        "texto": "Eisbär",
+        "color": "#a0c8e0",
+        "opacidad": 0.3
+      },
+      "motivo": {
+        "opacidad": 0.12
+      }
     }
   ],
 

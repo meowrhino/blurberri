@@ -1,20 +1,20 @@
-// Animation detail page — loads colors and config from data.json
+// Animation detail page — loads config from data.json
 document.addEventListener("DOMContentLoaded", async () => {
-  const params = new URLSearchParams(window.location.search);
-  const videoSlug = params.get("v");
+  const videoSlug = new URLSearchParams(location.search).get("v");
   if (!videoSlug) return;
 
-  // Load data.json
+  // Load animation config
   const res = await fetch("data/data.json");
   const data = await res.json();
   const anim = data.animaciones.find(a => a.slug === videoSlug);
+  const name = anim?.name || videoSlug.charAt(0).toUpperCase() + videoSlug.slice(1);
 
-  // Set page title
-  const name = anim ? anim.name : videoSlug.charAt(0).toUpperCase() + videoSlug.slice(1);
+  // Set page titles
   const titleEl = document.getElementById("anim-title");
   const titleBottomEl = document.getElementById("anim-title-bottom");
-  if (titleEl) titleEl.textContent = anim ? anim.textoDecorativo : name;
-  if (titleBottomEl) titleBottomEl.textContent = anim ? anim.textoDecorativo : name;
+  const titleText = anim?.titulo?.texto || name;
+  if (titleEl) titleEl.textContent = titleText;
+  if (titleBottomEl) titleBottomEl.textContent = titleText;
   document.title = `${name} — Blurberrie`;
 
   // Set video source
@@ -29,24 +29,30 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Apply colors from data.json
   if (anim) {
-    document.body.style.backgroundColor = anim.color1;
-    const container = document.querySelector(".page-container");
-    if (container) container.style.backgroundColor = anim.color2;
-
-    // Decorative text color (color3)
-    if (titleEl) titleEl.style.color = anim.color3;
-    if (titleBottomEl) titleBottomEl.style.color = anim.color3;
-
-    // Nav link colors — same CSS vars as other pages
     const root = document.documentElement;
-    root.style.setProperty("--btn-color", anim.colorBotones);
-    root.style.setProperty("--btn-active-hover", anim.colorBotonesActiveHover);
+    document.body.style.backgroundColor = anim.bg;
+    const container = document.querySelector(".page-container");
+    if (container) container.style.backgroundColor = anim.containerBg;
+
+    // Title color + opacity
+    const titleColor = anim.titulo?.color || "#fff";
+    const titleOpacity = anim.titulo?.opacidad ?? 0.3;
+    [titleEl, titleBottomEl].forEach(el => {
+      if (el) { el.style.color = titleColor; el.style.opacity = titleOpacity; }
+    });
+
+    // Button colors
+    root.style.setProperty("--btn-color", anim.botones);
+    root.style.setProperty("--btn-active-hover", anim.botonesActiveHover);
+
+    // Motivo opacity
+    const motivoOpacity = anim.motivo?.opacidad ?? 0.12;
+    document.querySelectorAll(".anim-motivo").forEach(m => m.style.opacity = motivoOpacity);
   }
 
-  // Position motivos: left-upper half + right-lower half
+  // Position motivos: left-upper + right-lower with slight randomness
   const motivos = document.querySelectorAll(".anim-motivo");
   if (motivos.length >= 2) {
-    // First motivo: left half, upper area
     const m1 = motivos[0];
     m1.style.top = (-5 + Math.random() * 30) + "%";
     m1.style.left = (-10 + Math.random() * 30) + "%";
@@ -54,7 +60,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     m1.style.bottom = "auto";
     m1.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
 
-    // Second motivo: right half, lower area
     const m2 = motivos[1];
     m2.style.bottom = (-5 + Math.random() * 30) + "%";
     m2.style.right = (-10 + Math.random() * 30) + "%";

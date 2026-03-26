@@ -35,6 +35,24 @@ body {
   color: #333;
 }
 
+/* Page transitions */
+body.page-exit {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+/* Hide elements instantly if entering via transition (prevents flash) */
+html.transitioning .page-container,
+html.transitioning #about-container,
+html.transitioning .page-title,
+html.transitioning .logo,
+html.transitioning .nav-top-right,
+html.transitioning .nav-bottom-center,
+html.transitioning .nav-back,
+html.transitioning .dressup-actions,
+html.transitioning .anim-motivo {
+  opacity: 0 !important;
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -259,7 +277,7 @@ body[data-page-type="about"] .page-title {
 }
 
 body[data-page-type="games"] .page-title {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--title-color, rgba(255, 255, 255, 0.4));
 }
 body[data-page-type="games"] .page-title:first-of-type {
   top: 2dvh;
@@ -272,7 +290,7 @@ body[data-page-type="games"] .page-title--bottom {
 }
 
 body[data-page-type="animacion"] .page-title {
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--title-color, rgba(255, 255, 255, 0.3));
 }
 body[data-page-type="animacion"] .page-title:first-of-type {
   top: -1.5dvh;
