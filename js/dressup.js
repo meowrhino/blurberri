@@ -54,8 +54,8 @@ async function initDressup() {
   }
 
   // Position arrows to align with body part strips
-  const layerTop = 3;    // % (matches CSS .dressup-layers top)
-  const layerSpan = 95;  // % (100 - top 3% - bottom 2%)
+  const layerTop = 5;    // % (matches CSS .dressup-layers top)
+  const layerSpan = 92;  // % (100 - top 5% - bottom 3%)
   const scaleFactor = cfg.scaleFlechas || 0.39;
 
   document.querySelectorAll(".arrow-btn").forEach(btn => {
