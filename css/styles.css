@@ -47,7 +47,7 @@ a {
   z-index: 1000;
 }
 .logo img {
-  height: clamp(80px, 15dvh, 160px);
+  height: clamp(100px, 12vw, 200px);
   width: auto;
 }
 
