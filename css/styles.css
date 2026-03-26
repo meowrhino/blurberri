@@ -72,6 +72,7 @@ a {
   display: flex;
   gap: 1.5dvw;
   z-index: 1000;
+  white-space: nowrap;
 }
 
 .nav-link {
@@ -554,7 +555,7 @@ body[data-page-type="animacion"] .nav-link.active {
 @media (max-width: 600px) {
   :root {
     --frame-inset-y: 5dvh;
-    --frame-inset-x: 3dvw;
+    --frame-inset-x: 6dvw;
   }
   .logo img {
     height: 60px;

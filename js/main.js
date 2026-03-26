@@ -67,26 +67,28 @@ if (document.readyState === "loading") {
   initHome();
 }
 
-// Generate non-overlapping random positions for thumbnails
+// Generate well-distributed random positions for thumbnails
 function generateRandomPositions(count) {
+  // Divide the grid into zones to ensure spread, then add jitter
+  const cols = Math.ceil(Math.sqrt(count));
+  const rows = Math.ceil(count / cols);
+  const cellW = 75 / cols;  // usable width range (5% to 80%)
+  const cellH = 55 / rows;  // usable height range (3% to 58%)
   const positions = [];
-  const minGap = 25; // minimum % gap between items
 
   for (let i = 0; i < count; i++) {
-    let attempts = 0;
-    let pos;
-    do {
-      pos = {
-        top: 5 + Math.random() * 50 + "%",
-        left: 5 + Math.random() * 70 + "%",
-      };
-      attempts++;
-    } while (attempts < 50 && positions.some(p => {
-      const dx = parseFloat(p.left) - parseFloat(pos.left);
-      const dy = parseFloat(p.top) - parseFloat(pos.top);
-      return Math.sqrt(dx * dx + dy * dy) < minGap;
-    }));
-    positions.push(pos);
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    // Base position in cell + random jitter within cell
+    const left = 5 + col * cellW + Math.random() * (cellW * 0.6);
+    const top = 3 + row * cellH + Math.random() * (cellH * 0.6);
+    positions.push({ top: top + "%", left: left + "%" });
+  }
+
+  // Shuffle so the order isn't predictable
+  for (let i = positions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [positions[i], positions[j]] = [positions[j], positions[i]];
   }
   return positions;
 }
