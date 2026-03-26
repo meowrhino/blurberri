@@ -73,16 +73,18 @@ function generateRandomPositions(count) {
   // Thumbnail is ~14vw wide, so leave ~15% margin to avoid clipping
   const cols = Math.ceil(Math.sqrt(count));
   const rows = Math.ceil(count / cols);
-  const cellW = 85 / cols;   // full width range (0% to 85%)
-  const cellH = 70 / rows;   // full height range (0% to 70%)
+  const maxLeft = 100;
+  const maxTop = 100;
+  const cellW = maxLeft / cols;
+  const cellH = maxTop / rows;
   const positions = [];
 
   for (let i = 0; i < count; i++) {
     const col = i % cols;
     const row = Math.floor(i / cols);
-    // Base position in cell + random jitter within cell
-    const left = col * cellW + Math.random() * (cellW * 0.7);
-    const top = row * cellH + Math.random() * (cellH * 0.7);
+    // Base position in cell + jitter across full cell
+    const left = col * cellW + Math.random() * cellW;
+    const top = row * cellH + Math.random() * cellH;
     positions.push({ top: top + "%", left: left + "%" });
   }
 
