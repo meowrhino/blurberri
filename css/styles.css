@@ -277,12 +277,12 @@ body[data-page-type="animacion"] .page-title {
   color: rgba(255, 255, 255, 0.3);
 }
 body[data-page-type="animacion"] .page-title:first-of-type {
-  top: 2dvh;
-  left: 3dvw;
+  top: 0.5dvh;
+  left: 1dvw;
 }
 body[data-page-type="animacion"] .page-title--bottom {
-  bottom: 2dvh;
-  right: 3dvw;
+  bottom: 0.5dvh;
+  right: 1dvw;
   transform: rotate(180deg);
 }
 
