@@ -67,25 +67,45 @@ if (document.readyState === "loading") {
   initHome();
 }
 
-// Generate well-distributed random positions for thumbnails
+// Generate non-overlapping random positions for thumbnails
 function generateRandomPositions(count) {
-  // Divide the full area into zones, then add jitter
-  // Thumbnail is ~14vw wide, so leave ~15% margin to avoid clipping
-  const cols = Math.ceil(Math.sqrt(count));
-  const rows = Math.ceil(count / cols);
-  const maxLeft = 100;
-  const maxTop = 100;
-  const cellW = maxLeft / cols;
-  const cellH = maxTop / rows;
+  const maxLeft = 88;   // ~12% reserved for thumbnail width
+  const maxTop = 72;    // ~28% reserved for thumbnail height + label
+  const thumbW = 12;    // approximate thumbnail width in %
+  const thumbH = 28;    // approximate thumbnail height + label in %
   const positions = [];
 
   for (let i = 0; i < count; i++) {
-    const col = i % cols;
-    const row = Math.floor(i / cols);
-    // Base position in cell + jitter across full cell
-    const left = col * cellW + Math.random() * cellW;
-    const top = row * cellH + Math.random() * cellH;
-    positions.push({ top: top + "%", left: left + "%" });
+    let best = null;
+    let bestDist = -1;
+
+    // Try many random positions, pick the one furthest from all existing
+    for (let attempt = 0; attempt < 100; attempt++) {
+      const left = Math.random() * maxLeft;
+      const top = Math.random() * maxTop;
+
+      // Check overlap with existing positions
+      let overlaps = false;
+      let minDist = Infinity;
+      for (const p of positions) {
+        const pl = parseFloat(p.left);
+        const pt = parseFloat(p.top);
+        // Check if bounding boxes overlap
+        if (Math.abs(left - pl) < thumbW && Math.abs(top - pt) < thumbH) {
+          overlaps = true;
+          break;
+        }
+        const dist = Math.sqrt((left - pl) ** 2 + (top - pt) ** 2);
+        minDist = Math.min(minDist, dist);
+      }
+
+      if (!overlaps && minDist > bestDist) {
+        best = { top: top + "%", left: left + "%" };
+        bestDist = minDist;
+      }
+    }
+
+    positions.push(best || { top: Math.random() * maxTop + "%", left: Math.random() * maxLeft + "%" });
   }
 
   // Shuffle so the order isn't predictable
