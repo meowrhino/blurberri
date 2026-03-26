@@ -1,0 +1,86 @@
+{
+  "animaciones": [
+    {
+      "name": "Bedrotting",
+      "slug": "bedrotting",
+      "color1": "#1a1225",
+      "color2": "rgba(255, 255, 255, 0.06)",
+      "color3": "#c9a0dc",
+      "colorBotones": "#ccc",
+      "textoDecorativo": "Bedrotting"
+    },
+    {
+      "name": "24h Dog",
+      "slug": "24hdog",
+      "color1": "#1a1a1a",
+      "color2": "rgba(255, 255, 255, 0.06)",
+      "color3": "#e8c170",
+      "colorBotones": "#ccc",
+      "textoDecorativo": "24h Dog"
+    },
+    {
+      "name": "Deadcrush",
+      "slug": "deadcrush",
+      "color1": "#152040",
+      "color2": "rgba(255, 255, 255, 0.07)",
+      "color3": "#7eb8da",
+      "colorBotones": "#ccc",
+      "textoDecorativo": "Deadcrush"
+    },
+    {
+      "name": "Eisbär",
+      "slug": "eisbaer",
+      "color1": "#0d1520",
+      "color2": "rgba(255, 255, 255, 0.07)",
+      "color3": "#a0c8e0",
+      "colorBotones": "#ccc",
+      "textoDecorativo": "Eisbär"
+    }
+  ],
+  "home": {
+    "bgColor": "#808080",
+    "containerBg": "#d2d2d2"
+  },
+  "games": {
+    "bgColor": "#6b4a5e",
+    "containerBg": "#5a3d50",
+    "colorBotones": "#ccc",
+    "colorTexto": "#fff",
+    "colorTextoDecorativo": "#ddd"
+  },
+  "about": {
+    "containerBg": "rgba(60, 60, 60, 0.8)",
+    "decos": [
+      {
+        "src": "data/_ABOUT/RECURSOS/angel_alphatest.webm",
+        "count": [3, 5],
+        "sizeRange": [60, 160],
+        "positions": [
+          { "top": "5%",  "left": "8%" },
+          { "top": "15%", "right": "5%" },
+          { "top": "50%", "left": "2%" },
+          { "bottom": "20%", "right": "10%" },
+          { "top": "35%", "right": "25%" }
+        ]
+      },
+      {
+        "src": "data/_ABOUT/RECURSOS/key.webm",
+        "count": [3, 5],
+        "sizeRange": [30, 90],
+        "positions": [
+          { "top": "3%",  "right": "15%" },
+          { "top": "40%", "left": "5%" },
+          { "bottom": "10%", "left": "20%" },
+          { "top": "25%", "right": "3%" },
+          { "bottom": "30%", "right": "18%" }
+        ]
+      }
+    ]
+  },
+  "sketchbook": {
+    "imgCount": 14,
+    "basePath": "data/_SKETCHBOOK/",
+    "prefix": "sketch",
+    "extensions": ["jpg", "JPG", "png"]
+  }
+}

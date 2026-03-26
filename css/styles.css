@@ -8,11 +8,8 @@
   --about-bg: #4a4a4a;
   --games-bg: #6b4a5e;
   --games-container: #5a3d50;
-  --anim-bedrotting: #1a1225;
-  --anim-deadcrush: #152040;
-  --anim-default: #111;
-  --frame-inset-y: 5dvh;
-  --frame-inset-x: 5dvw;
+  --frame-inset-y: 7.5dvh;
+  --frame-inset-x: 7.5dvw;
   --font-text: "Jua", sans-serif;
   --font-menu: "Playwrite US Trad Guides", cursive;
   --font-title: "Ballet", cursive;
@@ -45,12 +42,12 @@ a {
    ========================================================= */
 .logo {
   position: fixed;
-  top: 1dvh;
-  left: 1.5dvw;
+  top: 0;
+  left: 0;
   z-index: 1000;
 }
 .logo img {
-  height: clamp(50px, 8vh, 90px);
+  height: clamp(80px, 15dvh, 160px);
   width: auto;
 }
 
@@ -59,25 +56,27 @@ a {
    ========================================================= */
 .nav-top-right {
   position: fixed;
-  top: 1.5dvh;
-  right: 2dvw;
+  top: calc(var(--frame-inset-y) / 2);
+  right: calc(var(--frame-inset-x) / 2);
+  transform: translateY(-50%);
   display: flex;
-  gap: 1rem;
+  gap: 1.5dvw;
   z-index: 1000;
 }
 
 .nav-bottom-center {
+  position: fixed;
+  bottom: calc(var(--frame-inset-y) / 2);
+  left: 50%;
+  transform: translate(-50%, 50%);
   display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  padding: 0.8rem 0;
+  gap: 1.5dvw;
   z-index: 1000;
-  flex-shrink: 0;
 }
 
 .nav-link {
   font-family: var(--font-menu);
-  font-size: clamp(0.75rem, 1.4vw, 1rem);
+  font-size: clamp(0.75rem, 1.4dvw, 1rem);
   color: #444;
   text-decoration: underline;
   cursor: pointer;
@@ -91,11 +90,23 @@ a {
   font-weight: 700;
 }
 
+/* Nav colors on dark pages */
+body[data-page-type="games"] .nav-link {
+  color: #ccc;
+}
+body[data-page-type="games"] .nav-link:hover {
+  color: #fff;
+}
+body[data-page-type="games"] .nav-link.active {
+  color: #fff;
+}
+
 /* Back link for detail pages */
 .nav-back {
   position: fixed;
-  top: 1.5dvh;
-  right: 2dvw;
+  top: calc(var(--frame-inset-y) / 2);
+  right: var(--frame-inset-x);
+  transform: translateY(-50%);
   font-family: var(--font-menu);
   font-size: clamp(0.75rem, 1.4vw, 1rem);
   color: #ccc;
@@ -125,6 +136,7 @@ a {
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  position: relative;
 }
 
 .page-container {
@@ -147,47 +159,76 @@ a {
 .home-section.active {
   display: block;
 }
-
-/* Animaciones grid — scattered look */
-.anim-grid {
+/* Sketchbook needs full height for horizontal scroll */
+#sec-sketchbook {
+  height: 100%;
+  overflow: hidden;
+  padding-left: 0;
+  padding-right: 0;
+}
+#sec-sketchbook.active {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-  padding: 2rem 0;
+  flex-direction: column;
+}
+/* Animaciones needs full height for absolute positioning */
+#sec-animaciones {
+  height: 100%;
+  overflow: hidden;
+}
+/* Full height for coming soon sections */
+#sec-freestuff,
+#sec-bazar {
+  height: 100%;
+}
+
+/* Animaciones — scattered thumbnails */
+.anim-grid {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 .anim-thumb {
   display: block;
-  width: clamp(120px, 22vw, 250px);
+  position: absolute;
+  width: clamp(90px, 14vw, 170px);
   transition: transform 0.3s;
+  text-decoration: none;
 }
-.anim-thumb:nth-child(1) { transform: translateY(10%); }
-.anim-thumb:nth-child(2) { transform: translateY(-15%); }
-.anim-thumb:nth-child(3) { transform: translateY(5%); }
-.anim-thumb:nth-child(4) { transform: translateY(-8%); }
-.anim-thumb:nth-child(1):hover { transform: translateY(10%) scale(1.05); }
-.anim-thumb:nth-child(2):hover { transform: translateY(-15%) scale(1.05); }
-.anim-thumb:nth-child(3):hover { transform: translateY(5%) scale(1.05); }
-.anim-thumb:nth-child(4):hover { transform: translateY(-8%) scale(1.05); }
+/* Positions set by JS from random generation */
+.anim-thumb:hover { transform: scale(1.08); }
+.anim-thumb video,
 .anim-thumb img {
   width: 100%;
   height: auto;
   display: block;
 }
+.anim-thumb-label {
+  display: block;
+  text-align: center;
+  font-family: var(--font-text);
+  font-size: clamp(0.6rem, 1.2vw, 0.85rem);
+  color: #444;
+  margin-top: 0.3rem;
+}
 
-/* Sketchbook gallery */
+/* Sketchbook — horizontal scroll gallery */
 .sketch-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
   gap: 1rem;
+  height: 100%;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  padding: 0 33dvw 0 33dvw;
 }
 .sketch-gallery img {
-  width: 100%;
-  height: auto;
+  height: 100%;
+  width: auto;
+  flex-shrink: 0;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
+  scroll-snap-align: start;
 }
 
 /* Coming soon placeholder */
@@ -195,7 +236,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100%;
+  height: 100%;
   font-family: var(--font-text);
   font-size: 2rem;
   color: #999;
@@ -207,7 +248,7 @@ a {
 .page-title {
   position: fixed;
   font-family: var(--font-title);
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 400;
   z-index: 100;
   pointer-events: none;
@@ -255,14 +296,15 @@ body[data-page-type="about"] {
 
 #about-container {
   position: fixed;
-  top: 12vh;
-  bottom: 10vh;
-  left: 8vw;
-  right: 8vw;
+  top: var(--frame-inset-y);
+  bottom: var(--frame-inset-y);
+  left: var(--frame-inset-x);
+  right: var(--frame-inset-x);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  padding: 2rem;
 }
 
 .about-layout {
@@ -321,23 +363,11 @@ body[data-page-type="about"] {
   width: auto;
 }
 
-/* Decorative floating elements */
+/* Decorative floating elements (positioned dynamically by about.js) */
 .about-deco {
   position: fixed;
   pointer-events: none;
   z-index: 50;
-}
-.about-deco--angel {
-  top: 5vh;
-  right: 25vw;
-  width: clamp(80px, 12vw, 160px);
-  height: auto;
-}
-.about-deco--key {
-  top: 3vh;
-  right: 12vw;
-  width: clamp(40px, 6vw, 80px);
-  height: auto;
 }
 
 /* =========================================================
@@ -361,17 +391,24 @@ body[data-page-type="games"] .page-container {
   gap: 1rem;
 }
 
-/* Arrow columns on left and right */
+/* Arrow columns on left and right — overlapping the frame */
 .dressup-arrows {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  height: 70%;
-  gap: 1rem;
+  position: relative;
+  height: 95%;
+  width: 0;
+  z-index: 5;
+}
+.dressup-arrows--left {
+  margin-right: -2.5rem;
+}
+.dressup-arrows--right {
+  margin-left: -2.5rem;
 }
 
 .arrow-btn {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: none;
   border: none;
   cursor: pointer;
@@ -379,20 +416,45 @@ body[data-page-type="games"] .page-container {
   transition: transform 0.15s;
 }
 .arrow-btn:hover {
-  transform: scale(1.15);
+  transform: translate(-50%, -50%) scale(1.15);
 }
 .arrow-btn img {
-  height: clamp(28px, 5vh, 50px);
+  height: clamp(40px, 7vh, 70px);
   width: auto;
 }
 .arrow-btn--deco img {
-  height: clamp(24px, 4vh, 40px);
+  height: clamp(55px, 10vh, 100px);
+}
+
+/* Random & Download buttons */
+.dressup-actions {
+  position: fixed;
+  bottom: calc(var(--frame-inset-y) / 2);
+  left: 50%;
+  transform: translate(-50%, 50%);
+  display: flex;
+  gap: 1.5dvw;
+  z-index: 1000;
+}
+.dressup-action-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-family: var(--font-menu);
+  font-size: clamp(0.75rem, 1.4dvw, 1rem);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 0;
+}
+.dressup-action-btn:hover {
+  color: #fff;
 }
 
 /* Frame */
 .dressup-frame {
   position: relative;
-  height: 75%;
+  height: 95%;
   aspect-ratio: 3 / 4;
   flex-shrink: 0;
 }
@@ -409,18 +471,16 @@ body[data-page-type="games"] .page-container {
 /* Character layers — stacked absolutely, full height inside frame */
 .dressup-layers {
   position: absolute;
-  top: 5%;
-  bottom: 3%;
-  left: 10%;
-  right: 10%;
+  top: 3%;
+  bottom: 2%;
+  left: 5%;
+  right: 5%;
   z-index: 1;
 }
 .dressup-layers img {
   position: absolute;
   left: 0;
-  bottom: 0;
   width: 100%;
-  height: auto;
 }
 
 @media (max-width: 600px) {
@@ -428,10 +488,11 @@ body[data-page-type="games"] .page-container {
     gap: 0.3rem;
   }
   .dressup-frame {
-    height: 60%;
+    height: 80%;
   }
   .dressup-arrows {
-    height: 60%;
+    height: 80%;
+    width: clamp(30px, 10vw, 50px);
   }
 }
 
@@ -439,7 +500,7 @@ body[data-page-type="games"] .page-container {
    ANIMACION DETAIL PAGE
    ========================================================= */
 body[data-page-type="animacion"] {
-  background-color: var(--anim-default);
+  background-color: #111;
   color: #fff;
 }
 
@@ -459,15 +520,7 @@ body[data-page-type="animacion"] .page-container {
   pointer-events: none;
   z-index: 0;
 }
-.anim-motivo--top {
-  top: -5%;
-  left: -5%;
-}
-.anim-motivo--bottom {
-  bottom: -5%;
-  right: -5%;
-  transform: rotate(180deg);
-}
+/* Positions set randomly by animacion.js */
 
 #anim-video-container {
   width: clamp(300px, 55vw, 800px);
@@ -479,15 +532,16 @@ body[data-page-type="animacion"] .page-container {
   display: block;
 }
 
-/* Per-animation color themes */
-body.anim-bedrotting { background-color: var(--anim-bedrotting); }
-body.anim-bedrotting .page-container { background-color: rgba(255, 255, 255, 0.06); }
-body.anim-deadcrush { background-color: var(--anim-deadcrush); }
-body.anim-deadcrush .page-container { background-color: rgba(255, 255, 255, 0.07); }
-body.anim-24hdog { background-color: #1a1a1a; }
-body.anim-24hdog .page-container { background-color: rgba(255, 255, 255, 0.06); }
-body.anim-eisbaer { background-color: #0d1520; }
-body.anim-eisbaer .page-container { background-color: rgba(255, 255, 255, 0.07); }
+/* Per-animation colors now applied from data.json via JS */
+body[data-page-type="animacion"] .nav-link {
+  color: var(--anim-btn-color, #ccc);
+}
+body[data-page-type="animacion"] .nav-link:hover {
+  color: #fff;
+}
+body[data-page-type="animacion"] .nav-link.active {
+  color: #fff;
+}
 
 /* =========================================================
    RESPONSIVE
@@ -498,13 +552,13 @@ body.anim-eisbaer .page-container { background-color: rgba(255, 255, 255, 0.07);
     --frame-inset-x: 3dvw;
   }
   .logo img {
-    height: 45px;
+    height: 60px;
   }
   .anim-thumb {
-    width: 42vw;
+    width: clamp(80px, 30vw, 140px);
   }
-  .sketch-gallery {
-    grid-template-columns: repeat(2, 1fr);
+  .sketch-gallery img {
+    height: 70%;
   }
   #about-container {
     left: 3dvw;

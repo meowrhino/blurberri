@@ -1,7 +1,56 @@
 // Main — home page logic
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const pageType = document.body.dataset.pageType;
   if (pageType !== "home") return;
+
+  // Load data.json
+  const res = await fetch("data/data.json");
+  const data = await res.json();
+
+  // === ANIMATION THUMBNAILS ===
+  const grid = document.getElementById("anim-grid") || document.querySelector(".anim-grid");
+  if (grid && data.animaciones) {
+    // Generate random positions that don't overlap too much
+    const positions = generateRandomPositions(data.animaciones.length);
+
+    data.animaciones.forEach((anim, i) => {
+      const link = document.createElement("a");
+      link.href = `animacion.html?v=${anim.slug}`;
+      link.className = "anim-thumb";
+      link.style.top = positions[i].top;
+      link.style.left = positions[i].left;
+
+      // Webm thumbnail
+      const video = document.createElement("video");
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      const source = document.createElement("source");
+      source.src = `data/_ANIMATION/_MINIATURAS/${anim.slug}_thumbnail.webm`;
+      source.type = "video/webm";
+      video.appendChild(source);
+      link.appendChild(video);
+
+      // Name label in Jua font
+      const label = document.createElement("span");
+      label.className = "anim-thumb-label";
+      label.textContent = anim.name;
+      link.appendChild(label);
+
+      grid.appendChild(link);
+    });
+  }
+
+  // === SKETCHBOOK ===
+  const sketchGallery = document.getElementById("sketch-gallery") || document.querySelector(".sketch-gallery");
+  if (sketchGallery && data.sketchbook) {
+    const cfg = data.sketchbook;
+    for (let i = 1; i <= cfg.imgCount; i++) {
+      const num = String(i).padStart(2, "0");
+      loadSketchImage(sketchGallery, cfg.basePath, cfg.prefix + num, cfg.extensions, 0);
+    }
+  }
 
   // Scroll content area to top on section change
   const scrollArea = document.querySelector(".content-scroll");
@@ -11,3 +60,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+// Generate non-overlapping random positions for thumbnails
+function generateRandomPositions(count) {
+  const positions = [];
+  const minGap = 25; // minimum % gap between items
+
+  for (let i = 0; i < count; i++) {
+    let attempts = 0;
+    let pos;
+    do {
+      pos = {
+        top: 5 + Math.random() * 50 + "%",
+        left: 5 + Math.random() * 70 + "%",
+      };
+      attempts++;
+    } while (attempts < 50 && positions.some(p => {
+      const dx = parseFloat(p.left) - parseFloat(pos.left);
+      const dy = parseFloat(p.top) - parseFloat(pos.top);
+      return Math.sqrt(dx * dx + dy * dy) < minGap;
+    }));
+    positions.push(pos);
+  }
+  return positions;
+}
+
+// Try loading a sketch image with extension fallback (like mokakopa)
+function loadSketchImage(gallery, basePath, name, extensions, extIndex) {
+  if (extIndex >= extensions.length) return; // all extensions failed
+
+  const img = document.createElement("img");
+  img.alt = name;
+  img.src = `${basePath}${name}.${extensions[extIndex]}`;
+  img.onload = () => {
+    img.classList.add("loaded");
+    gallery.appendChild(img);
+  };
+  img.onerror = () => {
+    loadSketchImage(gallery, basePath, name, extensions, extIndex + 1);
+  };
+}

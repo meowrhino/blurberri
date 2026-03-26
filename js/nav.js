@@ -69,6 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
       bottomCenter.appendChild(a);
     });
 
-    frame.appendChild(bottomCenter);
+    document.body.appendChild(bottomCenter);
   }
 });

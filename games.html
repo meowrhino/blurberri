@@ -17,7 +17,7 @@
 
     <div class="page-container">
     <div id="dressup-container">
-        <!-- Left arrows -->
+        <!-- Left arrows: pelo/bottoms=set01(grande), tops/shoes=set02(deco) -->
         <div class="dressup-arrows dressup-arrows--left">
             <button class="arrow-btn" data-cat="pelo" data-dir="-1">
                 <img src="data/games/DRESS UP GAME/FLECHAS/set01_left.png" alt="prev pelo">
@@ -33,6 +33,7 @@
             </button>
         </div>
 
+
         <!-- Frame + character -->
         <div class="dressup-frame">
             <img src="data/games/DRESS UP GAME/MARCO/marco.png" alt="" class="dressup-marco">
@@ -41,22 +42,27 @@
             </div>
         </div>
 
-        <!-- Right arrows -->
+        <!-- Right arrows: pelo/bottoms=set02(deco), tops/shoes=set01(grande) -->
         <div class="dressup-arrows dressup-arrows--right">
-            <button class="arrow-btn" data-cat="pelo" data-dir="1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set01_right.png" alt="next pelo">
+            <button class="arrow-btn arrow-btn--deco" data-cat="pelo" data-dir="1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set02_right.png" alt="next pelo">
             </button>
-            <button class="arrow-btn arrow-btn--deco" data-cat="tops" data-dir="1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set02_right.png" alt="next tops">
+            <button class="arrow-btn" data-cat="tops" data-dir="1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set01_right.png" alt="next tops">
             </button>
-            <button class="arrow-btn" data-cat="bottoms" data-dir="1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set01_right.png" alt="next bottoms">
+            <button class="arrow-btn arrow-btn--deco" data-cat="bottoms" data-dir="1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set02_right.png" alt="next bottoms">
             </button>
-            <button class="arrow-btn arrow-btn--deco" data-cat="shoes" data-dir="1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set02_right.png" alt="next shoes">
+            <button class="arrow-btn" data-cat="shoes" data-dir="1">
+                <img src="data/games/DRESS UP GAME/FLECHAS/set01_right.png" alt="next shoes">
             </button>
         </div>
     </div>
+    </div>
+
+    <div class="dressup-actions">
+        <button class="dressup-action-btn" id="btn-random">random</button>
+        <button class="dressup-action-btn" id="btn-download">download</button>
     </div>
 
     <script src="js/nav.js"></script>
