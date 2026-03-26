@@ -1,7 +1,33 @@
 // Navigation — injected per page type (anakatana pattern)
-document.addEventListener("DOMContentLoaded", () => {
+// Also loads data.json and applies colors as CSS custom properties
+document.addEventListener("DOMContentLoaded", async () => {
   const pageType = document.body.dataset.pageType;
   if (!pageType) return;
+
+  // === LOAD DATA.JSON & APPLY COLORS ===
+  try {
+    const res = await fetch("data/data.json");
+    const data = await res.json();
+    const root = document.documentElement;
+
+    // Get section config based on page type
+    let cfg;
+    if (pageType === "home") cfg = data.home;
+    else if (pageType === "about") cfg = data.about;
+    else if (pageType === "games") cfg = data.games;
+    // animacion colors are applied by animacion.js (per-animation)
+
+    if (cfg) {
+      if (cfg.bgColor) root.style.setProperty("--page-bg", cfg.bgColor);
+      if (cfg.containerBg) root.style.setProperty("--page-container-bg", cfg.containerBg);
+      if (cfg.colorBotones) root.style.setProperty("--btn-color", cfg.colorBotones);
+      if (cfg.colorBotonesActiveHover) root.style.setProperty("--btn-active-hover", cfg.colorBotonesActiveHover);
+      if (cfg.colorTexto) root.style.setProperty("--page-text", cfg.colorTexto);
+      if (cfg.colorTextoDecorativo) root.style.setProperty("--page-text-deco", cfg.colorTextoDecorativo);
+    }
+  } catch (e) {
+    // Fallback to CSS defaults if data.json fails
+  }
 
   // === TOP RIGHT NAV (all pages) ===
   const topRight = document.createElement("div");

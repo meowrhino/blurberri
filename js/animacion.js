@@ -37,8 +37,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (titleEl) titleEl.style.color = anim.color3;
     if (titleBottomEl) titleBottomEl.style.color = anim.color3;
 
-    // Nav link colors (colorBotones)
-    document.documentElement.style.setProperty("--anim-btn-color", anim.colorBotones);
+    // Nav link colors — same CSS vars as other pages
+    const root = document.documentElement;
+    root.style.setProperty("--btn-color", anim.colorBotones);
+    root.style.setProperty("--btn-active-hover", anim.colorBotonesActiveHover);
   }
 
   // Position motivos: left-upper half + right-lower half

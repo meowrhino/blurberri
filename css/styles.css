@@ -75,31 +75,21 @@ a {
   white-space: nowrap;
 }
 
+/* Nav links — colors from data.json via CSS custom properties */
 .nav-link {
   font-family: var(--font-menu);
   font-size: clamp(0.75rem, 1.4dvw, 1rem);
-  color: #444;
+  color: var(--btn-color, #444);
   text-decoration: underline;
   cursor: pointer;
   transition: color 0.2s;
 }
 .nav-link:hover {
-  color: #111;
+  color: var(--btn-active-hover, #000);
 }
 .nav-link.active {
-  color: #000;
+  color: var(--btn-active-hover, #000);
   font-weight: 700;
-}
-
-/* Nav colors on dark pages */
-body[data-page-type="games"] .nav-link {
-  color: #ccc;
-}
-body[data-page-type="games"] .nav-link:hover {
-  color: #fff;
-}
-body[data-page-type="games"] .nav-link.active {
-  color: #fff;
 }
 
 /* Back link for detail pages — fixed bottom center */
@@ -110,12 +100,12 @@ body[data-page-type="games"] .nav-link.active {
   transform: translate(-50%, 50%);
   font-family: var(--font-menu);
   font-size: clamp(0.75rem, 1.4dvw, 1rem);
-  color: #ccc;
+  color: var(--btn-color, #ccc);
   text-decoration: underline;
   z-index: 1000;
 }
 .nav-back:hover {
-  color: #fff;
+  color: var(--btn-active-hover, #fff);
 }
 
 /* =========================================================
@@ -445,7 +435,7 @@ body[data-page-type="games"] .page-container {
 .dressup-action-btn {
   background: none;
   border: none;
-  color: #ccc;
+  color: var(--btn-color, #ccc);
   font-family: var(--font-menu);
   font-size: clamp(0.75rem, 1.4dvw, 1rem);
   text-decoration: underline;
@@ -454,7 +444,7 @@ body[data-page-type="games"] .page-container {
   padding: 0;
 }
 .dressup-action-btn:hover {
-  color: #fff;
+  color: var(--btn-active-hover, #fff);
 }
 
 /* Frame */
@@ -543,16 +533,7 @@ body[data-page-type="animacion"] .page-container {
   display: block;
 }
 
-/* Per-animation colors now applied from data.json via JS */
-body[data-page-type="animacion"] .nav-link {
-  color: var(--anim-btn-color, #ccc);
-}
-body[data-page-type="animacion"] .nav-link:hover {
-  color: #fff;
-}
-body[data-page-type="animacion"] .nav-link.active {
-  color: #fff;
-}
+/* Animacion nav colors — uses same --btn-color/--btn-active-hover vars set by animacion.js */
 
 /* =========================================================
    RESPONSIVE
