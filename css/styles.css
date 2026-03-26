@@ -156,9 +156,16 @@ body[data-page-type="games"] .nav-link.active {
   display: none;
   padding: 2rem;
   min-height: 100%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 .home-section.active {
   display: block;
+  opacity: 1;
+}
+.home-section.fade-out {
+  display: block;
+  opacity: 0;
 }
 /* Sketchbook needs full height for horizontal scroll */
 #sec-sketchbook {
@@ -409,7 +416,8 @@ body[data-page-type="games"] .page-container {
 .arrow-btn {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -50%);
+  --btn-scale: 1;
+  transform: translate(-50%, -50%) scale(var(--btn-scale));
   background: none;
   border: none;
   cursor: pointer;
@@ -417,7 +425,7 @@ body[data-page-type="games"] .page-container {
   transition: transform 0.15s;
 }
 .arrow-btn:hover {
-  transform: translate(-50%, -50%) scale(1.15);
+  transform: translate(-50%, -50%) scale(calc(var(--btn-scale) * 1.15));
 }
 .arrow-btn img {
   height: clamp(40px, 7vh, 70px);

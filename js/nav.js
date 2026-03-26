@@ -56,10 +56,25 @@ document.addEventListener("DOMContentLoaded", () => {
       a.dataset.section = tab.id;
       a.addEventListener("click", (e) => {
         e.preventDefault();
-        // Hide all sections
-        scrollWrapper.querySelectorAll(".home-section").forEach(s => s.classList.remove("active"));
-        // Show target
-        document.getElementById(tab.id)?.classList.add("active");
+        const current = scrollWrapper.querySelector(".home-section.active");
+        const target = document.getElementById(tab.id);
+        if (current === target) return;
+
+        // Fade out current
+        if (current) {
+          current.classList.add("fade-out");
+          current.classList.remove("active");
+          setTimeout(() => current.classList.remove("fade-out"), 400);
+        }
+
+        // Fade in target after brief delay
+        setTimeout(() => {
+          target.classList.add("active");
+          // Force reflow to trigger transition
+          void target.offsetWidth;
+          target.style.opacity = "1";
+        }, current ? 200 : 0);
+
         // Update active link
         bottomCenter.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
         a.classList.add("active");

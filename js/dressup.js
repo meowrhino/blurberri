@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Layers container: top 3%, bottom 2% → spans 95% of frame, starting at 3%
   const layerTop = 3;   // %
   const layerSpan = 95;  // %
+  const scaleFactor = 0.15;
   document.querySelectorAll(".arrow-btn").forEach(btn => {
     const cat = btn.dataset.cat;
     const data = categories[cat];
@@ -80,6 +81,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Center of this strip in the frame's coordinate space
       const centerInFrame = layerTop + (data.topPct + data.heightPct / 2) * layerSpan / 100;
       btn.style.top = centerInFrame + "%";
+      // Random scale: 1 ± scaleFactor
+      const randomScale = 1 + (Math.random() * 2 - 1) * scaleFactor;
+      btn.style.setProperty("--btn-scale", randomScale);
     }
   });
 
