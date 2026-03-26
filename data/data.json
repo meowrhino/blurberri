@@ -8,8 +8,8 @@
 
   "about": {
     "containerBg": "rgba(60, 60, 60, 0.8)",
-    "colorBotones": "#000",
-    "colorBotonesActiveHover": "#444",
+    "colorBotones": "#ccc",
+    "colorBotonesActiveHover": "#fff",
     "decos": [
       {
         "src": "data/_ABOUT/RECURSOS/angel_alphatest.webm",
