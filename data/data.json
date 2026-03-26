@@ -3,15 +3,13 @@
     "bgColor": "#808080",
     "containerBg": "#d2d2d2",
     "colorBotones": "#444",
-    "colorBotonesActive": "#000",
-    "colorBotonesHover": "#111"
+    "colorBotonesActiveHover": "#000"
   },
 
   "about": {
     "containerBg": "rgba(60, 60, 60, 0.8)",
     "colorBotones": "#000",
-    "colorBotonesActive": "#444",
-    "colorBotonesHover": "#111",
+    "colorBotonesActiveHover": "#444",
     "decos": [
       {
         "src": "data/_ABOUT/RECURSOS/angel_alphatest.webm",
@@ -44,8 +42,7 @@
     "bgColor": "#6b4a5e",
     "containerBg": "#5a3d50",
     "colorBotones": "#ccc",
-    "colorBotonesActive": "#fff",
-    "colorBotonesHover": "#fff",
+    "colorBotonesActiveHover": "#fff",
     "colorTexto": "#fff",
     "colorTextoDecorativo": "#ddd"
   },
