@@ -1,5 +1,5 @@
 // Main — home page logic
-document.addEventListener("DOMContentLoaded", async () => {
+async function initHome() {
   const pageType = document.body.dataset.pageType;
   if (pageType !== "home") return;
 
@@ -59,7 +59,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (scrollArea) scrollArea.scrollTop = 0;
     }
   });
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initHome);
+} else {
+  initHome();
+}
 
 // Generate non-overlapping random positions for thumbnails
 function generateRandomPositions(count) {
