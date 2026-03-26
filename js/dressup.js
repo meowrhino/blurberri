@@ -1,150 +1,119 @@
-// Dress Up Game
-document.addEventListener("DOMContentLoaded", () => {
+// Dress Up Game — config loaded from data.json
+async function initDressup() {
   const layersEl = document.getElementById("dressup-layers");
   if (!layersEl) return;
 
-  // Image heights at native 2048px width
-  // pelo=576  tops=480  bottoms=976  shoes=700  total=2732
-  const heights = { pelo: 576, tops: 480, bottoms: 976, shoes: 700 };
-  const totalH = 576 + 480 + 976 + 700; // 2732
+  // Load config from data.json
+  const res = await fetch("data/data.json");
+  const data = await res.json();
+  const cfg = data.games?.dressup;
+  if (!cfg) return;
 
-  const categories = {
-    pelo: {
-      items: [
-        "data/games/DRESS UP GAME/01-PELO/pelo_amarillo.png",
-        "data/games/DRESS UP GAME/01-PELO/pelo_azul.png",
-        "data/games/DRESS UP GAME/01-PELO/pelo_negro.png",
-        "data/games/DRESS UP GAME/01-PELO/pelo_rosa.png",
-      ],
-      current: 0,
-      topPct: 0,
-      heightPct: (576 / totalH) * 100,
-    },
-    tops: {
-      items: [
-        "data/games/DRESS UP GAME/02-TOPS/top01.png",
-        "data/games/DRESS UP GAME/02-TOPS/top02.png",
-        "data/games/DRESS UP GAME/02-TOPS/top03.png",
-        "data/games/DRESS UP GAME/02-TOPS/top04.png",
-        "data/games/DRESS UP GAME/02-TOPS/top05.png",
-      ],
-      current: 0,
-      topPct: (576 / totalH) * 100,
-      heightPct: (480 / totalH) * 100,
-    },
-    bottoms: {
-      items: [
-        "data/games/DRESS UP GAME/03-BOTTOMS/bottom01.png",
-        "data/games/DRESS UP GAME/03-BOTTOMS/bottom02.png",
-        "data/games/DRESS UP GAME/03-BOTTOMS/bottom03.png",
-        "data/games/DRESS UP GAME/03-BOTTOMS/bottom04.png",
-      ],
-      current: 0,
-      topPct: ((576 + 480) / totalH) * 100,
-      heightPct: (976 / totalH) * 100,
-    },
-    shoes: {
-      items: [
-        "data/games/DRESS UP GAME/04-SHOES/shoes01.png",
-        "data/games/DRESS UP GAME/04-SHOES/shoes02.png",
-        "data/games/DRESS UP GAME/04-SHOES/shoes03.png",
-        "data/games/DRESS UP GAME/04-SHOES/shoes04.png",
-      ],
-      current: 0,
-      topPct: ((576 + 480 + 976) / totalH) * 100,
-      heightPct: (700 / totalH) * 100,
-    },
-  };
+  const basePath = cfg.basePath;
 
-  // Create image elements for each category — positioned vertically
-  const images = {};
-  for (const [cat, data] of Object.entries(categories)) {
-    const img = document.createElement("img");
-    img.src = data.items[0];
-    img.alt = cat;
-    img.style.top = data.topPct + "%";
-    img.style.height = data.heightPct + "%";
-    img.dataset.cat = cat;
-    layersEl.appendChild(img);
-    images[cat] = img;
+  // Build categories from JSON config
+  const totalH = cfg.categorias.reduce((sum, c) => sum + c.altura, 0);
+  let cumulativeH = 0;
+  const categories = {};
+  const catOrder = [];
+
+  for (const cat of cfg.categorias) {
+    // Build file list: either explicit "archivos" array or numbered (prefijo + 01..imgCount)
+    let items;
+    if (cat.archivos) {
+      items = cat.archivos.map(f => `${basePath}${cat.carpeta}/${f}`);
+    } else {
+      items = [];
+      for (let i = 1; i <= cat.imgCount; i++) {
+        items.push(`${basePath}${cat.carpeta}/${cat.prefijo}${String(i).padStart(2, "0")}.png`);
+      }
+    }
+
+    categories[cat.id] = {
+      items,
+      current: 0,
+      topPct: (cumulativeH / totalH) * 100,
+      heightPct: (cat.altura / totalH) * 100,
+      altura: cat.altura,
+    };
+    catOrder.push(cat.id);
+    cumulativeH += cat.altura;
   }
 
-  // Position arrow buttons to align with their body part strip
-  // Layers container: top 3%, bottom 2% → spans 95% of frame, starting at 3%
-  const layerTop = 3;   // %
-  const layerSpan = 95;  // %
-  const scaleFactor = 0.39;
+  // Create image elements — positioned vertically
+  const images = {};
+  for (const [id, cat] of Object.entries(categories)) {
+    const img = document.createElement("img");
+    img.src = cat.items[0];
+    img.alt = id;
+    img.style.top = cat.topPct + "%";
+    img.style.height = cat.heightPct + "%";
+    img.dataset.cat = id;
+    layersEl.appendChild(img);
+    images[id] = img;
+  }
+
+  // Position arrows to align with body part strips
+  const layerTop = 3;    // % (matches CSS .dressup-layers top)
+  const layerSpan = 95;  // % (100 - top 3% - bottom 2%)
+  const scaleFactor = cfg.scaleFlechas || 0.39;
+
   document.querySelectorAll(".arrow-btn").forEach(btn => {
-    const cat = btn.dataset.cat;
-    const data = categories[cat];
-    if (data) {
-      // Center of this strip in the frame's coordinate space
-      const centerInFrame = layerTop + (data.topPct + data.heightPct / 2) * layerSpan / 100;
-      btn.style.top = centerInFrame + "%";
-      // Random scale: 1 ± scaleFactor
-      const randomScale = 1 + (Math.random() * 2 - 1) * scaleFactor;
-      btn.style.setProperty("--btn-scale", randomScale);
-    }
+    const cat = categories[btn.dataset.cat];
+    if (!cat) return;
+    const centerInFrame = layerTop + (cat.topPct + cat.heightPct / 2) * layerSpan / 100;
+    btn.style.top = centerInFrame + "%";
+    btn.style.setProperty("--btn-scale", 1 + (Math.random() * 2 - 1) * scaleFactor);
   });
 
-  // Arrow button handlers
+  // Arrow click handlers
   document.querySelectorAll(".arrow-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      const cat = btn.dataset.cat;
+      const cat = categories[btn.dataset.cat];
+      if (!cat) return;
       const dir = parseInt(btn.dataset.dir, 10);
-      const data = categories[cat];
-      if (!data) return;
-
-      data.current = (data.current + dir + data.items.length) % data.items.length;
-      images[cat].src = data.items[data.current];
+      cat.current = (cat.current + dir + cat.items.length) % cat.items.length;
+      images[btn.dataset.cat].src = cat.items[cat.current];
     });
   });
 
   // Random button
-  const btnRandom = document.getElementById("btn-random");
-  if (btnRandom) {
-    btnRandom.addEventListener("click", () => {
-      for (const [cat, data] of Object.entries(categories)) {
-        data.current = Math.floor(Math.random() * data.items.length);
-        images[cat].src = data.items[data.current];
-      }
-    });
-  }
+  document.getElementById("btn-random")?.addEventListener("click", () => {
+    for (const [id, cat] of Object.entries(categories)) {
+      cat.current = Math.floor(Math.random() * cat.items.length);
+      images[id].src = cat.items[cat.current];
+    }
+  });
 
-  // Download button — render parts stacked vertically on canvas
-  const btnDownload = document.getElementById("btn-download");
-  if (btnDownload) {
-    btnDownload.addEventListener("click", async () => {
-      const canvasW = 2048;
-      const canvasH = totalH; // 2732 — native stacked height
-      const canvas = document.createElement("canvas");
-      canvas.width = canvasW;
-      canvas.height = canvasH;
-      const ctx = canvas.getContext("2d");
+  // Download button — stack parts vertically on canvas
+  document.getElementById("btn-download")?.addEventListener("click", async () => {
+    const canvasW = 2048;
+    const canvas = document.createElement("canvas");
+    canvas.width = canvasW;
+    canvas.height = totalH;
+    const ctx = canvas.getContext("2d");
 
-      // Draw each part at its vertical offset (top → bottom)
-      const order = ["pelo", "tops", "bottoms", "shoes"];
-      let y = 0;
-      for (const cat of order) {
-        const h = heights[cat];
-        await new Promise((resolve) => {
-          const img = new Image();
-          img.crossOrigin = "anonymous";
-          img.onload = () => {
-            ctx.drawImage(img, 0, y, canvasW, h);
-            y += h;
-            resolve();
-          };
-          img.onerror = () => { y += h; resolve(); };
-          img.src = categories[cat].items[categories[cat].current];
-        });
-      }
+    let y = 0;
+    for (const id of catOrder) {
+      const cat = categories[id];
+      await new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.onload = () => { ctx.drawImage(img, 0, y, canvasW, cat.altura); y += cat.altura; resolve(); };
+        img.onerror = () => { y += cat.altura; resolve(); };
+        img.src = cat.items[cat.current];
+      });
+    }
 
-      // Download
-      const link = document.createElement("a");
-      link.download = "blurberrie-dressup.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-    });
-  }
-});
+    const link = document.createElement("a");
+    link.download = "blurberrie-dressup.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initDressup);
+} else {
+  initDressup();
+}

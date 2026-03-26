@@ -280,12 +280,12 @@ body[data-page-type="games"] .page-title {
   color: var(--title-color, rgba(255, 255, 255, 0.4));
 }
 body[data-page-type="games"] .page-title:first-of-type {
-  top: 2dvh;
-  left: 3dvw;
+  top: -1.5dvh;
+  left: 0.5dvw;
 }
 body[data-page-type="games"] .page-title--bottom {
-  bottom: 2dvh;
-  right: 3dvw;
+  bottom: -1.5dvh;
+  right: 0.5dvw;
   transform: rotate(180deg);
 }
 
