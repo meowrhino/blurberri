@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const titleText = anim?.titulo?.texto || name;
   if (titleEl) titleEl.textContent = titleText;
   if (titleBottomEl) titleBottomEl.textContent = titleText;
-  document.title = `${name} — Blurberrie`;
+  document.title = `Irene Búrdalo — ${name}`;
 
   // Set video source
   const video = document.getElementById("anim-video");
