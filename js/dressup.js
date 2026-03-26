@@ -66,23 +66,87 @@ async function initDressup() {
     btn.style.setProperty("--btn-scale", 1 + (Math.random() * 2 - 1) * scaleFactor);
   });
 
+  // Roulette animation: slide out current, slide in new
+  function animateSwap(catId, dir) {
+    const img = images[catId];
+    const cat = categories[catId];
+    if (!img || img.dataset.animating) return;
+    img.dataset.animating = "1";
+
+    // dir: 1 = right arrow (new enters from right), -1 = left arrow (new enters from left)
+    const slideOut = dir > 0 ? "-110%" : "110%";
+    const slideIn = dir > 0 ? "110%" : "-110%";
+
+    // Slide out current
+    img.style.transition = "transform 0.25s ease-in";
+    img.style.transform = `translateX(${slideOut})`;
+
+    setTimeout(() => {
+      // Change image while off-screen
+      cat.current = (cat.current + dir + cat.items.length) % cat.items.length;
+      img.src = cat.items[cat.current];
+
+      // Position on entry side (no transition)
+      img.style.transition = "none";
+      img.style.transform = `translateX(${slideIn})`;
+
+      // Force reflow
+      void img.offsetWidth;
+
+      // Slide in to center
+      img.style.transition = "transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)";
+      img.style.transform = "translateX(0)";
+
+      setTimeout(() => {
+        img.style.transition = "";
+        img.style.transform = "";
+        delete img.dataset.animating;
+      }, 300);
+    }, 250);
+  }
+
   // Arrow click handlers
   document.querySelectorAll(".arrow-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      const cat = categories[btn.dataset.cat];
-      if (!cat) return;
+      const catId = btn.dataset.cat;
       const dir = parseInt(btn.dataset.dir, 10);
-      cat.current = (cat.current + dir + cat.items.length) % cat.items.length;
-      images[btn.dataset.cat].src = cat.items[cat.current];
+      animateSwap(catId, dir);
     });
   });
 
-  // Random button
+  // Random button — staggered roulette on all parts
   document.getElementById("btn-random")?.addEventListener("click", () => {
-    for (const [id, cat] of Object.entries(categories)) {
-      cat.current = Math.floor(Math.random() * cat.items.length);
-      images[id].src = cat.items[cat.current];
-    }
+    catOrder.forEach((id, i) => {
+      setTimeout(() => {
+        const dir = Math.random() > 0.5 ? 1 : -1;
+        // Pick a random item (not the current one if possible)
+        const cat = categories[id];
+        let newIdx;
+        do { newIdx = Math.floor(Math.random() * cat.items.length); }
+        while (newIdx === cat.current && cat.items.length > 1);
+
+        const img = images[id];
+        if (img.dataset.animating) return;
+        img.dataset.animating = "1";
+
+        const slideOut = dir > 0 ? "-110%" : "110%";
+        const slideIn = dir > 0 ? "110%" : "-110%";
+
+        img.style.transition = "transform 0.25s ease-in";
+        img.style.transform = `translateX(${slideOut})`;
+
+        setTimeout(() => {
+          cat.current = newIdx;
+          img.src = cat.items[cat.current];
+          img.style.transition = "none";
+          img.style.transform = `translateX(${slideIn})`;
+          void img.offsetWidth;
+          img.style.transition = "transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)";
+          img.style.transform = "translateX(0)";
+          setTimeout(() => { img.style.transition = ""; img.style.transform = ""; delete img.dataset.animating; }, 300);
+        }, 250);
+      }, i * 80); // stagger each part by 80ms
+    });
   });
 
   // Download button — stack parts vertically on canvas
