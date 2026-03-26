@@ -101,14 +101,14 @@ body[data-page-type="games"] .nav-link.active {
   color: #fff;
 }
 
-/* Back link for detail pages */
+/* Back link for detail pages — fixed bottom center */
 .nav-back {
   position: fixed;
-  top: calc(var(--frame-inset-y) / 2);
-  right: var(--frame-inset-x);
-  transform: translateY(-50%);
+  bottom: calc(var(--frame-inset-y) / 2);
+  left: 50%;
+  transform: translate(-50%, 50%);
   font-family: var(--font-menu);
-  font-size: clamp(0.75rem, 1.4vw, 1rem);
+  font-size: clamp(0.75rem, 1.4dvw, 1rem);
   color: #ccc;
   text-decoration: underline;
   z-index: 1000;
@@ -248,7 +248,7 @@ body[data-page-type="games"] .nav-link.active {
 .page-title {
   position: fixed;
   font-family: var(--font-title);
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(4rem, 12vw, 10rem);
   font-weight: 400;
   z-index: 100;
   pointer-events: none;
@@ -514,7 +514,7 @@ body[data-page-type="animacion"] .page-container {
 /* Ornamental motif */
 .anim-motivo {
   position: fixed;
-  width: clamp(400px, 80vw, 1200px);
+  width: clamp(500px, 100vw, 1600px);
   height: auto;
   opacity: 0.12;
   pointer-events: none;
