@@ -1,55 +1,17 @@
 {
-  "animaciones": [
-    {
-      "name": "Bedrotting",
-      "slug": "bedrotting",
-      "color1": "#1a1225",
-      "color2": "rgba(255, 255, 255, 0.06)",
-      "color3": "#c9a0dc",
-      "colorBotones": "#ccc",
-      "textoDecorativo": "Bedrotting"
-    },
-    {
-      "name": "24h Dog",
-      "slug": "24hdog",
-      "color1": "#1a1a1a",
-      "color2": "rgba(255, 255, 255, 0.06)",
-      "color3": "#e8c170",
-      "colorBotones": "#ccc",
-      "textoDecorativo": "24h Dog"
-    },
-    {
-      "name": "Deadcrush",
-      "slug": "deadcrush",
-      "color1": "#152040",
-      "color2": "rgba(255, 255, 255, 0.07)",
-      "color3": "#7eb8da",
-      "colorBotones": "#ccc",
-      "textoDecorativo": "Deadcrush"
-    },
-    {
-      "name": "Eisbär",
-      "slug": "eisbaer",
-      "color1": "#0d1520",
-      "color2": "rgba(255, 255, 255, 0.07)",
-      "color3": "#a0c8e0",
-      "colorBotones": "#ccc",
-      "textoDecorativo": "Eisbär"
-    }
-  ],
   "home": {
     "bgColor": "#808080",
-    "containerBg": "#d2d2d2"
+    "containerBg": "#d2d2d2",
+    "colorBotones": "#444",
+    "colorBotonesActive": "#000",
+    "colorBotonesHover": "#111"
   },
-  "games": {
-    "bgColor": "#6b4a5e",
-    "containerBg": "#5a3d50",
-    "colorBotones": "#ccc",
-    "colorTexto": "#fff",
-    "colorTextoDecorativo": "#ddd"
-  },
+
   "about": {
     "containerBg": "rgba(60, 60, 60, 0.8)",
+    "colorBotones": "#000",
+    "colorBotonesActive": "#444",
+    "colorBotonesHover": "#111",
     "decos": [
       {
         "src": "data/_ABOUT/RECURSOS/angel_alphatest.webm",
@@ -77,6 +39,64 @@
       }
     ]
   },
+
+  "games": {
+    "bgColor": "#6b4a5e",
+    "containerBg": "#5a3d50",
+    "colorBotones": "#ccc",
+    "colorBotonesActive": "#fff",
+    "colorBotonesHover": "#fff",
+    "colorTexto": "#fff",
+    "colorTextoDecorativo": "#ddd"
+  },
+
+  "animaciones": [
+    {
+      "name": "Bedrotting",
+      "slug": "bedrotting",
+      "color1": "#1a1225",
+      "color2": "rgba(255, 255, 255, 0.06)",
+      "color3": "#c9a0dc",
+      "colorBotones": "#ccc",
+      "colorBotonesActive": "#fff",
+      "colorBotonesHover": "#fff",
+      "textoDecorativo": "Bedrotting"
+    },
+    {
+      "name": "24h Dog",
+      "slug": "24hdog",
+      "color1": "#1a1a1a",
+      "color2": "rgba(255, 255, 255, 0.06)",
+      "color3": "#e8c170",
+      "colorBotones": "#ccc",
+      "colorBotonesActive": "#fff",
+      "colorBotonesHover": "#fff",
+      "textoDecorativo": "24h Dog"
+    },
+    {
+      "name": "Deadcrush",
+      "slug": "deadcrush",
+      "color1": "#152040",
+      "color2": "rgba(255, 255, 255, 0.07)",
+      "color3": "#7eb8da",
+      "colorBotones": "#ccc",
+      "colorBotonesActive": "#fff",
+      "colorBotonesHover": "#fff",
+      "textoDecorativo": "Deadcrush"
+    },
+    {
+      "name": "Eisbär",
+      "slug": "eisbaer",
+      "color1": "#0d1520",
+      "color2": "rgba(255, 255, 255, 0.07)",
+      "color3": "#a0c8e0",
+      "colorBotones": "#ccc",
+      "colorBotonesActive": "#fff",
+      "colorBotonesHover": "#fff",
+      "textoDecorativo": "Eisbär"
+    }
+  ],
+
   "sketchbook": {
     "imgCount": 14,
     "basePath": "data/_SKETCHBOOK/",
