@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Layers container: top 3%, bottom 2% → spans 95% of frame, starting at 3%
   const layerTop = 3;   // %
   const layerSpan = 95;  // %
-  const scaleFactor = 0.15;
+  const scaleFactor = 0.39;
   document.querySelectorAll(".arrow-btn").forEach(btn => {
     const cat = btn.dataset.cat;
     const data = categories[cat];
