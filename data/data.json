@@ -7,6 +7,7 @@
   },
 
   "about": {
+    "bgColor": "#4a4a4a",
     "containerBg": "rgba(60, 60, 60, 0.8)",
     "colorBotones": "#ccc",
     "colorBotonesActiveHover": "#fff",

@@ -2,17 +2,20 @@
    GLOBAL · RESET · VARIABLES
    ========================================================= */
 :root {
-  --gray-dark: #808080;
-  --gray-light: #c8c8c8;
-  --gray-content: #d2d2d2;
-  --about-bg: #4a4a4a;
-  --games-bg: #6b4a5e;
-  --games-container: #5a3d50;
+  /* Layout */
   --frame-inset-y: 7.5dvh;
   --frame-inset-x: 7.5dvw;
+
+  /* Fonts */
   --font-text: "Jua", sans-serif;
   --font-menu: "Playwrite US Trad Guides", cursive;
   --font-title: "Ballet", cursive;
+
+  /* Colors — defaults, overridden per page by nav.js from data.json */
+  --page-bg: #808080;
+  --page-container-bg: #d2d2d2;
+  --btn-color: #444;
+  --btn-active-hover: #000;
 }
 
 * {
@@ -28,7 +31,7 @@ html, body {
 
 body {
   font-family: var(--font-text);
-  background-color: var(--gray-dark);
+  background-color: var(--page-bg);
   color: #333;
 }
 
@@ -117,7 +120,7 @@ a {
   bottom: var(--frame-inset-y);
   left: var(--frame-inset-x);
   right: var(--frame-inset-x);
-  background-color: var(--gray-content);
+  background-color: var(--page-container-bg);
   display: flex;
   flex-direction: column;
 }
@@ -285,7 +288,7 @@ body[data-page-type="animacion"] .page-title--bottom {
    ABOUT PAGE
    ========================================================= */
 body[data-page-type="about"] {
-  background-color: var(--about-bg);
+  background-color: var(--page-bg);
   color: #ddd;
 }
 
@@ -369,12 +372,12 @@ body[data-page-type="about"] {
    GAMES PAGE — DRESS UP
    ========================================================= */
 body[data-page-type="games"] {
-  background-color: var(--games-bg);
+  background-color: var(--page-bg);
   color: #fff;
 }
 
 body[data-page-type="games"] .page-container {
-  background-color: var(--games-container);
+  background-color: var(--page-container-bg);
 }
 
 #dressup-container {
