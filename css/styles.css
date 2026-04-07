@@ -344,8 +344,8 @@ body[data-page-type="about"] {
   max-height: 60vh;
   width: auto;
   max-width: 100%;
+  background: transparent;
 }
-
 .about-text {
   flex: 1;
   display: flex;

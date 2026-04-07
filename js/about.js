@@ -2,9 +2,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
   if (document.body.dataset.pageType !== "about") return;
 
-  const res = await fetch("data/data.json");
-  const data = await res.json();
+  let data;
+  try {
+    const res = await fetch("data/data.json");
+    data = await res.json();
+  } catch (e) { return; }
   const cfg = data.about;
+  if (!cfg?.decos) return;
 
   // Apply container background
   const container = document.getElementById("about-container");
@@ -45,6 +49,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       source.src = deco.src;
       source.type = "video/webm";
       video.appendChild(source);
+
+      // Safari fallback (HEVC with alpha)
+      if (deco.srcFallback) {
+        const fallback = document.createElement("source");
+        fallback.src = deco.srcFallback;
+        fallback.type = 'video/mp4; codecs="hvc1"';
+        video.appendChild(fallback);
+      }
 
       document.body.appendChild(video);
     });

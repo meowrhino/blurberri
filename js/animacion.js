@@ -3,9 +3,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const videoSlug = new URLSearchParams(location.search).get("v");
   if (!videoSlug) return;
 
-  // Load animation config
-  const res = await fetch("data/data.json");
-  const data = await res.json();
+  let data;
+  try {
+    const res = await fetch("data/data.json");
+    data = await res.json();
+  } catch (e) { return; }
   const anim = data.animaciones.find(a => a.slug === videoSlug);
   const name = anim?.name || videoSlug.charAt(0).toUpperCase() + videoSlug.slice(1);
 
@@ -15,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const titleText = anim?.titulo?.texto || name;
   if (titleEl) titleEl.textContent = titleText;
   if (titleBottomEl) titleBottomEl.textContent = titleText;
-  document.title = "blurberrie930";
+  document.title = data.siteTitle || "blurberrie930";
 
   // Set video source
   const video = document.getElementById("anim-video");
@@ -54,15 +56,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   const motivos = document.querySelectorAll(".anim-motivo");
   if (motivos.length >= 2) {
     const m1 = motivos[0];
-    m1.style.top = (-5 + Math.random() * 30) + "%";
-    m1.style.left = (-10 + Math.random() * 30) + "%";
+    m1.style.top = (-20 + Math.random() * 25) + "%";
+    m1.style.left = (-25 + Math.random() * 30) + "%";
     m1.style.right = "auto";
     m1.style.bottom = "auto";
     m1.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
 
     const m2 = motivos[1];
-    m2.style.bottom = (-5 + Math.random() * 30) + "%";
-    m2.style.right = (-10 + Math.random() * 30) + "%";
+    m2.style.bottom = (-20 + Math.random() * 25) + "%";
+    m2.style.right = (-25 + Math.random() * 30) + "%";
     m2.style.top = "auto";
     m2.style.left = "auto";
     m2.style.transform = `rotate(${160 + Math.random() * 40}deg)`;

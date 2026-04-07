@@ -3,9 +3,11 @@ async function initHome() {
   const pageType = document.body.dataset.pageType;
   if (pageType !== "home") return;
 
-  // Load data.json
-  const res = await fetch("data/data.json");
-  const data = await res.json();
+  let data;
+  try {
+    const res = await fetch("data/data.json");
+    data = await res.json();
+  } catch (e) { return; }
 
   // === ANIMATION THUMBNAILS ===
   const grid = document.getElementById("anim-grid") || document.querySelector(".anim-grid");
@@ -69,10 +71,11 @@ if (document.readyState === "loading") {
 
 // Generate non-overlapping random positions for thumbnails
 function generateRandomPositions(count) {
-  const maxLeft = 88;   // ~12% reserved for thumbnail width
-  const maxTop = 72;    // ~28% reserved for thumbnail height + label
-  const thumbW = 12;    // approximate thumbnail width in %
-  const thumbH = 28;    // approximate thumbnail height + label in %
+  const isMobile = window.innerWidth <= 600;
+  const maxLeft = isMobile ? 68 : 88;   // reserve more on mobile (thumbs are ~30vw)
+  const maxTop = isMobile ? 68 : 72;
+  const thumbW = isMobile ? 30 : 12;    // approximate thumbnail width in %
+  const thumbH = isMobile ? 32 : 28;    // approximate thumbnail height + label in %
   const positions = [];
 
   for (let i = 0; i < count; i++) {
