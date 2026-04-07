@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     buildTopNav(pageType);
   }
   if (pageType === "animacion") {
-    buildBackLink();
+    buildBackLink(data);
   }
   if (pageType === "home") {
     buildHomeTabs(data);
@@ -126,11 +126,11 @@ function buildTopNav(pageType) {
   document.body.appendChild(topRight);
 }
 
-function buildBackLink() {
+function buildBackLink(data) {
   const back = document.createElement("a");
   back.href = "index.html";
   back.className = "nav-back";
-  back.textContent = "back";
+  back.textContent = data?.ui?.back || "back";
   document.body.appendChild(back);
 }
 
@@ -147,8 +147,8 @@ function buildHomeTabs(data) {
   // Build tab bar
   const bottomCenter = document.createElement("div");
   bottomCenter.classList.add("nav-bottom-center");
-  const tabs = [
-    { id: "sec-animaciones", label: "animaciones" },
+  const tabs = data?.ui?.tabs || [
+    { id: "sec-animaciones", label: "portfolio" },
     { id: "sec-sketchbook", label: "sketchbook" },
     { id: "sec-freestuff", label: "free stuff" },
     { id: "sec-bazar", label: "bazar" },

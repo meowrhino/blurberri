@@ -4,8 +4,11 @@ async function initDressup() {
   if (!layersEl) return;
 
   // Load config from data.json
-  const res = await fetch("data/data.json");
-  const data = await res.json();
+  let data;
+  try {
+    const res = await fetch("data/data.json");
+    data = await res.json();
+  } catch (e) { return; }
   const cfg = data.games?.dressup;
   if (!cfg) return;
 
@@ -40,14 +43,23 @@ async function initDressup() {
     cumulativeH += cat.altura;
   }
 
-  // Create image elements — positioned vertically
+  // Preload all images for snappy swaps
+  for (const id of catOrder) {
+    const cat = categories[id];
+    cat.items.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }
+
+  // Create image elements — positioned vertically with slight overlap to hide gaps
   const images = {};
   for (const [id, cat] of Object.entries(categories)) {
     const img = document.createElement("img");
     img.src = cat.items[0];
     img.alt = id;
     img.style.top = cat.topPct + "%";
-    img.style.height = cat.heightPct + "%";
+    img.style.height = (cat.heightPct + 0.5) + "%";
     img.dataset.cat = id;
     layersEl.appendChild(img);
     images[id] = img;
@@ -78,7 +90,7 @@ async function initDressup() {
     const slideIn = dir > 0 ? "110%" : "-110%";
 
     // Slide out current
-    img.style.transition = "transform 0.25s ease-in";
+    img.style.transition = "transform 0.18s ease-in";
     img.style.transform = `translateX(${slideOut})`;
 
     setTimeout(() => {
@@ -94,15 +106,15 @@ async function initDressup() {
       void img.offsetWidth;
 
       // Slide in to center
-      img.style.transition = "transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)";
+      img.style.transition = "transform 0.22s cubic-bezier(0.22, 1, 0.36, 1)";
       img.style.transform = "translateX(0)";
 
       setTimeout(() => {
         img.style.transition = "";
         img.style.transform = "";
         delete img.dataset.animating;
-      }, 300);
-    }, 250);
+      }, 220);
+    }, 180);
   }
 
   // Arrow click handlers
@@ -132,7 +144,7 @@ async function initDressup() {
         const slideOut = dir > 0 ? "-110%" : "110%";
         const slideIn = dir > 0 ? "110%" : "-110%";
 
-        img.style.transition = "transform 0.25s ease-in";
+        img.style.transition = "transform 0.18s ease-in";
         img.style.transform = `translateX(${slideOut})`;
 
         setTimeout(() => {
@@ -141,10 +153,10 @@ async function initDressup() {
           img.style.transition = "none";
           img.style.transform = `translateX(${slideIn})`;
           void img.offsetWidth;
-          img.style.transition = "transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)";
+          img.style.transition = "transform 0.22s cubic-bezier(0.22, 1, 0.36, 1)";
           img.style.transform = "translateX(0)";
-          setTimeout(() => { img.style.transition = ""; img.style.transform = ""; delete img.dataset.animating; }, 300);
-        }, 250);
+          setTimeout(() => { img.style.transition = ""; img.style.transform = ""; delete img.dataset.animating; }, 220);
+        }, 180);
       }, i * 80); // stagger each part by 80ms
     });
   });
@@ -174,6 +186,34 @@ async function initDressup() {
     link.href = canvas.toDataURL("image/png");
     link.click();
   });
+
+  // Button labels from data.json
+  const uiLabels = data.ui?.dressup || {};
+  const btnRandom = document.getElementById("btn-random");
+  const btnDownload = document.getElementById("btn-download");
+  if (btnRandom && uiLabels.random) btnRandom.textContent = uiLabels.random;
+  if (btnDownload && uiLabels.download) btnDownload.textContent = uiLabels.download;
+
+  // Music toggle
+  if (cfg.musica) {
+    const audio = new Audio(cfg.musica.src);
+    audio.loop = cfg.musica.loop !== false;
+    const playLabel = uiLabels.musicPlay || "play";
+    const pauseLabel = uiLabels.musicPause || "pause";
+    const btn = document.getElementById("btn-music");
+    if (btn) {
+      btn.textContent = playLabel;
+      btn.addEventListener("click", () => {
+        if (audio.paused) {
+          audio.play();
+          btn.textContent = pauseLabel;
+        } else {
+          audio.pause();
+          btn.textContent = playLabel;
+        }
+      });
+    }
+  }
 }
 
 if (document.readyState === "loading") {
