@@ -345,6 +345,7 @@ body[data-page-type="about"] {
   width: auto;
   max-width: 100%;
   background: transparent;
+  mix-blend-mode: screen;
 }
 .about-text {
   flex: 1;
@@ -384,6 +385,7 @@ body[data-page-type="about"] {
   position: fixed;
   pointer-events: none;
   z-index: 50;
+  mix-blend-mode: screen;
 }
 
 /* =========================================================
