@@ -268,12 +268,14 @@ a {
   font-weight: 400;
   z-index: 100;
   pointer-events: none;
+  will-change: transform;
 }
 
 body[data-page-type="about"] .page-title {
-  top: 2dvh;
-  left: 3dvw;
+  top: -3dvh;
+  left: -1dvw;
   color: #ccc;
+  font-size: clamp(4.5rem, 14vw, 12rem);
 }
 
 body[data-page-type="games"] .page-title {
@@ -321,6 +323,7 @@ body[data-page-type="about"] {
   flex-direction: column;
   gap: 2rem;
   padding: 2rem;
+  z-index: 1;
 }
 
 .about-layout {
@@ -345,7 +348,6 @@ body[data-page-type="about"] {
   width: auto;
   max-width: 100%;
   background: transparent;
-  mix-blend-mode: screen;
 }
 .about-text {
   flex: 1;
@@ -385,7 +387,6 @@ body[data-page-type="about"] {
   position: fixed;
   pointer-events: none;
   z-index: 50;
-  mix-blend-mode: screen;
 }
 
 /* =========================================================

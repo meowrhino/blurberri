@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (deco.srcFallback) {
         const hevc = document.createElement("source");
         hevc.src = deco.srcFallback;
-        // No type — let Safari auto-detect HEVC with alpha from .mov
+        hevc.type = "video/quicktime; codecs=hvc1";
         video.appendChild(hevc);
       }
 
