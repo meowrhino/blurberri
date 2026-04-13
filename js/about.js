@@ -16,6 +16,24 @@ document.addEventListener("DOMContentLoaded", async () => {
     container.style.backgroundColor = cfg.containerBg;
   }
 
+  // Populate title from data
+  const titleEl = document.querySelector(".page-title");
+  if (titleEl && cfg.titulo?.texto) {
+    titleEl.textContent = cfg.titulo.texto;
+  }
+
+  // Populate footer text from data
+  const footerText = document.querySelector(".about-footer-text");
+  if (footerText && cfg.footerText) {
+    footerText.textContent = cfg.footerText;
+  }
+
+  // Populate bio text from data
+  const bioEl = document.getElementById("about-bio");
+  if (bioEl && cfg.bio) {
+    bioEl.innerHTML = cfg.bio.map(p => `<p>${p}</p>`).join("");
+  }
+
   // Remove existing static decos
   document.querySelectorAll(".about-deco").forEach(el => el.remove());
 

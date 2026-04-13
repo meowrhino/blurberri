@@ -54,6 +54,12 @@ async function initHome() {
     }
   }
 
+  // Populate "coming soon" text from data
+  const comingSoonText = data.ui?.comingSoon;
+  if (comingSoonText) {
+    document.querySelectorAll(".coming-soon").forEach(el => el.textContent = comingSoonText);
+  }
+
   // Scroll content area to top on section change
   const scrollArea = document.querySelector(".content-scroll");
   document.addEventListener("click", (e) => {

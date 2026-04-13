@@ -9,8 +9,15 @@ async function initDressup() {
     const res = await fetch("data/data.json");
     data = await res.json();
   } catch (e) { return; }
-  const cfg = data.games?.dressup;
+  const gamesCfg = data.games;
+  const cfg = gamesCfg?.dressup;
   if (!cfg) return;
+
+  // Populate titles from data
+  const titleText = gamesCfg.titulo?.texto;
+  if (titleText) {
+    document.querySelectorAll(".page-title").forEach(el => el.textContent = titleText);
+  }
 
   const basePath = cfg.basePath;
 

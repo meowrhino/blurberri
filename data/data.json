@@ -9,6 +9,7 @@
       { "id": "sec-bazar", "label": "bazar" }
     ],
     "back": "back",
+    "comingSoon": "coming soon",
     "dressup": {
       "random": "random",
       "download": "download",
@@ -30,12 +31,21 @@
     "botones": "#ccc",
     "botonesActiveHover": "#fff",
     "titulo": {
+      "texto": "About me",
       "color": "#ccc"
     },
+    "footerText": "Aquesta actuació està impulsada i subvencionada pel Departament d'Empresa i Treball, i finançada al 100% pel fons REACT-UE com a part de la resposta de la Unió Europea a la pandèmia de la COVID-19.",
+    "bio": [
+      "Irene Búrdalo es una artista visual que explora lo humano a través de la ilustración y la animación.",
+      "A través de la figuración de la forma femenina se ponen encima de la mesa diálogos silenciosos acerca de la vulnerabilidad, lo íntimo y la ternura.",
+      "La formación en animación y VFX le dio un enfoque cartoon y una manera fresca de narrar: su interés en la moda y el diseño la llevaron a memorizar pasarelas y buscar archivos de marcas olvidadas de una época donde la moda era un ejercicio de artesanía.",
+      "Este cruce entre lo técnico, lo emocional y lo estético da forma a personajes cargados de dramatismo y sensibilidad a la vez que absurdos y desenfadados.",
+      "Su trabajo se mueve en ese espacio donde lo íntimo es visible, lo delicado convive con lo exagerado y lo cotidiano se transforma en performático."
+    ],
     "decos": [
       {
         "src": "data/_ABOUT/RECURSOS/angel_alphatest.webm",
-        "srcFallback": "data/_ABOUT/RECURSOS/angel_alphatest.mov",
+        "srcFallback": "data/_ABOUT/RECURSOS_safari/angel_alphatest.mp4",
         "count": [3, 5],
         "sizeRange": [100, 220],
         "positions": [
@@ -48,7 +58,7 @@
       },
       {
         "src": "data/_ABOUT/RECURSOS/key.webm",
-        "srcFallback": "data/_ABOUT/RECURSOS/key.mov",
+        "srcFallback": "data/_ABOUT/RECURSOS_safari/key.mp4",
         "count": [3, 5],
         "sizeRange": [50, 130],
         "positions": [
@@ -68,16 +78,17 @@
     "botones": "#ccc",
     "botonesActiveHover": "#fff",
     "titulo": {
+      "texto": "Dress me",
       "color": "rgba(255, 255, 255, 0.4)"
     },
     "dressup": {
       "basePath": "data/games/DRESS UP GAME/",
       "scaleFlechas": 0.15,
       "categorias": [
-        { "id": "pelo",    "carpeta": "01-PELO",    "archivos": ["pelo_amarillo.png", "pelo_azul.png", "pelo_negro.png", "pelo_rosa.png"], "altura": 576 },
+        { "id": "pelo",    "carpeta": "01-PELO",    "prefijo": "pelo",    "imgCount": 7, "altura": 576 },
         { "id": "tops",    "carpeta": "02-TOPS",    "prefijo": "top",    "imgCount": 5, "altura": 480 },
-        { "id": "bottoms", "carpeta": "03-BOTTOMS", "prefijo": "bottom", "imgCount": 4, "altura": 976 },
-        { "id": "shoes",   "carpeta": "04-SHOES",   "prefijo": "shoes",  "imgCount": 4, "altura": 700 }
+        { "id": "bottoms", "carpeta": "03-BOTTOMS", "prefijo": "bottom", "imgCount": 6, "altura": 976 },
+        { "id": "shoes",   "carpeta": "04-SHOES",   "prefijo": "shoes",  "imgCount": 5, "altura": 700 }
       ],
       "musica": {
         "src": "data/games/DRESS UP GAME/musica.wav",
@@ -106,7 +117,7 @@
         "opacidad": 0.3
       },
       "motivo": {
-        "opacidad": 0.12
+        "opacidad": 0.35
       }
     },
     {
@@ -122,7 +133,7 @@
         "opacidad": 0.3
       },
       "motivo": {
-        "opacidad": 0.12
+        "opacidad": 0.35
       }
     },
     {
@@ -138,7 +149,7 @@
         "opacidad": 0.3
       },
       "motivo": {
-        "opacidad": 0.12
+        "opacidad": 0.35
       }
     },
     {
@@ -154,7 +165,7 @@
         "opacidad": 0.3
       },
       "motivo": {
-        "opacidad": 0.12
+        "opacidad": 0.35
       }
     }
   ],

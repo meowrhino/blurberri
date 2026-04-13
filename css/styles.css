@@ -293,12 +293,12 @@ body[data-page-type="animacion"] .page-title {
   color: var(--title-color, rgba(255, 255, 255, 0.3));
 }
 body[data-page-type="animacion"] .page-title:first-of-type {
-  top: -1.5dvh;
-  left: 0.5dvw;
+  top: -5dvh;
+  left: -1.5dvw;
 }
 body[data-page-type="animacion"] .page-title--bottom {
-  bottom: -1.5dvh;
-  right: 0.5dvw;
+  bottom: -5dvh;
+  right: -1.5dvw;
   transform: rotate(180deg);
 }
 
@@ -534,9 +534,9 @@ body[data-page-type="animacion"] .page-container {
 /* Ornamental motif */
 .anim-motivo {
   position: fixed;
-  width: clamp(500px, 100vw, 1600px);
+  width: clamp(700px, 130vw, 2200px);
   height: auto;
-  opacity: 0.12;
+  opacity: 0.35;
   pointer-events: none;
   z-index: 0;
 }
