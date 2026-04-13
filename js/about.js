@@ -63,18 +63,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         video.style[prop] = val;
       });
 
+      // HEVC with alpha first (Safari), WebM second (Chrome/Firefox)
+      if (deco.srcFallback) {
+        const hevc = document.createElement("source");
+        hevc.src = deco.srcFallback;
+        // No type — let Safari auto-detect HEVC with alpha from .mov
+        video.appendChild(hevc);
+      }
+
       const source = document.createElement("source");
       source.src = deco.src;
       source.type = "video/webm";
       video.appendChild(source);
-
-      // Safari fallback (HEVC with alpha)
-      if (deco.srcFallback) {
-        const fallback = document.createElement("source");
-        fallback.src = deco.srcFallback;
-        fallback.type = 'video/mp4; codecs="hvc1"';
-        video.appendChild(fallback);
-      }
 
       document.body.appendChild(video);
     });

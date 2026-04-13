@@ -45,7 +45,7 @@
     "decos": [
       {
         "src": "data/_ABOUT/RECURSOS/angel_alphatest.webm",
-        "srcFallback": "data/_ABOUT/RECURSOS_safari/angel_alphatest.mp4",
+        "srcFallback": "data/_ABOUT/RECURSOS_safari/angel_alphatest.mov",
         "count": [3, 5],
         "sizeRange": [100, 220],
         "positions": [
@@ -58,7 +58,7 @@
       },
       {
         "src": "data/_ABOUT/RECURSOS/key.webm",
-        "srcFallback": "data/_ABOUT/RECURSOS_safari/key.mp4",
+        "srcFallback": "data/_ABOUT/RECURSOS_safari/key.mov",
         "count": [3, 5],
         "sizeRange": [50, 130],
         "positions": [
