@@ -5,17 +5,24 @@ async function initHome() {
 
   let data;
   try {
-    const res = await fetch("data/data.json");
+    const res = await fetch("data/data.json", { cache: "no-store" });
     data = await res.json();
   } catch (e) { return; }
 
+  // === LOGO LINK (from data.json social.instagram) ===
+  const logoLink = document.querySelector("a.logo");
+  if (logoLink && data.social?.instagram) {
+    logoLink.href = data.social.instagram;
+  }
+
   // === ANIMATION THUMBNAILS ===
   const grid = document.getElementById("anim-grid") || document.querySelector(".anim-grid");
-  if (grid && data.animaciones) {
+  const proyectos = data.animaciones?.proyectos || [];
+  if (grid && proyectos.length) {
     // Generate random positions that don't overlap too much
-    const positions = generateRandomPositions(data.animaciones.length);
+    const positions = generateRandomPositions(proyectos.length);
 
-    data.animaciones.forEach((anim, i) => {
+    proyectos.forEach((anim, i) => {
       const link = document.createElement("a");
       link.href = `animacion.html?v=${anim.slug}`;
       link.className = "anim-thumb";
@@ -44,21 +51,25 @@ async function initHome() {
     });
   }
 
-  // === SKETCHBOOK ===
-  const sketchGallery = document.getElementById("sketch-gallery") || document.querySelector(".sketch-gallery");
-  if (sketchGallery && data.sketchbook) {
-    const cfg = data.sketchbook;
-    for (let i = 1; i <= cfg.imgCount; i++) {
-      const num = String(i).padStart(2, "0");
-      loadSketchImage(sketchGallery, cfg.basePath, cfg.prefix + num, cfg.extensions, 0);
+  // === SKETCHBOOK / FREESTUFF / BAZAR (all share the horizontal gallery pattern) ===
+  const comingSoonText = data.ui?.comingSoon || "coming soon";
+  [
+    { gallery: "sketch-gallery",    cfg: data.sketchbook },
+    { gallery: "freestuff-gallery", cfg: data.freestuff  },
+    { gallery: "bazar-gallery",     cfg: data.bazar      },
+  ].forEach(({ gallery, cfg }) => {
+    const el = document.getElementById(gallery);
+    if (!el || !cfg) return;
+    if (!cfg.imgCount || cfg.imgCount < 1) {
+      // Empty gallery → render coming soon placeholder in its place
+      el.classList.add("gallery-empty");
+      el.innerHTML = `<p class="coming-soon">${comingSoonText}</p>`;
+      return;
     }
-  }
-
-  // Populate "coming soon" text from data
-  const comingSoonText = data.ui?.comingSoon;
-  if (comingSoonText) {
-    document.querySelectorAll(".coming-soon").forEach(el => el.textContent = comingSoonText);
-  }
+    for (let i = 1; i <= cfg.imgCount; i++) {
+      loadSketchImage(el, cfg.basePath, cfg.prefix + i, cfg.extensions, 0);
+    }
+  });
 
   // Scroll content area to top on section change
   const scrollArea = document.querySelector(".content-scroll");

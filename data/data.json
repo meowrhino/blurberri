@@ -1,6 +1,17 @@
 {
   "siteTitle": "blurberrie930",
 
+  "seo": {
+    "author": "Irene Búrdalo",
+    "description": "Irene Búrdalo — Artista visual que explora lo humano a través de la ilustración y la animación. Portfolio, sketchbook y juegos de Blurberrie.",
+    "keywords": "Irene Búrdalo, blurberrie, 930blurberrie, ilustración, animación, artista visual, VFX, character design, portfolio",
+    "ogImage": "data/_LOGO/930blurberrie_logo.png"
+  },
+
+  "social": {
+    "instagram": "https://www.instagram.com/930blurberrie/"
+  },
+
   "ui": {
     "tabs": [
       { "id": "sec-animaciones", "label": "portfolio" },
@@ -33,6 +44,10 @@
     "titulo": {
       "texto": "About me",
       "color": "#ccc"
+    },
+    "character": {
+      "src": "data/_ABOUT/RECURSOS/character_aboutme.webm",
+      "srcFallback": "data/_ABOUT/RECURSOS_safari/character_aboutme.mov"
     },
     "footerText": "Aquesta actuació està impulsada i subvencionada pel Departament d'Empresa i Treball, i finançada al 100% pel fons REACT-UE com a part de la resposta de la Unió Europea a la pandèmia de la COVID-19.",
     "bio": [
@@ -103,76 +118,62 @@
     }
   },
 
-  "animaciones": [
-    {
-      "name": "Bedrotting",
-      "slug": "bedrotting",
-      "bg": "#1a1225",
-      "containerBg": "rgba(255, 255, 255, 0.06)",
-      "botones": "#ccc",
-      "botonesActiveHover": "#fff",
-      "titulo": {
-        "texto": "Bedrotting",
-        "color": "#c9a0dc",
-        "opacidad": 0.3
+  "animaciones": {
+    "opacidadTitulo": 0.3,
+    "opacidadMotivo": 0.35,
+    "proyectos": [
+      {
+        "name": "Bedrotting",
+        "slug": "bedrotting",
+        "colorBackground": "#1a1225",
+        "colorTitulo": "#c9a0dc",
+        "colorBotones": "#ccc",
+        "colorBotonesActiveHover": "#fff"
       },
-      "motivo": {
-        "opacidad": 0.35
-      }
-    },
-    {
-      "name": "24h Dog",
-      "slug": "24hdog",
-      "bg": "#1a1a1a",
-      "containerBg": "rgba(255, 255, 255, 0.06)",
-      "botones": "#ccc",
-      "botonesActiveHover": "#fff",
-      "titulo": {
-        "texto": "24h Dog",
-        "color": "#e8c170",
-        "opacidad": 0.3
+      {
+        "name": "24h Dog",
+        "slug": "24hdog",
+        "colorBackground": "#1a1a1a",
+        "colorTitulo": "#e8c170",
+        "colorBotones": "#ccc",
+        "colorBotonesActiveHover": "#fff"
       },
-      "motivo": {
-        "opacidad": 0.35
-      }
-    },
-    {
-      "name": "Deadcrush",
-      "slug": "deadcrush",
-      "bg": "#152040",
-      "containerBg": "rgba(255, 255, 255, 0.07)",
-      "botones": "#ccc",
-      "botonesActiveHover": "#fff",
-      "titulo": {
-        "texto": "Deadcrush",
-        "color": "#7eb8da",
-        "opacidad": 0.3
+      {
+        "name": "Deadcrush",
+        "slug": "deadcrush",
+        "colorBackground": "#152040",
+        "colorTitulo": "#7eb8da",
+        "colorBotones": "#ccc",
+        "colorBotonesActiveHover": "#fff"
       },
-      "motivo": {
-        "opacidad": 0.35
+      {
+        "name": "Eisbär",
+        "slug": "eisbaer",
+        "colorBackground": "#0d1520",
+        "colorTitulo": "#a0c8e0",
+        "colorBotones": "#ccc",
+        "colorBotonesActiveHover": "#fff"
       }
-    },
-    {
-      "name": "Eisbär",
-      "slug": "eisbaer",
-      "bg": "#0d1520",
-      "containerBg": "rgba(255, 255, 255, 0.07)",
-      "botones": "#ccc",
-      "botonesActiveHover": "#fff",
-      "titulo": {
-        "texto": "Eisbär",
-        "color": "#a0c8e0",
-        "opacidad": 0.3
-      },
-      "motivo": {
-        "opacidad": 0.35
-      }
-    }
-  ],
+    ]
+  },
 
   "sketchbook": {
     "imgCount": 14,
     "basePath": "data/_SKETCHBOOK/",
+    "prefix": "",
+    "extensions": ["webp"]
+  },
+
+  "freestuff": {
+    "imgCount": 0,
+    "basePath": "data/_FREESTUFF/",
+    "prefix": "",
+    "extensions": ["webp"]
+  },
+
+  "bazar": {
+    "imgCount": 0,
+    "basePath": "data/_BAZAR/",
     "prefix": "",
     "extensions": ["webp"]
   }

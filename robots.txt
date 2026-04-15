@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Referencia interna — no indexar
+Disallow: /referencia/
+Disallow: /.claude/

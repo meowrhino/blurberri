@@ -175,14 +175,18 @@ a {
   opacity: 1;
   visibility: visible;
 }
-/* Sketchbook needs full height for horizontal scroll */
-#sec-sketchbook {
+/* Horizontal-gallery sections (sketchbook / freestuff / bazar) */
+#sec-sketchbook,
+#sec-freestuff,
+#sec-bazar {
   height: 100%;
   overflow: hidden;
   padding-left: 0;
   padding-right: 0;
 }
-#sec-sketchbook.active {
+#sec-sketchbook.active,
+#sec-freestuff.active,
+#sec-bazar.active {
   display: flex;
   flex-direction: column;
 }
@@ -190,11 +194,6 @@ a {
 #sec-animaciones {
   height: 100%;
   overflow: hidden;
-}
-/* Full height for coming soon sections */
-#sec-freestuff,
-#sec-bazar {
-  height: 100%;
 }
 
 /* Animaciones — scattered thumbnails */
@@ -246,6 +245,11 @@ a {
   object-fit: contain;
   scroll-snap-align: start;
 }
+/* Empty gallery → "coming soon" centered, no horizontal padding */
+.sketch-gallery.gallery-empty {
+  padding: 0;
+  justify-content: center;
+}
 
 /* Coming soon placeholder */
 .coming-soon {
@@ -272,7 +276,7 @@ a {
 }
 
 body[data-page-type="about"] .page-title {
-  top: -3dvh;
+  top: -5dvh;
   left: -1dvw;
   color: #ccc;
   font-size: clamp(4.5rem, 14vw, 12rem);
@@ -565,22 +569,3 @@ body[data-page-type="animacion"] .page-container {
 /* =========================================================
    RESPONSIVE
    ========================================================= */
-@media (max-width: 600px) {
-  :root {
-    --frame-inset-y: 5dvh;
-    --frame-inset-x: 6dvw;
-  }
-  .logo img {
-    height: 60px;
-  }
-  .anim-thumb {
-    width: clamp(80px, 30vw, 140px);
-  }
-  .sketch-gallery img {
-    height: 70%;
-  }
-  #about-container {
-    left: 3dvw;
-    right: 3dvw;
-  }
-}

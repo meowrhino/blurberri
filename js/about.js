@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let data;
   try {
-    const res = await fetch("data/data.json");
+    const res = await fetch("data/data.json", { cache: "no-store" });
     data = await res.json();
   } catch (e) { return; }
   const cfg = data.about;
@@ -32,6 +32,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   const bioEl = document.getElementById("about-bio");
   if (bioEl && cfg.bio) {
     bioEl.innerHTML = cfg.bio.map(p => `<p>${p}</p>`).join("");
+  }
+
+  // Update character video sources from data
+  const charVideo = document.querySelector(".about-visual video");
+  if (charVideo && cfg.character) {
+    charVideo.innerHTML = "";
+    if (cfg.character.srcFallback) {
+      const hevc = document.createElement("source");
+      hevc.src = cfg.character.srcFallback;
+      hevc.type = "video/quicktime; codecs=hvc1";
+      charVideo.appendChild(hevc);
+    }
+    if (cfg.character.src) {
+      const webm = document.createElement("source");
+      webm.src = cfg.character.src;
+      webm.type = "video/webm";
+      charVideo.appendChild(webm);
+    }
+    charVideo.load();
   }
 
   // Remove existing static decos

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // === LOAD DATA.JSON & APPLY COLORS ===
   let data;
   try {
-    const res = await fetch("data/data.json");
+    const res = await fetch("data/data.json", { cache: "no-store" });
     data = await res.json();
     const cfg = data[pageType] || null; // home, about, games
     if (cfg) applyColors(cfg);

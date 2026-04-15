@@ -5,19 +5,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let data;
   try {
-    const res = await fetch("data/data.json");
+    const res = await fetch("data/data.json", { cache: "no-store" });
     data = await res.json();
   } catch (e) { return; }
-  const anim = data.animaciones.find(a => a.slug === videoSlug);
+  const animCfg = data.animaciones || {};
+  const anim = (animCfg.proyectos || []).find(a => a.slug === videoSlug);
   const name = anim?.name || videoSlug.charAt(0).toUpperCase() + videoSlug.slice(1);
 
   // Set page titles
   const titleEl = document.getElementById("anim-title");
   const titleBottomEl = document.getElementById("anim-title-bottom");
-  const titleText = anim?.titulo?.texto || name;
-  if (titleEl) titleEl.textContent = titleText;
-  if (titleBottomEl) titleBottomEl.textContent = titleText;
-  document.title = data.siteTitle || "blurberrie930";
+  if (titleEl) titleEl.textContent = name;
+  if (titleBottomEl) titleBottomEl.textContent = name;
+  document.title = `${name} — ${data.siteTitle || "blurberrie930"}`;
 
   // Set video source
   const video = document.getElementById("anim-video");
@@ -32,25 +32,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Apply colors from data.json
   if (anim) {
     const root = document.documentElement;
-    document.body.style.backgroundColor = anim.bg;
-    const container = document.querySelector(".page-container");
-    if (container) container.style.backgroundColor = anim.containerBg;
+    document.body.style.backgroundColor = anim.colorBackground;
 
-    // Title color + opacity
-    const titleColor = anim.titulo?.color || "#fff";
-    const titleOpacity = anim.titulo?.opacidad ?? 0.3;
+    // Title color + shared opacity
+    const titleColor = anim.colorTitulo || "#fff";
+    const titleOpacity = animCfg.opacidadTitulo ?? 0.3;
     [titleEl, titleBottomEl].forEach(el => {
       if (el) { el.style.color = titleColor; el.style.opacity = titleOpacity; }
     });
 
     // Button colors
-    root.style.setProperty("--btn-color", anim.botones);
-    root.style.setProperty("--btn-active-hover", anim.botonesActiveHover);
-
-    // Motivo opacity
-    const motivoOpacity = anim.motivo?.opacidad ?? 0.12;
-    document.querySelectorAll(".anim-motivo").forEach(m => m.style.opacity = motivoOpacity);
+    root.style.setProperty("--btn-color", anim.colorBotones);
+    root.style.setProperty("--btn-active-hover", anim.colorBotonesActiveHover);
   }
+
+  // Shared motivo opacity
+  const motivoOpacity = animCfg.opacidadMotivo ?? 0.12;
+  document.querySelectorAll(".anim-motivo").forEach(m => m.style.opacity = motivoOpacity);
 
   // Position motivos: left-upper + right-lower with slight randomness
   const motivos = document.querySelectorAll(".anim-motivo");

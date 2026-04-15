@@ -6,7 +6,7 @@ async function initDressup() {
   // Load config from data.json
   let data;
   try {
-    const res = await fetch("data/data.json");
+    const res = await fetch("data/data.json", { cache: "no-store" });
     data = await res.json();
   } catch (e) { return; }
   const gamesCfg = data.games;
