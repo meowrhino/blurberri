@@ -64,10 +64,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       const size = minSize + Math.floor(Math.random() * (maxSize - minSize));
       const video = document.createElement("video");
       video.className = "about-deco";
-      video.autoplay = true;
-      video.loop = true;
+      video.setAttribute("autoplay", "");
+      video.setAttribute("loop", "");
+      video.setAttribute("muted", "");
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+      video.setAttribute("preload", "auto");
       video.muted = true;
-      video.playsInline = true;
       video.style.width = size + "px";
       video.style.height = "auto";
 
@@ -90,6 +93,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       video.appendChild(source);
 
       document.body.appendChild(video);
+      const tryPlay = () => video.play().catch(() => {});
+      video.addEventListener("loadedmetadata", tryPlay, { once: true });
+      tryPlay();
     });
   });
+
+  // Character video — re-kick autoplay after sources swap (iOS Safari)
+  if (charVideo) {
+    charVideo.setAttribute("playsinline", "");
+    charVideo.setAttribute("webkit-playsinline", "");
+    charVideo.muted = true;
+    const tryPlayChar = () => charVideo.play().catch(() => {});
+    charVideo.addEventListener("loadedmetadata", tryPlayChar, { once: true });
+    tryPlayChar();
+  }
 });

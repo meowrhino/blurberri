@@ -29,17 +29,24 @@ async function initHome() {
       link.style.top = positions[i].top;
       link.style.left = positions[i].left;
 
-      // Webm thumbnail
+      // Webm thumbnail — iOS Safari needs attributes (not just properties) set before sources
       const video = document.createElement("video");
-      video.autoplay = true;
-      video.loop = true;
+      video.setAttribute("autoplay", "");
+      video.setAttribute("loop", "");
+      video.setAttribute("muted", "");
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+      video.setAttribute("preload", "auto");
       video.muted = true;
-      video.playsInline = true;
       const source = document.createElement("source");
       source.src = `data/_ANIMATION/_MINIATURAS/${anim.slug}_thumbnail.webm`;
       source.type = "video/webm";
       video.appendChild(source);
       link.appendChild(video);
+      // Explicit play as fallback for iOS Safari
+      const tryPlay = () => video.play().catch(() => {});
+      video.addEventListener("loadedmetadata", tryPlay, { once: true });
+      tryPlay();
 
       // Name label in Jua font
       const label = document.createElement("span");
