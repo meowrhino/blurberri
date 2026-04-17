@@ -10,13 +10,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const cfg = data.about;
   if (!cfg?.decos) return;
 
-  // Apply container background (from normalized colors block; nav.js also sets --page-container-bg)
-  const container = document.getElementById("about-container");
-  const containerBg = cfg.colors?.container;
-  if (container && containerBg) {
-    container.style.backgroundColor = containerBg;
-  }
-
   // Populate title from data
   const titleEl = document.querySelector(".page-title");
   if (titleEl && cfg.titulo?.texto) {

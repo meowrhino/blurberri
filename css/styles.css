@@ -33,6 +33,7 @@ body {
   font-family: var(--font-text);
   background-color: var(--page-bg);
   color: #333;
+  transition: background-color 0.4s ease;
 }
 
 /* Page transitions */
@@ -141,6 +142,7 @@ a {
   background-color: var(--page-container-bg);
   display: flex;
   flex-direction: column;
+  transition: background-color 0.4s ease;
 }
 
 .content-scroll {
@@ -275,33 +277,25 @@ a {
   will-change: transform;
 }
 
+/* About — single bigger title */
 body[data-page-type="about"] .page-title {
   top: -5dvh;
   left: -1dvw;
-  color: #ccc;
+  color: var(--title-color, #ccc);
   font-size: clamp(4.5rem, 14vw, 12rem);
 }
 
-body[data-page-type="dressme"] .page-title {
-  color: var(--title-color, rgba(255, 255, 255, 0.4));
-}
-body[data-page-type="dressme"] .page-title:first-of-type {
-  top: -1.5dvh;
-  left: 0.5dvw;
-}
-body[data-page-type="dressme"] .page-title--bottom {
-  bottom: -1.5dvh;
-  right: 0.5dvw;
-  transform: rotate(180deg);
-}
-
+/* Dressme + Animacion — shared two-title layout (top-left + bottom-right rotated) */
+body[data-page-type="dressme"] .page-title,
 body[data-page-type="animacion"] .page-title {
   color: var(--title-color, rgba(255, 255, 255, 0.3));
 }
+body[data-page-type="dressme"] .page-title:first-of-type,
 body[data-page-type="animacion"] .page-title:first-of-type {
   top: -5dvh;
   left: -1.5dvw;
 }
+body[data-page-type="dressme"] .page-title--bottom,
 body[data-page-type="animacion"] .page-title--bottom {
   bottom: -5dvh;
   right: -1.5dvw;
@@ -328,6 +322,8 @@ body[data-page-type="about"] {
   gap: 2rem;
   padding: 2rem;
   z-index: 1;
+  background-color: var(--page-container-bg);
+  transition: background-color 0.4s ease;
 }
 
 .about-layout {

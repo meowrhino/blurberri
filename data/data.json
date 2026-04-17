@@ -1,24 +1,61 @@
 {
   "siteTitle": "blurberrie930",
-
   "seo": {
     "author": "Irene Búrdalo",
     "description": "Irene Búrdalo — Artista visual que explora lo humano a través de la ilustración y la animación. Portfolio, sketchbook y juegos de Blurberrie.",
     "keywords": "Irene Búrdalo, blurberrie, 930blurberrie, ilustración, animación, artista visual, VFX, character design, portfolio",
     "ogImage": "data/_LOGO/930blurberrie_logo.png"
   },
-
   "social": {
     "instagram": "https://www.instagram.com/930blurberrie/"
   },
-
+  "colors": {
+    "home": {
+      "bg": "#808080",
+      "container": "#d2d2d2",
+      "button": "#444",
+      "buttonHover": "#000"
+    },
+    "about": {
+      "bg": "#4a4a4a",
+      "container": "rgba(60, 60, 60, 0.8)",
+      "button": "#ccc",
+      "buttonHover": "#fff",
+      "title": "#ccc"
+    },
+    "dressme": {
+      "bg": "#6b4a5e",
+      "container": "#5a3d50",
+      "button": "#ccc",
+      "buttonHover": "#fff",
+      "title": "rgba(255, 255, 255, 0.4)"
+    },
+    "sketchbook": {
+      "bg": "#808080",
+      "container": "#d2d2d2",
+      "button": "#444",
+      "buttonHover": "#000"
+    },
+    "freestuff": {
+      "bg": "#808080",
+      "container": "#d2d2d2",
+      "button": "#444",
+      "buttonHover": "#000"
+    },
+    "bazar": {
+      "bg": "#808080",
+      "container": "#d2d2d2",
+      "button": "#444",
+      "buttonHover": "#000"
+    }
+  },
   "ui": {
     "back": "back",
     "comingSoon": "coming soon",
     "nav": {
       "home": "home",
       "about": "about",
-      "dressme": "Dress me"
+      "dressme": "dress me"
     },
     "tabs": [
       { "id": "sec-animaciones", "label": "portfolio" },
@@ -27,26 +64,10 @@
       { "id": "sec-bazar",       "label": "bazar" }
     ]
   },
-
-  "home": {
-    "colors": {
-      "bg": "#808080",
-      "container": "#d2d2d2",
-      "button": "#444",
-      "buttonHover": "#000"
-    }
-  },
-
+  "home": {},
   "about": {
-    "colors": {
-      "bg": "#4a4a4a",
-      "container": "rgba(60, 60, 60, 0.8)",
-      "button": "#ccc",
-      "buttonHover": "#fff"
-    },
     "titulo": {
-      "texto": "About me",
-      "color": "#ccc"
+      "texto": "About me"
     },
     "character": {
       "src": "data/_ABOUT/RECURSOS/character_aboutme.webm",
@@ -67,7 +88,7 @@
         "count": [3, 5],
         "sizeRange": [100, 220],
         "positions": [
-          { "top": "5%",  "left": "8%" },
+          { "top": "5%", "left": "8%" },
           { "top": "15%", "right": "5%" },
           { "top": "50%", "left": "2%" },
           { "bottom": "20%", "right": "10%" },
@@ -80,7 +101,7 @@
         "count": [3, 5],
         "sizeRange": [50, 130],
         "positions": [
-          { "top": "3%",  "right": "15%" },
+          { "top": "3%", "right": "15%" },
           { "top": "40%", "left": "5%" },
           { "bottom": "10%", "left": "20%" },
           { "top": "25%", "right": "3%" },
@@ -89,17 +110,9 @@
       }
     ]
   },
-
   "dressme": {
-    "colors": {
-      "bg": "#6b4a5e",
-      "container": "#5a3d50",
-      "button": "#ccc",
-      "buttonHover": "#fff"
-    },
     "titulo": {
-      "texto": "Dress me",
-      "color": "rgba(255, 255, 255, 0.4)"
+      "texto": "Dress me"
     },
     "basePath": "data/games/DRESS UP GAME/",
     "categorias": [
@@ -112,16 +125,8 @@
       "basePath": "FLECHAS/",
       "scaleRandom": 0.39,
       "sets": {
-        "set01": {
-          "left":  "set01_left.png",
-          "right": "set01_right.png",
-          "size":  "clamp(40px, 7vh, 70px)"
-        },
-        "set02": {
-          "left":  "set02_left.png",
-          "right": "set02_right.png",
-          "size":  "clamp(55px, 10vh, 100px)"
-        }
+        "set01": { "left": "set01_left.png",  "right": "set01_right.png", "size": "clamp(40px, 7vh, 70px)" },
+        "set02": { "left": "set02_left.png",  "right": "set02_right.png", "size": "clamp(55px, 10vh, 100px)" }
       },
       "asignacion": [
         { "cat": "pelo",    "left": "set01", "right": "set02" },
@@ -141,7 +146,6 @@
       "download": "download"
     }
   },
-
   "animaciones": {
     "opacidadTitulo": 0.3,
     "opacidadMotivo": 0.35,
@@ -165,11 +169,30 @@
         "name": "Eisbär",
         "slug": "eisbaer",
         "colors": { "bg": "#0d1520", "title": "#a0c8e0", "button": "#ccc", "buttonHover": "#fff" }
+      },
+      {
+        "name": "Amore",
+        "slug": "amore",
+        "colors": { "bg": "#0d1520", "title": "#a0c8e0", "button": "#ccc", "buttonHover": "#fff" }
       }
     ]
   },
-
-  "sketchbook": { "imgCount": 14, "basePath": "data/_SKETCHBOOK/", "prefijo": "", "extensions": ["webp"] },
-  "freestuff":  { "imgCount": 0,  "basePath": "data/_FREESTUFF/",  "prefijo": "", "extensions": ["webp"] },
-  "bazar":      { "imgCount": 0,  "basePath": "data/_BAZAR/",      "prefijo": "", "extensions": ["webp"] }
+  "sketchbook": {
+    "imgCount": 14,
+    "basePath": "data/_SKETCHBOOK/",
+    "prefijo": "",
+    "extensions": ["webp"]
+  },
+  "freestuff": {
+    "imgCount": 1,
+    "basePath": "data/_FREESTUFF/",
+    "prefijo": "",
+    "extensions": ["png"]
+  },
+  "bazar": {
+    "imgCount": 0,
+    "basePath": "data/_BAZAR/",
+    "prefijo": "",
+    "extensions": ["webp"]
+  }
 }

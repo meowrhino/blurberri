@@ -88,7 +88,14 @@
       "Bash(git rm:*)",
       "Bash(curl -sI http://localhost:8080/js/main.js)",
       "Bash(awk '{print $9}')",
-      "Bash(grep -v '^$')"
+      "Bash(grep -v '^$')",
+      "Bash(curl -sI https://930blurberrie.com/)",
+      "Bash(curl -sI https://930blurberrie.com/data/_LOGO/930blurberrie_logo.png)",
+      "Bash(host 930blurberrie.com)",
+      "Bash(curl -sIL https://930blurberrie.com/)",
+      "Bash(curl -s https://930blurberrie.com/)",
+      "Bash(curl -s https://meowrhino.github.io/)",
+      "Bash(python3 -c \"import json; json.load\\(open\\('data/data.json'\\)\\)\")"
     ]
   }
 }

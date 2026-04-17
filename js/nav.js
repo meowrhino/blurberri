@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const res = await fetch("data/data.json", { cache: "no-store" });
     data = await res.json();
-    const cfg = data[pageType] || null; // home, about, dressme
-    if (cfg) applyColors(cfg);
+    // All colors (bg, container, button, title) live in data.colors[pageType]
+    applyColors(data.colors?.[pageType]);
   } catch (e) { /* fallback to CSS defaults */ }
 
   // === ENTRANCE ANIMATION (if coming from another page) ===
@@ -66,14 +66,14 @@ window.addEventListener("pageshow", (e) => {
 });
 
 // ─── COLOR APPLICATION ─────────────────────────────────────
-function applyColors(cfg) {
+function applyColors(colors) {
   const root = document.documentElement;
-  const c = cfg.colors || {};
+  const c = colors || {};
   if (c.bg) root.style.setProperty("--page-bg", c.bg);
   if (c.container) root.style.setProperty("--page-container-bg", c.container);
   if (c.button) root.style.setProperty("--btn-color", c.button);
   if (c.buttonHover) root.style.setProperty("--btn-active-hover", c.buttonHover);
-  if (cfg.titulo?.color) root.style.setProperty("--title-color", cfg.titulo.color);
+  if (c.title) root.style.setProperty("--title-color", c.title);
 }
 
 // ─── PAGE TRANSITIONS ──────────────────────────────────────
@@ -180,6 +180,12 @@ function buildHomeTabs(data) {
     { id: "sec-bazar", label: "bazar" },
   ];
 
+  // Map tab id → colors key ("sec-freestuff" → "freestuff"). Falls back to home.
+  const colorKey = (tabId) => {
+    const k = tabId.replace(/^sec-/, "");
+    return data?.colors?.[k] ? k : "home";
+  };
+
   tabs.forEach((tab, i) => {
     const a = document.createElement("a");
     a.className = "nav-link" + (i === 0 ? " active" : "");
@@ -193,6 +199,7 @@ function buildHomeTabs(data) {
       bottomCenter.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"));
       a.classList.add("active");
       scrollWrapper.scrollTop = 0;
+      applyColors(data?.colors?.[colorKey(tab.id)]);
     });
     bottomCenter.appendChild(a);
   });
