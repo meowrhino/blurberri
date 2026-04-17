@@ -9,12 +9,11 @@ async function initDressup() {
     const res = await fetch("data/data.json", { cache: "no-store" });
     data = await res.json();
   } catch (e) { return; }
-  const gamesCfg = data.games;
-  const cfg = gamesCfg?.dressup;
+  const cfg = data.dressme;
   if (!cfg) return;
 
   // Populate titles from data
-  const titleText = gamesCfg.titulo?.texto;
+  const titleText = cfg.titulo?.texto;
   if (titleText) {
     document.querySelectorAll(".page-title").forEach(el => el.textContent = titleText);
   }
@@ -72,17 +71,21 @@ async function initDressup() {
     images[id] = img;
   }
 
+  // === GENERATE ARROW BUTTONS FROM CONFIG ===
+  buildArrows(cfg, categories, basePath);
+
   // Position arrows to align with body part strips
   const layerTop = 5;    // % (matches CSS .dressup-layers top)
   const layerSpan = 92;  // % (100 - top 5% - bottom 3%)
-  const scaleFactor = cfg.scaleFlechas || 0.39;
+  const flechasCfg = cfg.flechas || {};
+  const scaleRandom = flechasCfg.scaleRandom ?? 0.39;
 
   document.querySelectorAll(".arrow-btn").forEach(btn => {
     const cat = categories[btn.dataset.cat];
     if (!cat) return;
     const centerInFrame = layerTop + (cat.topPct + cat.heightPct / 2) * layerSpan / 100;
     btn.style.top = centerInFrame + "%";
-    btn.style.setProperty("--btn-scale", 1 + (Math.random() * 2 - 1) * scaleFactor);
+    btn.style.setProperty("--btn-scale", 1 + (Math.random() * 2 - 1) * scaleRandom);
   });
 
   // Roulette animation: slide out current, slide in new
@@ -195,7 +198,7 @@ async function initDressup() {
   });
 
   // Button labels from data.json
-  const uiLabels = data.ui?.dressup || {};
+  const uiLabels = cfg.labels || {};
   const btnRandom = document.getElementById("btn-random");
   const btnDownload = document.getElementById("btn-download");
   if (btnRandom && uiLabels.random) btnRandom.textContent = uiLabels.random;
@@ -205,8 +208,8 @@ async function initDressup() {
   if (cfg.musica) {
     const audio = new Audio(cfg.musica.src);
     audio.loop = cfg.musica.loop !== false;
-    const playLabel = uiLabels.musicPlay || "play";
-    const pauseLabel = uiLabels.musicPause || "pause";
+    const playLabel = cfg.musica.playLabel || "play";
+    const pauseLabel = cfg.musica.pauseLabel || "pause";
     const btn = document.getElementById("btn-music");
     if (btn) {
       btn.textContent = playLabel;
@@ -221,6 +224,40 @@ async function initDressup() {
       });
     }
   }
+}
+
+// Generate left/right arrow buttons from cfg.flechas (8 total: 4 categorías × 2 lados)
+function buildArrows(cfg, categories, basePath) {
+  const leftContainer  = document.getElementById("dressup-arrows-left");
+  const rightContainer = document.getElementById("dressup-arrows-right");
+  if (!leftContainer || !rightContainer) return;
+
+  const flechas = cfg.flechas;
+  if (!flechas || !flechas.asignacion || !flechas.sets) return;
+
+  const arrowsBase = basePath + (flechas.basePath || "");
+
+  for (const asg of flechas.asignacion) {
+    if (!categories[asg.cat]) continue;
+    const leftSet  = flechas.sets[asg.left];
+    const rightSet = flechas.sets[asg.right];
+
+    if (leftSet)  leftContainer.appendChild(makeArrow(asg.cat, -1, arrowsBase + leftSet.left,  leftSet.size));
+    if (rightSet) rightContainer.appendChild(makeArrow(asg.cat, 1, arrowsBase + rightSet.right, rightSet.size));
+  }
+}
+
+function makeArrow(cat, dir, imgSrc, size) {
+  const btn = document.createElement("button");
+  btn.className = "arrow-btn";
+  btn.dataset.cat = cat;
+  btn.dataset.dir = String(dir);
+  const img = document.createElement("img");
+  img.src = imgSrc;
+  img.alt = (dir < 0 ? "prev " : "next ") + cat;
+  if (size) img.style.height = size;
+  btn.appendChild(img);
+  return btn;
 }
 
 if (document.readyState === "loading") {

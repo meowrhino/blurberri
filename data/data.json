@@ -13,34 +13,37 @@
   },
 
   "ui": {
-    "tabs": [
-      { "id": "sec-animaciones", "label": "portfolio" },
-      { "id": "sec-sketchbook", "label": "sketchbook" },
-      { "id": "sec-freestuff", "label": "free stuff" },
-      { "id": "sec-bazar", "label": "bazar" }
-    ],
     "back": "back",
     "comingSoon": "coming soon",
-    "dressup": {
-      "random": "random",
-      "download": "download",
-      "musicPlay": "play",
-      "musicPause": "pause"
-    }
+    "nav": {
+      "home": "home",
+      "about": "about",
+      "dressme": "Dress me"
+    },
+    "tabs": [
+      { "id": "sec-animaciones", "label": "portfolio" },
+      { "id": "sec-sketchbook",  "label": "sketchbook" },
+      { "id": "sec-freestuff",   "label": "free stuff" },
+      { "id": "sec-bazar",       "label": "bazar" }
+    ]
   },
 
   "home": {
-    "bg": "#808080",
-    "containerBg": "#d2d2d2",
-    "botones": "#444",
-    "botonesActiveHover": "#000"
+    "colors": {
+      "bg": "#808080",
+      "container": "#d2d2d2",
+      "button": "#444",
+      "buttonHover": "#000"
+    }
   },
 
   "about": {
-    "bg": "#4a4a4a",
-    "containerBg": "rgba(60, 60, 60, 0.8)",
-    "botones": "#ccc",
-    "botonesActiveHover": "#fff",
+    "colors": {
+      "bg": "#4a4a4a",
+      "container": "rgba(60, 60, 60, 0.8)",
+      "button": "#ccc",
+      "buttonHover": "#fff"
+    },
     "titulo": {
       "texto": "About me",
       "color": "#ccc"
@@ -87,34 +90,55 @@
     ]
   },
 
-  "games": {
-    "bg": "#6b4a5e",
-    "containerBg": "#5a3d50",
-    "botones": "#ccc",
-    "botonesActiveHover": "#fff",
+  "dressme": {
+    "colors": {
+      "bg": "#6b4a5e",
+      "container": "#5a3d50",
+      "button": "#ccc",
+      "buttonHover": "#fff"
+    },
     "titulo": {
       "texto": "Dress me",
       "color": "rgba(255, 255, 255, 0.4)"
     },
-    "dressup": {
-      "basePath": "data/games/DRESS UP GAME/",
-      "scaleFlechas": 0.15,
-      "categorias": [
-        { "id": "pelo",    "carpeta": "01-PELO",    "prefijo": "pelo",    "imgCount": 7, "altura": 576 },
-        { "id": "tops",    "carpeta": "02-TOPS",    "prefijo": "top",    "imgCount": 5, "altura": 480 },
-        { "id": "bottoms", "carpeta": "03-BOTTOMS", "prefijo": "bottom", "imgCount": 6, "altura": 976 },
-        { "id": "shoes",   "carpeta": "04-SHOES",   "prefijo": "shoes",  "imgCount": 5, "altura": 700 }
-      ],
-      "musica": {
-        "src": "data/games/DRESS UP GAME/musica.wav",
-        "loop": true
+    "basePath": "data/games/DRESS UP GAME/",
+    "categorias": [
+      { "id": "pelo",    "carpeta": "01-PELO",    "prefijo": "pelo",   "imgCount": 7, "altura": 576 },
+      { "id": "tops",    "carpeta": "02-TOPS",    "prefijo": "top",    "imgCount": 5, "altura": 480 },
+      { "id": "bottoms", "carpeta": "03-BOTTOMS", "prefijo": "bottom", "imgCount": 6, "altura": 976 },
+      { "id": "shoes",   "carpeta": "04-SHOES",   "prefijo": "shoes",  "imgCount": 5, "altura": 700 }
+    ],
+    "flechas": {
+      "basePath": "FLECHAS/",
+      "scaleRandom": 0.39,
+      "sets": {
+        "set01": {
+          "left":  "set01_left.png",
+          "right": "set01_right.png",
+          "size":  "clamp(40px, 7vh, 70px)"
+        },
+        "set02": {
+          "left":  "set02_left.png",
+          "right": "set02_right.png",
+          "size":  "clamp(55px, 10vh, 100px)"
+        }
       },
-      "flechas": {
-        "set01_left": "FLECHAS/set01_left.png",
-        "set01_right": "FLECHAS/set01_right.png",
-        "set02_left": "FLECHAS/set02_left.png",
-        "set02_right": "FLECHAS/set02_right.png"
-      }
+      "asignacion": [
+        { "cat": "pelo",    "left": "set01", "right": "set02" },
+        { "cat": "tops",    "left": "set02", "right": "set01" },
+        { "cat": "bottoms", "left": "set01", "right": "set02" },
+        { "cat": "shoes",   "left": "set02", "right": "set01" }
+      ]
+    },
+    "musica": {
+      "src": "data/games/DRESS UP GAME/musica.wav",
+      "loop": true,
+      "playLabel": "play",
+      "pauseLabel": "pause"
+    },
+    "labels": {
+      "random": "random",
+      "download": "download"
     }
   },
 
@@ -125,56 +149,27 @@
       {
         "name": "Bedrotting",
         "slug": "bedrotting",
-        "colorBackground": "#1a1225",
-        "colorTitulo": "#c9a0dc",
-        "colorBotones": "#ccc",
-        "colorBotonesActiveHover": "#fff"
+        "colors": { "bg": "#1a1225", "title": "#c9a0dc", "button": "#ccc", "buttonHover": "#fff" }
       },
       {
         "name": "24h Dog",
         "slug": "24hdog",
-        "colorBackground": "#1a1a1a",
-        "colorTitulo": "#e8c170",
-        "colorBotones": "#ccc",
-        "colorBotonesActiveHover": "#fff"
+        "colors": { "bg": "#1a1a1a", "title": "#e8c170", "button": "#ccc", "buttonHover": "#fff" }
       },
       {
         "name": "Deadcrush",
         "slug": "deadcrush",
-        "colorBackground": "#152040",
-        "colorTitulo": "#7eb8da",
-        "colorBotones": "#ccc",
-        "colorBotonesActiveHover": "#fff"
+        "colors": { "bg": "#152040", "title": "#7eb8da", "button": "#ccc", "buttonHover": "#fff" }
       },
       {
         "name": "Eisbär",
         "slug": "eisbaer",
-        "colorBackground": "#0d1520",
-        "colorTitulo": "#a0c8e0",
-        "colorBotones": "#ccc",
-        "colorBotonesActiveHover": "#fff"
+        "colors": { "bg": "#0d1520", "title": "#a0c8e0", "button": "#ccc", "buttonHover": "#fff" }
       }
     ]
   },
 
-  "sketchbook": {
-    "imgCount": 14,
-    "basePath": "data/_SKETCHBOOK/",
-    "prefix": "",
-    "extensions": ["webp"]
-  },
-
-  "freestuff": {
-    "imgCount": 0,
-    "basePath": "data/_FREESTUFF/",
-    "prefix": "",
-    "extensions": ["webp"]
-  },
-
-  "bazar": {
-    "imgCount": 0,
-    "basePath": "data/_BAZAR/",
-    "prefix": "",
-    "extensions": ["webp"]
-  }
+  "sketchbook": { "imgCount": 14, "basePath": "data/_SKETCHBOOK/", "prefijo": "", "extensions": ["webp"] },
+  "freestuff":  { "imgCount": 0,  "basePath": "data/_FREESTUFF/",  "prefijo": "", "extensions": ["webp"] },
+  "bazar":      { "imgCount": 0,  "basePath": "data/_BAZAR/",      "prefijo": "", "extensions": ["webp"] }
 }

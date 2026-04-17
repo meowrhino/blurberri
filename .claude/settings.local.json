@@ -82,7 +82,13 @@
       "Bash(ffprobe -v quiet -show_streams -select_streams v \"/Users/manu/Downloads/character_hevc.mov\")",
       "Bash(mdls -name kMDItemCodecs \"/Users/manu/Downloads/character_hevc.mov\")",
       "Read(//Users/manu/Downloads/**)",
-      "Bash(mdls -name kMDItemCodecs \"data/_ABOUT/RECURSOS_safari/angel_alphatest.mov\")"
+      "Bash(mdls -name kMDItemCodecs \"data/_ABOUT/RECURSOS_safari/angel_alphatest.mov\")",
+      "Bash(git check-ignore:*)",
+      "Bash(git mv:*)",
+      "Bash(git rm:*)",
+      "Bash(curl -sI http://localhost:8080/js/main.js)",
+      "Bash(awk '{print $9}')",
+      "Bash(grep -v '^$')"
     ]
   }
 }

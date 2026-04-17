@@ -120,7 +120,7 @@ a {
   left: 50%;
   transform: translate(-50%, 50%);
   font-family: var(--font-menu);
-  font-size: clamp(0.75rem, 1.4dvw, 1rem);
+  font-size: clamp(1.1rem, 2.2dvw, 1.75rem);
   color: var(--btn-color, #ccc);
   text-decoration: underline;
   z-index: 1000;
@@ -282,14 +282,14 @@ body[data-page-type="about"] .page-title {
   font-size: clamp(4.5rem, 14vw, 12rem);
 }
 
-body[data-page-type="games"] .page-title {
+body[data-page-type="dressme"] .page-title {
   color: var(--title-color, rgba(255, 255, 255, 0.4));
 }
-body[data-page-type="games"] .page-title:first-of-type {
+body[data-page-type="dressme"] .page-title:first-of-type {
   top: -1.5dvh;
   left: 0.5dvw;
 }
-body[data-page-type="games"] .page-title--bottom {
+body[data-page-type="dressme"] .page-title--bottom {
   bottom: -1.5dvh;
   right: 0.5dvw;
   transform: rotate(180deg);
@@ -394,14 +394,14 @@ body[data-page-type="about"] {
 }
 
 /* =========================================================
-   GAMES PAGE — DRESS UP
+   DRESS ME PAGE
    ========================================================= */
-body[data-page-type="games"] {
+body[data-page-type="dressme"] {
   background-color: var(--page-bg);
   color: #fff;
 }
 
-body[data-page-type="games"] .page-container {
+body[data-page-type="dressme"] .page-container {
   background-color: var(--page-container-bg);
 }
 

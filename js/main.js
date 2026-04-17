@@ -66,8 +66,9 @@ async function initHome() {
       el.innerHTML = `<p class="coming-soon">${comingSoonText}</p>`;
       return;
     }
+    const prefix = cfg.prefijo ?? cfg.prefix ?? "";
     for (let i = 1; i <= cfg.imgCount; i++) {
-      loadSketchImage(el, cfg.basePath, cfg.prefix + i, cfg.extensions, 0);
+      loadSketchImage(el, cfg.basePath, prefix + i, cfg.extensions, 0);
     }
   });
 

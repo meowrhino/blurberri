@@ -43,10 +43,12 @@ Imagina que el nuevo proyecto se llama **"Mi Proyecto"** y su identificador inte
 {
   "name": "Mi Proyecto",
   "slug": "miproyecto",
-  "colorBackground": "#1a1225",
-  "colorTitulo": "#c9a0dc",
-  "colorBotones": "#ccc",
-  "colorBotonesActiveHover": "#fff"
+  "colors": {
+    "bg": "#1a1225",
+    "title": "#c9a0dc",
+    "button": "#ccc",
+    "buttonHover": "#fff"
+  }
 }
 ```
 Recuerda poner una coma al final del proyecto anterior.
@@ -55,10 +57,10 @@ Recuerda poner una coma al final del proyecto anterior.
 |---|---|
 | `name` | Nombre visible en la home y en la página del proyecto |
 | `slug` | Identificador interno. **Debe ser idéntico al nombre de los archivos de vídeo.** Solo minúsculas, números y guiones. |
-| `colorBackground` | Color de fondo de la página del proyecto |
-| `colorTitulo` | Color del título grande en las esquinas |
-| `colorBotones` | Color del menú (home, about, games, back) |
-| `colorBotonesActiveHover` | Color al pasar el ratón o cuando está activo |
+| `colors.bg` | Color de fondo de la página del proyecto |
+| `colors.title` | Color del título grande en las esquinas |
+| `colors.button` | Color del menú (home, about, dress me, back) |
+| `colors.buttonHover` | Color al pasar el ratón o cuando está activo |
 
 Las opacidades del título y del motivo de fondo son compartidas para todos los proyectos — se controlan arriba, en `animaciones.opacidadTitulo` y `animaciones.opacidadMotivo`.
 
@@ -143,17 +145,25 @@ Edita `about.footerText` en `data/data.json`.
 
 ---
 
-## GAMES (Dress Up)
+## DRESS ME (juego de vestir)
 
 ### ➕ Añadir una nueva prenda
 Ejemplo: añadir una 8ª opción de pelo.
 1. Sube la imagen a `data/games/DRESS UP GAME/01-PELO/pelo08.png` (transparente, formato PNG).
-2. En `data/data.json`, sube `games.dressup.categorias[0].imgCount` de `7` a `8`.
+2. En `data/data.json`, sube `dressme.categorias[0].imgCount` de `7` a `8`.
 
 Las categorías son: `01-PELO`, `02-TOPS`, `03-BOTTOMS`, `04-SHOES`. Cada una tiene su propio `imgCount`.
 
 ### ✏️ Cambiar la música
-Reemplaza `data/games/DRESS UP GAME/musica.wav` con tu archivo (puede ser .wav, .mp3, .ogg — actualiza el path en `games.dressup.musica.src` si cambias el formato).
+Reemplaza `data/games/DRESS UP GAME/musica.wav` con tu archivo (puede ser .wav, .mp3, .ogg — actualiza el path en `dressme.musica.src` si cambias el formato).
+
+### ✏️ Cambiar las flechas (tamaño, posición, aleatoriedad)
+Las flechas izquierda/derecha de cada categoría se generan desde `dressme.flechas`:
+- `scaleRandom`: cuánto varía el tamaño al cargar (0 = todas iguales, 0.5 = mucha variación).
+- `sets.setXX.size`: altura de cada set de flechas (se admite `clamp()`, `px`, `vh`, …).
+- `asignacion`: qué set (grande/decorativo) va a la izquierda y a la derecha de cada categoría.
+
+Si "rompes" el enlace (cambias el nombre del png) la flecha no se pintará.
 
 ---
 
@@ -194,17 +204,19 @@ Puedes traducir los textos de navegación editando `ui` en `data/data.json`:
 - `ui.tabs[].label` — portfolio, sketchbook, free stuff, bazar
 - `ui.back` — enlace "back" en páginas de detalle
 - `ui.comingSoon` — texto "coming soon"
-- `ui.dressup.random` / `download` / `musicPlay` / `musicPause` — botones del juego
+- `ui.nav.home` / `about` / `dressme` — etiquetas del menú top
+- `dressme.labels.random` / `download` — botones del juego
+- `dressme.musica.playLabel` / `pauseLabel` — botón de música
 
 ---
 
-## Colores por página (home, about, games)
+## Colores por página (home, about, dressme)
 
-Cada página tiene su bloque en `data/data.json` (`home`, `about`, `games`) con 4 colores:
-- `bg` — fondo general
-- `containerBg` — fondo del recuadro interior
-- `botones` — color del menú
-- `botonesActiveHover` — color del menú al pasar o activo
+Cada página tiene su bloque en `data/data.json` (`home`, `about`, `dressme`) con un objeto `colors`:
+- `colors.bg` — fondo general
+- `colors.container` — fondo del recuadro interior
+- `colors.button` — color del menú
+- `colors.buttonHover` — color del menú al pasar o activo
 
 ---
 
@@ -227,9 +239,9 @@ La web está preparada para funcionar en:
 
 1. **Localhost (prueba local en VS Code / Python)**: abre la carpeta con un servidor local y visita `http://localhost:8080`.
 2. **GitHub Pages**: `https://meowrhino.github.io/blurberri/` — se publica automáticamente al hacer push.
-3. **Dominio propio**: cuando tengas el dominio (ej. `blurberri.com`), se configura en:
+3. **Dominio propio** (`930blurberrie.com`): se configura en:
    - **Settings → Pages → Custom domain** en GitHub
-   - Crear un archivo `CNAME` en la raíz del repo con el dominio
+   - Crear un archivo `CNAME` en la raíz del repo con el contenido `930blurberrie.com`
    - Apuntar los DNS del dominio a GitHub Pages (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`)
 
 Todas las rutas son **relativas**, así que funciona igual en los 3 entornos sin tocar código.
@@ -243,7 +255,7 @@ blurberri/
 ├── index.html          ← Home (thumbnails, sketchbook, free stuff, bazar)
 ├── about.html          ← About me
 ├── animacion.html      ← Ficha de cada animación
-├── games.html          ← Dress me
+├── dressme.html        ← Dress me (juego de vestir)
 ├── robots.txt          ← Indexación buscadores
 ├── MANTENIMIENTO.md    ← Este archivo
 ├── css/styles.css      ← Estilos (no tocar)

@@ -9,11 +9,11 @@
     <meta name="author" content="Irene Búrdalo">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#6b4a5e">
-    <link rel="canonical" href="https://930blurberrie.com/games.html">
+    <link rel="canonical" href="https://930blurberrie.com/dressme.html">
     <meta property="og:title" content="Irene Búrdalo — Dress me">
     <meta property="og:description" content="Juego de vestir personajes por Blurberrie.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://930blurberrie.com/games.html">
+    <meta property="og:url" content="https://930blurberrie.com/dressme.html">
     <meta property="og:image" content="https://930blurberrie.com/data/_LOGO/930blurberrie_logo.png">
     <meta property="og:site_name" content="blurberrie930">
     <meta property="og:locale" content="es_ES">
@@ -33,28 +33,14 @@
     <title>Dress me — blurberrie930</title>
 </head>
 
-<body data-page-type="games">
+<body data-page-type="dressme">
     <h1 class="page-title">Dress me</h1>
     <h1 class="page-title page-title--bottom">Dress me</h1>
 
     <div class="page-container">
     <div id="dressup-container">
-        <!-- Left arrows: pelo/bottoms=set01(grande), tops/shoes=set02(deco) -->
-        <div class="dressup-arrows dressup-arrows--left">
-            <button class="arrow-btn" data-cat="pelo" data-dir="-1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set01_left.png" alt="prev pelo">
-            </button>
-            <button class="arrow-btn arrow-btn--deco" data-cat="tops" data-dir="-1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set02_left.png" alt="prev tops">
-            </button>
-            <button class="arrow-btn" data-cat="bottoms" data-dir="-1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set01_left.png" alt="prev bottoms">
-            </button>
-            <button class="arrow-btn arrow-btn--deco" data-cat="shoes" data-dir="-1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set02_left.png" alt="prev shoes">
-            </button>
-        </div>
-
+        <!-- Flechas izq/dcha — generadas por dressup.js desde data.json -->
+        <div class="dressup-arrows dressup-arrows--left" id="dressup-arrows-left"></div>
 
         <!-- Frame + character -->
         <div class="dressup-frame">
@@ -64,21 +50,7 @@
             </div>
         </div>
 
-        <!-- Right arrows: pelo/bottoms=set02(deco), tops/shoes=set01(grande) -->
-        <div class="dressup-arrows dressup-arrows--right">
-            <button class="arrow-btn arrow-btn--deco" data-cat="pelo" data-dir="1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set02_right.png" alt="next pelo">
-            </button>
-            <button class="arrow-btn" data-cat="tops" data-dir="1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set01_right.png" alt="next tops">
-            </button>
-            <button class="arrow-btn arrow-btn--deco" data-cat="bottoms" data-dir="1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set02_right.png" alt="next bottoms">
-            </button>
-            <button class="arrow-btn" data-cat="shoes" data-dir="1">
-                <img src="data/games/DRESS UP GAME/FLECHAS/set01_right.png" alt="next shoes">
-            </button>
-        </div>
+        <div class="dressup-arrows dressup-arrows--right" id="dressup-arrows-right"></div>
     </div>
     </div>
 

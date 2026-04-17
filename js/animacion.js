@@ -32,18 +32,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Apply colors from data.json
   if (anim) {
     const root = document.documentElement;
-    document.body.style.backgroundColor = anim.colorBackground;
+    const c = anim.colors || {};
+    if (c.bg) document.body.style.backgroundColor = c.bg;
 
     // Title color + shared opacity
-    const titleColor = anim.colorTitulo || "#fff";
+    const titleColor = c.title || "#fff";
     const titleOpacity = animCfg.opacidadTitulo ?? 0.3;
     [titleEl, titleBottomEl].forEach(el => {
       if (el) { el.style.color = titleColor; el.style.opacity = titleOpacity; }
     });
 
     // Button colors
-    root.style.setProperty("--btn-color", anim.colorBotones);
-    root.style.setProperty("--btn-active-hover", anim.colorBotonesActiveHover);
+    if (c.button) root.style.setProperty("--btn-color", c.button);
+    if (c.buttonHover) root.style.setProperty("--btn-active-hover", c.buttonHover);
   }
 
   // Shared motivo opacity

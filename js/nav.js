@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const res = await fetch("data/data.json", { cache: "no-store" });
     data = await res.json();
-    const cfg = data[pageType] || null; // home, about, games
+    const cfg = data[pageType] || null; // home, about, dressme
     if (cfg) applyColors(cfg);
   } catch (e) { /* fallback to CSS defaults */ }
 
@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // === BUILD NAVIGATION ===
-  if (pageType === "home" || pageType === "about" || pageType === "games") {
-    buildTopNav(pageType);
+  if (pageType === "home" || pageType === "about" || pageType === "dressme") {
+    buildTopNav(pageType, data);
   }
   if (pageType === "animacion") {
     buildBackLink(data);
@@ -44,13 +44,35 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 
+// === BFCACHE RESTORE — fix stuck opacity when using browser back/forward ===
+window.addEventListener("pageshow", (e) => {
+  if (!e.persisted) return; // only on bfcache restore
+  // Clean up any stale state from interrupted transitions
+  document.body.classList.remove("page-exit");
+  document.documentElement.classList.remove("transitioning");
+  const stale = document.querySelectorAll(
+    ".page-container, #about-container, .page-title, .logo, .nav-top-right, .nav-bottom-center, .nav-back, .dressup-actions, .anim-motivo"
+  );
+  stale.forEach(el => {
+    el.style.opacity = "";
+    el.style.transform = "";
+    el.style.transition = "";
+  });
+  // If there was a pending transition flag, replay the entrance
+  if (sessionStorage.getItem("page-transition")) {
+    sessionStorage.removeItem("page-transition");
+    playEntrance();
+  }
+});
+
 // ─── COLOR APPLICATION ─────────────────────────────────────
 function applyColors(cfg) {
   const root = document.documentElement;
-  if (cfg.bg) root.style.setProperty("--page-bg", cfg.bg);
-  if (cfg.containerBg) root.style.setProperty("--page-container-bg", cfg.containerBg);
-  if (cfg.botones) root.style.setProperty("--btn-color", cfg.botones);
-  if (cfg.botonesActiveHover) root.style.setProperty("--btn-active-hover", cfg.botonesActiveHover);
+  const c = cfg.colors || {};
+  if (c.bg) root.style.setProperty("--page-bg", c.bg);
+  if (c.container) root.style.setProperty("--page-container-bg", c.container);
+  if (c.button) root.style.setProperty("--btn-color", c.button);
+  if (c.buttonHover) root.style.setProperty("--btn-active-hover", c.buttonHover);
   if (cfg.titulo?.color) root.style.setProperty("--title-color", cfg.titulo.color);
 }
 
@@ -115,14 +137,18 @@ function playEntrance() {
 }
 
 // ─── NAV BUILDERS ──────────────────────────────────────────
-function buildTopNav(pageType) {
+function buildTopNav(pageType, data) {
+  const labels = data?.ui?.nav || {};
+  const items = [
+    { key: "home",    href: "index.html",   label: labels.home    || "home" },
+    { key: "about",   href: "about.html",   label: labels.about   || "about" },
+    { key: "dressme", href: "dressme.html", label: labels.dressme || "Dress me" },
+  ];
   const topRight = document.createElement("div");
   topRight.classList.add("nav-top-right");
-  topRight.innerHTML = `
-    <a href="index.html" class="nav-link ${pageType === 'home' ? 'active' : ''}">home</a>
-    <a href="about.html" class="nav-link ${pageType === 'about' ? 'active' : ''}">about</a>
-    <a href="games.html" class="nav-link ${pageType === 'games' ? 'active' : ''}">games</a>
-  `;
+  topRight.innerHTML = items.map(it =>
+    `<a href="${it.href}" class="nav-link${pageType === it.key ? " active" : ""}">${it.label}</a>`
+  ).join("");
   document.body.appendChild(topRight);
 }
 
