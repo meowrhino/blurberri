@@ -136,7 +136,7 @@
       ]
     },
     "musica": {
-      "src": "data/games/DRESS UP GAME/musica.wav",
+      "src": "data/games/DRESS UP GAME/musica.mp3",
       "loop": true,
       "playLabel": "play",
       "pauseLabel": "pause"
@@ -168,11 +168,6 @@
       {
         "name": "Eisbär",
         "slug": "eisbaer",
-        "colors": { "bg": "#0d1520", "title": "#a0c8e0", "button": "#ccc", "buttonHover": "#fff" }
-      },
-      {
-        "name": "Amore",
-        "slug": "amore",
         "colors": { "bg": "#0d1520", "title": "#a0c8e0", "button": "#ccc", "buttonHover": "#fff" }
       }
     ]

@@ -3,3 +3,5 @@ referencia/
 *.docx
 Thumbs.db
 .vscode/
+.claude/
+*.wav
