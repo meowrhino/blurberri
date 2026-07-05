@@ -59,6 +59,26 @@ a {
   color: inherit;
 }
 
+/* Keyboard focus indicator (WCAG 2.4.7) */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--btn-active-hover);
+  outline-offset: 3px;
+}
+
+/* Screen-reader-only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* =========================================================
    LOGO (fixed top-left)
    ========================================================= */
@@ -86,14 +106,19 @@ a {
   z-index: 1000;
 }
 
-.nav-bottom-center {
+.nav-bottom-center,
+.nav-back,
+.dressup-actions {
   position: fixed;
   bottom: calc(var(--frame-inset-y) / 2);
   left: 50%;
   transform: translate(-50%, 50%);
+  z-index: 1000;
+}
+
+.nav-bottom-center {
   display: flex;
   gap: 1.5dvw;
-  z-index: 1000;
   white-space: nowrap;
 }
 
@@ -101,44 +126,41 @@ a {
 .nav-link {
   font-family: var(--font-menu);
   font-size: clamp(0.75rem, 1.4dvw, 1rem);
-  color: var(--btn-color, #444);
+  color: var(--btn-color);
   text-decoration: underline;
   cursor: pointer;
   transition: color 0.2s;
 }
 .nav-link:hover {
-  color: var(--btn-active-hover, #000);
+  color: var(--btn-active-hover);
 }
 .nav-link.active {
-  color: var(--btn-active-hover, #000);
+  color: var(--btn-active-hover);
   font-weight: 700;
 }
 
 /* Back link for detail pages — fixed bottom center */
 .nav-back {
-  position: fixed;
-  bottom: calc(var(--frame-inset-y) / 2);
-  left: 50%;
-  transform: translate(-50%, 50%);
   font-family: var(--font-menu);
   font-size: clamp(1.1rem, 2.2dvw, 1.75rem);
-  color: var(--btn-color, #ccc);
+  color: var(--btn-color);
   text-decoration: underline;
-  z-index: 1000;
 }
 .nav-back:hover {
-  color: var(--btn-active-hover, #fff);
+  color: var(--btn-active-hover);
 }
 
 /* =========================================================
    PAGE CONTAINER — 90dvw × 90dvh inner box (anakatana style)
    ========================================================= */
-#content-frame {
+#content-frame,
+.page-container,
+#about-container {
   position: fixed;
-  top: var(--frame-inset-y);
-  bottom: var(--frame-inset-y);
-  left: var(--frame-inset-x);
-  right: var(--frame-inset-x);
+  inset: var(--frame-inset-y) var(--frame-inset-x);
+}
+
+#content-frame {
   background-color: var(--page-container-bg);
   display: flex;
   flex-direction: column;
@@ -154,11 +176,6 @@ a {
 }
 
 .page-container {
-  position: fixed;
-  top: var(--frame-inset-y);
-  bottom: var(--frame-inset-y);
-  left: var(--frame-inset-x);
-  right: var(--frame-inset-x);
   z-index: 1;
 }
 
@@ -261,7 +278,7 @@ a {
   height: 100%;
   font-family: var(--font-text);
   font-size: 2rem;
-  color: #999;
+  color: var(--btn-color, #666);
 }
 
 /* =========================================================
@@ -311,11 +328,6 @@ body[data-page-type="about"] {
 }
 
 #about-container {
-  position: fixed;
-  top: var(--frame-inset-y);
-  bottom: var(--frame-inset-y);
-  left: var(--frame-inset-x);
-  right: var(--frame-inset-x);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -331,11 +343,6 @@ body[data-page-type="about"] {
   gap: 2rem;
   flex: 1;
   align-items: center;
-}
-@media (max-width: 768px) {
-  .about-layout {
-    flex-direction: column;
-  }
 }
 
 .about-visual {
@@ -448,18 +455,13 @@ body[data-page-type="dressme"] .page-container {
 
 /* Random & Download buttons */
 .dressup-actions {
-  position: fixed;
-  bottom: calc(var(--frame-inset-y) / 2);
-  left: 50%;
-  transform: translate(-50%, 50%);
   display: flex;
   gap: 1.5dvw;
-  z-index: 1000;
 }
 .dressup-action-btn {
   background: none;
   border: none;
-  color: var(--btn-color, #ccc);
+  color: var(--btn-color);
   font-family: var(--font-menu);
   font-size: clamp(0.75rem, 1.4dvw, 1rem);
   text-decoration: underline;
@@ -468,7 +470,7 @@ body[data-page-type="dressme"] .page-container {
   padding: 0;
 }
 .dressup-action-btn:hover {
-  color: var(--btn-active-hover, #fff);
+  color: var(--btn-active-hover);
 }
 
 /* Frame */
@@ -504,19 +506,6 @@ body[data-page-type="dressme"] .page-container {
   position: absolute;
   left: 0;
   width: 100%;
-}
-
-@media (max-width: 600px) {
-  #dressup-container {
-    gap: 0.3rem;
-  }
-  .dressup-frame {
-    height: 80%;
-  }
-  .dressup-arrows {
-    height: 80%;
-    width: clamp(30px, 10vw, 50px);
-  }
 }
 
 /* =========================================================
@@ -565,3 +554,21 @@ body[data-page-type="animacion"] .page-container {
 /* =========================================================
    RESPONSIVE
    ========================================================= */
+@media (max-width: 768px) {
+  .about-layout {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  #dressup-container {
+    gap: 0.3rem;
+  }
+  .dressup-frame {
+    height: 80%;
+  }
+  .dressup-arrows {
+    height: 80%;
+    width: clamp(30px, 10vw, 50px);
+  }
+}
