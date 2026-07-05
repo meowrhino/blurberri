@@ -1,4 +1,8 @@
 // Navigation + page transitions + data.json color injection
+
+// Shared fetch — other page scripts await window.__siteData instead of re-fetching
+window.__siteData = fetch("data/data.json", { cache: "no-store" }).then(r => r.json());
+
 document.addEventListener("DOMContentLoaded", async () => {
   const pageType = document.body.dataset.pageType;
   if (!pageType) return;
@@ -6,11 +10,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   // === LOAD DATA.JSON & APPLY COLORS ===
   let data;
   try {
-    const res = await fetch("data/data.json", { cache: "no-store" });
-    data = await res.json();
+    data = await window.__siteData;
     // All colors (bg, container, button, title) live in data.colors[pageType]
     applyColors(data.colors?.[pageType]);
-  } catch (e) { /* fallback to CSS defaults */ }
+  } catch (e) {
+    console.error("Error loading data.json", e);
+    /* fallback to CSS defaults */
+  }
 
   // === ENTRANCE ANIMATION (if coming from another page) ===
   if (sessionStorage.getItem("page-transition")) {

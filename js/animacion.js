@@ -1,16 +1,18 @@
 // Animation detail page — loads config from data.json
 document.addEventListener("DOMContentLoaded", async () => {
   const videoSlug = new URLSearchParams(location.search).get("v");
-  if (!videoSlug) return;
+  if (!videoSlug) { window.location.replace("index.html"); return; }
 
   let data;
   try {
-    const res = await fetch("data/data.json", { cache: "no-store" });
-    data = await res.json();
-  } catch (e) { return; }
+    data = window.__siteData
+      ? await window.__siteData
+      : await (await fetch("data/data.json", { cache: "no-store" })).json();
+  } catch (e) { console.error("Error loading data.json", e); return; }
   const animCfg = data.animaciones || {};
   const anim = (animCfg.proyectos || []).find(a => a.slug === videoSlug);
-  const name = anim?.name || videoSlug.charAt(0).toUpperCase() + videoSlug.slice(1);
+  if (!anim) { window.location.replace("index.html"); return; }
+  const name = anim.name || videoSlug.charAt(0).toUpperCase() + videoSlug.slice(1);
 
   // Set page titles
   const titleEl = document.getElementById("anim-title");
@@ -18,6 +20,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (titleEl) titleEl.textContent = name;
   if (titleBottomEl) titleBottomEl.textContent = name;
   document.title = `${name} — ${data.siteTitle || "blurberrie930"}`;
+
+  // Update meta tags to reflect the current project
+  const canonicalUrl = `https://930blurberrie.com/animacion.html?v=${videoSlug}`;
+  const canonicalEl = document.querySelector('link[rel="canonical"]');
+  if (canonicalEl) canonicalEl.href = canonicalUrl;
+  const ogTitleEl = document.querySelector('meta[property="og:title"]');
+  if (ogTitleEl) ogTitleEl.content = `${name} — blurberrie930`;
+  const ogUrlEl = document.querySelector('meta[property="og:url"]');
+  if (ogUrlEl) ogUrlEl.content = canonicalUrl;
+  const twitterTitleEl = document.querySelector('meta[name="twitter:title"]');
+  if (twitterTitleEl) twitterTitleEl.content = `${name} — blurberrie930`;
 
   // Set video source
   const video = document.getElementById("anim-video");

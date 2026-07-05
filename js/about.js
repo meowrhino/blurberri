@@ -4,9 +4,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let data;
   try {
-    const res = await fetch("data/data.json", { cache: "no-store" });
-    data = await res.json();
-  } catch (e) { return; }
+    data = window.__siteData
+      ? await window.__siteData
+      : await (await fetch("data/data.json", { cache: "no-store" })).json();
+  } catch (e) { console.error("Error loading data.json", e); return; }
   const cfg = data.about;
   if (!cfg?.decos) return;
 

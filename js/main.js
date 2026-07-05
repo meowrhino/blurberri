@@ -5,9 +5,10 @@ async function initHome() {
 
   let data;
   try {
-    const res = await fetch("data/data.json", { cache: "no-store" });
-    data = await res.json();
-  } catch (e) { return; }
+    data = window.__siteData
+      ? await window.__siteData
+      : await (await fetch("data/data.json", { cache: "no-store" })).json();
+  } catch (e) { console.error("Error loading data.json", e); return; }
 
   // === LOGO LINK (from data.json social.instagram) ===
   const logoLink = document.querySelector("a.logo");
@@ -36,8 +37,9 @@ async function initHome() {
       video.setAttribute("muted", "");
       video.setAttribute("playsinline", "");
       video.setAttribute("webkit-playsinline", "");
-      video.setAttribute("preload", "auto");
+      video.setAttribute("preload", "metadata");
       video.muted = true;
+      video.poster = `data/_ANIMATION/_MINIATURAS/${anim.slug}.png`;
       const source = document.createElement("source");
       source.src = `data/_ANIMATION/_MINIATURAS/${anim.slug}_thumbnail.webm`;
       source.type = "video/webm";
@@ -73,7 +75,7 @@ async function initHome() {
       el.innerHTML = `<p class="coming-soon">${comingSoonText}</p>`;
       return;
     }
-    const prefix = cfg.prefijo ?? cfg.prefix ?? "";
+    const prefix = cfg.prefijo ?? "";
     for (let i = 1; i <= cfg.imgCount; i++) {
       loadSketchImage(el, cfg.basePath, prefix + i, cfg.extensions, 0);
     }
@@ -148,14 +150,18 @@ function generateRandomPositions(count) {
 function loadSketchImage(gallery, basePath, name, extensions, extIndex) {
   if (extIndex >= extensions.length) return; // all extensions failed
 
+  // Append first, then load lazily — a detached lazy img never fires onload
   const img = document.createElement("img");
   img.alt = name;
-  img.src = `${basePath}${name}.${extensions[extIndex]}`;
+  img.loading = "lazy";
+  img.decoding = "async";
   img.onload = () => {
     img.classList.add("loaded");
-    gallery.appendChild(img);
   };
   img.onerror = () => {
+    img.remove();
     loadSketchImage(gallery, basePath, name, extensions, extIndex + 1);
   };
+  img.src = `${basePath}${name}.${extensions[extIndex]}`;
+  gallery.appendChild(img);
 }

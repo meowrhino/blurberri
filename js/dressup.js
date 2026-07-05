@@ -6,9 +6,10 @@ async function initDressup() {
   // Load config from data.json
   let data;
   try {
-    const res = await fetch("data/data.json", { cache: "no-store" });
-    data = await res.json();
-  } catch (e) { return; }
+    data = window.__siteData
+      ? await window.__siteData
+      : await (await fetch("data/data.json", { cache: "no-store" })).json();
+  } catch (e) { console.error("Error loading data.json", e); return; }
   const cfg = data.dressme;
   if (!cfg) return;
 
@@ -89,7 +90,8 @@ async function initDressup() {
   });
 
   // Roulette animation: slide out current, slide in new
-  function animateSwap(catId, dir) {
+  // targetIndex (optional): land on a specific item index instead of stepping by dir
+  function animateSwap(catId, dir, targetIndex) {
     const img = images[catId];
     const cat = categories[catId];
     if (!img || img.dataset.animating) return;
@@ -105,7 +107,9 @@ async function initDressup() {
 
     setTimeout(() => {
       // Change image while off-screen
-      cat.current = (cat.current + dir + cat.items.length) % cat.items.length;
+      cat.current = targetIndex !== undefined
+        ? targetIndex
+        : (cat.current + dir + cat.items.length) % cat.items.length;
       img.src = cat.items[cat.current];
 
       // Position on entry side (no transition)
@@ -147,26 +151,7 @@ async function initDressup() {
         do { newIdx = Math.floor(Math.random() * cat.items.length); }
         while (newIdx === cat.current && cat.items.length > 1);
 
-        const img = images[id];
-        if (img.dataset.animating) return;
-        img.dataset.animating = "1";
-
-        const slideOut = dir > 0 ? "-110%" : "110%";
-        const slideIn = dir > 0 ? "110%" : "-110%";
-
-        img.style.transition = "transform 0.18s ease-in";
-        img.style.transform = `translateX(${slideOut})`;
-
-        setTimeout(() => {
-          cat.current = newIdx;
-          img.src = cat.items[cat.current];
-          img.style.transition = "none";
-          img.style.transform = `translateX(${slideIn})`;
-          void img.offsetWidth;
-          img.style.transition = "transform 0.22s cubic-bezier(0.22, 1, 0.36, 1)";
-          img.style.transform = "translateX(0)";
-          setTimeout(() => { img.style.transition = ""; img.style.transform = ""; delete img.dataset.animating; }, 220);
-        }, 180);
+        animateSwap(id, dir, newIdx);
       }, i * 80); // stagger each part by 80ms
     });
   });
@@ -215,7 +200,7 @@ async function initDressup() {
       btn.textContent = playLabel;
       btn.addEventListener("click", () => {
         if (audio.paused) {
-          audio.play();
+          audio.play().catch(() => {});
           btn.textContent = pauseLabel;
         } else {
           audio.pause();
@@ -223,6 +208,14 @@ async function initDressup() {
         }
       });
     }
+
+    // BFCACHE RESTORE — stop and reset music so it doesn't resume unexpectedly
+    window.addEventListener("pageshow", (e) => {
+      if (!e.persisted) return;
+      audio.pause();
+      audio.currentTime = 0;
+      if (btn) btn.textContent = playLabel;
+    });
   }
 }
 
