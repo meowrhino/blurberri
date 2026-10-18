@@ -124,7 +124,7 @@ function homePage() {
 
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
-for (const f of ['css', 'js', 'data', 'projects']) cpSync(at(f), join(OUT, f), { recursive: true, filter: (x) => !x.endsWith('.DS_Store') });
+for (const f of ['css', 'js', 'fonts', 'data', 'projects']) cpSync(at(f), join(OUT, f), { recursive: true, filter: (x) => !x.endsWith('.DS_Store') });
 for (const f of ['about.html', 'dressme.html', 'animacion.html', '404.html']) writeFileSync(join(OUT, f), built(readFileSync(at(f), 'utf8'), f));
 writeFileSync(join(OUT, 'index.html'), homePage());
 mkdirSync(join(OUT, 'og'), { recursive: true });
