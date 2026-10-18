@@ -1,0 +1,10 @@
+{
+  "$schema": "../../schema/project.json",
+  "name": "24h Dog",
+  "colors": {
+    "bg": "#d4d4d4",
+    "title": "#00ffde",
+    "button": "#ccc",
+    "buttonHover": "#fff"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../../schema/project.json",
+  "name": "Deadcrush",
+  "colors": {
+    "bg": "#b4b9cd",
+    "title": "#072aff",
+    "button": "#ccc",
+    "buttonHover": "#fff"
+  }
+}

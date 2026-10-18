@@ -1,4 +1,6 @@
 {
+  "$schema": "../schema/site.json",
+  "url": "https://930blurberrie.com",
   "siteTitle": "blurberrie930",
   "seo": {
     "author": "Irene Búrdalo",
@@ -24,11 +26,11 @@
       "title": "#ccc"
     },
     "dressme": {
-      "bg": "#6b4a5e",
-      "container": "#5a3d50",
-      "button": "#ccc",
+      "bg": "#050500",
+      "container": "#c8cd66",
+      "button": "#c8cd66",
       "buttonHover": "#fff",
-      "title": "rgba(255, 255, 255, 0.4)"
+      "title": "rgba(255, 255, 255, 0.5)"
     },
     "sketchbook": {
       "bg": "#808080",
@@ -58,10 +60,22 @@
       "dressme": "dress me"
     },
     "tabs": [
-      { "id": "sec-animaciones", "label": "portfolio" },
-      { "id": "sec-sketchbook",  "label": "sketchbook" },
-      { "id": "sec-freestuff",   "label": "free stuff" },
-      { "id": "sec-bazar",       "label": "bazar" }
+      {
+        "id": "sec-animaciones",
+        "label": "portfolio"
+      },
+      {
+        "id": "sec-sketchbook",
+        "label": "sketchbook"
+      },
+      {
+        "id": "sec-freestuff",
+        "label": "free stuff"
+      },
+      {
+        "id": "sec-bazar",
+        "label": "bazar"
+      }
     ]
   },
   "home": {},
@@ -85,27 +99,69 @@
       {
         "src": "data/_ABOUT/RECURSOS/angel_alphatest.webm",
         "srcFallback": "data/_ABOUT/RECURSOS_safari/angel_alphatest.mov",
-        "count": [3, 5],
-        "sizeRange": [100, 220],
+        "count": [
+          3,
+          5
+        ],
+        "sizeRange": [
+          100,
+          220
+        ],
         "positions": [
-          { "top": "5%", "left": "8%" },
-          { "top": "15%", "right": "5%" },
-          { "top": "50%", "left": "2%" },
-          { "bottom": "20%", "right": "10%" },
-          { "top": "35%", "right": "25%" }
+          {
+            "top": "5%",
+            "left": "8%"
+          },
+          {
+            "top": "15%",
+            "right": "5%"
+          },
+          {
+            "top": "50%",
+            "left": "2%"
+          },
+          {
+            "bottom": "20%",
+            "right": "10%"
+          },
+          {
+            "top": "35%",
+            "right": "25%"
+          }
         ]
       },
       {
         "src": "data/_ABOUT/RECURSOS/key.webm",
         "srcFallback": "data/_ABOUT/RECURSOS_safari/key.mov",
-        "count": [3, 5],
-        "sizeRange": [50, 130],
+        "count": [
+          3,
+          5
+        ],
+        "sizeRange": [
+          50,
+          130
+        ],
         "positions": [
-          { "top": "3%", "right": "15%" },
-          { "top": "40%", "left": "5%" },
-          { "bottom": "10%", "left": "20%" },
-          { "top": "25%", "right": "3%" },
-          { "bottom": "30%", "right": "18%" }
+          {
+            "top": "3%",
+            "right": "15%"
+          },
+          {
+            "top": "40%",
+            "left": "5%"
+          },
+          {
+            "bottom": "10%",
+            "left": "20%"
+          },
+          {
+            "top": "25%",
+            "right": "3%"
+          },
+          {
+            "bottom": "30%",
+            "right": "18%"
+          }
         ]
       }
     ]
@@ -116,29 +172,77 @@
     },
     "basePath": "data/games/DRESS UP GAME/",
     "categorias": [
-      { "id": "pelo",    "carpeta": "01-PELO",    "prefijo": "pelo",   "imgCount": 7, "altura": 576 },
-      { "id": "tops",    "carpeta": "02-TOPS",    "prefijo": "top",    "imgCount": 5, "altura": 480 },
-      { "id": "bottoms", "carpeta": "03-BOTTOMS", "prefijo": "bottom", "imgCount": 6, "altura": 976 },
-      { "id": "shoes",   "carpeta": "04-SHOES",   "prefijo": "shoes",  "imgCount": 5, "altura": 700 }
+      {
+        "id": "pelo",
+        "carpeta": "01-PELO",
+        "prefijo": "pelo",
+        "imgCount": 9,
+        "altura": 576
+      },
+      {
+        "id": "tops",
+        "carpeta": "02-TOPS",
+        "prefijo": "top",
+        "imgCount": 11,
+        "altura": 478
+      },
+      {
+        "id": "bottoms",
+        "carpeta": "03-BOTTOMS",
+        "prefijo": "bottom",
+        "imgCount": 9,
+        "altura": 976
+      },
+      {
+        "id": "shoes",
+        "carpeta": "04-SHOES",
+        "prefijo": "shoes",
+        "imgCount": 7,
+        "altura": 700
+      }
     ],
     "flechas": {
       "basePath": "FLECHAS/",
-      "scaleRandom": 0.39,
+      "scaleRandom": 0.01,
       "sets": {
-        "set01": { "left": "set01_left.png",  "right": "set01_right.png", "size": "clamp(40px, 7vh, 70px)" },
-        "set02": { "left": "set02_left.png",  "right": "set02_right.png", "size": "clamp(55px, 10vh, 100px)" }
+        "set01": {
+          "left": "set01_left.png",
+          "right": "set01_right.png",
+          "size": "clamp(28px, 4.5vh, 50px)"
+        },
+        "set02": {
+          "left": "set02_left.png",
+          "right": "set02_right.png",
+          "size": "clamp(55px, 10vh, 100px)"
+        }
       },
       "asignacion": [
-        { "cat": "pelo",    "left": "set01", "right": "set02" },
-        { "cat": "tops",    "left": "set02", "right": "set01" },
-        { "cat": "bottoms", "left": "set01", "right": "set02" },
-        { "cat": "shoes",   "left": "set02", "right": "set01" }
+        {
+          "cat": "pelo",
+          "left": "set02",
+          "right": "set02"
+        },
+        {
+          "cat": "tops",
+          "left": "set02",
+          "right": "set02"
+        },
+        {
+          "cat": "bottoms",
+          "left": "set02",
+          "right": "set02"
+        },
+        {
+          "cat": "shoes",
+          "left": "set02",
+          "right": "set02"
+        }
       ]
     },
     "musica": {
-      "src": "data/games/DRESS UP GAME/musica.mp3",
+      "src": "data/games/DRESS UP GAME/musica.wav",
       "loop": true,
-      "playLabel": "play",
+      "playLabel": "music",
       "pauseLabel": "pause"
     },
     "labels": {
@@ -146,48 +250,46 @@
       "download": "download"
     }
   },
-  "animaciones": {
-    "opacidadTitulo": 0.3,
-    "opacidadMotivo": 0.35,
-    "proyectos": [
-      {
-        "name": "Bedrotting",
-        "slug": "bedrotting",
-        "colors": { "bg": "#1a1225", "title": "#c9a0dc", "button": "#ccc", "buttonHover": "#fff" }
-      },
-      {
-        "name": "24h Dog",
-        "slug": "24hdog",
-        "colors": { "bg": "#1a1a1a", "title": "#e8c170", "button": "#ccc", "buttonHover": "#fff" }
-      },
-      {
-        "name": "Deadcrush",
-        "slug": "deadcrush",
-        "colors": { "bg": "#152040", "title": "#7eb8da", "button": "#ccc", "buttonHover": "#fff" }
-      },
-      {
-        "name": "Eisbär",
-        "slug": "eisbaer",
-        "colors": { "bg": "#0d1520", "title": "#a0c8e0", "button": "#ccc", "buttonHover": "#fff" }
-      }
-    ]
-  },
   "sketchbook": {
     "imgCount": 14,
     "basePath": "data/_SKETCHBOOK/",
     "prefijo": "",
-    "extensions": ["webp"]
+    "extensions": [
+      "webp"
+    ]
   },
   "freestuff": {
     "imgCount": 1,
     "basePath": "data/_FREESTUFF/",
     "prefijo": "",
-    "extensions": ["png"]
+    "extensions": [
+      "png"
+    ]
   },
   "bazar": {
     "imgCount": 0,
     "basePath": "data/_BAZAR/",
     "prefijo": "",
-    "extensions": ["webp"]
+    "extensions": [
+      "webp"
+    ]
+  },
+  "animations": {
+    "opacidadTitulo": 0.3,
+    "opacidadMotivo": 0.35
+  },
+  "lists": {
+    "animations": {
+      "projects": [
+        "bedrotting",
+        "24hdog",
+        "deadcrush",
+        "eisbaer",
+        "amore",
+        "acidflowerspink",
+        "acidflowersyellow",
+        "acidflowersblue"
+      ]
+    }
   }
 }

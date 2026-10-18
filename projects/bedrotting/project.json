@@ -1,0 +1,10 @@
+{
+  "$schema": "../../schema/project.json",
+  "name": "Bedrotting",
+  "colors": {
+    "bg": "#1a1225",
+    "title": "#c9a0dc",
+    "button": "#ccc",
+    "buttonHover": "#fff"
+  }
+}

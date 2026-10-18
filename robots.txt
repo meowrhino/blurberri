@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-
-# Referencia interna — no indexar
-Disallow: /.claude/
-
-Sitemap: https://930blurberrie.com/sitemap.xml

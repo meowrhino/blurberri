@@ -1,7 +1,7 @@
 // Navigation + page transitions + data.json color injection
 
 // Shared fetch — other page scripts await window.__siteData instead of re-fetching
-window.__siteData = fetch("data/data.json", { cache: "no-store" }).then(r => r.json());
+window.__siteData = CASA.loadData();   // data/site.json + projects/ (js/carga.js)
 
 document.addEventListener("DOMContentLoaded", async () => {
   const pageType = document.body.dataset.pageType;

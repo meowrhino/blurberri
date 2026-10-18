@@ -1,0 +1,10 @@
+{
+  "$schema": "../../schema/project.json",
+  "name": "a Medal from Mother 1",
+  "colors": {
+    "bg": "#ffb2dd",
+    "title": "#75676d",
+    "button": "#ccc",
+    "buttonHover": "#fff"
+  }
+}

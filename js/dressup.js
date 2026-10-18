@@ -8,7 +8,7 @@ async function initDressup() {
   try {
     data = window.__siteData
       ? await window.__siteData
-      : await (await fetch("data/data.json", { cache: "no-store" })).json();
+      : await CASA.loadData();
   } catch (e) { console.error("Error loading data.json", e); return; }
   const cfg = data.dressme;
   if (!cfg) return;

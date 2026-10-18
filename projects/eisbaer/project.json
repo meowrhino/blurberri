@@ -1,0 +1,10 @@
+{
+  "$schema": "../../schema/project.json",
+  "name": "Eisbär",
+  "colors": {
+    "bg": "#ff5ca",
+    "title": "#a0c8e0",
+    "button": "#ccc",
+    "buttonHover": "#fff"
+  }
+}

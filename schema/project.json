@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "projects/<nombre>/project.json: una animación",
+  "description": "projects/<nombre>/project.json: una animación. Al lado, video.webm, thumbnail.webm (la de la home) y, si quieres, poster.png. VS Code lee este fichero (por el \"$schema\" de arriba del JSON) para autocompletar, explicar cada campo y subrayar lo que está mal; el build y la vista previa lo usan para revisar.",
+  "type": "object",
+  "required": [
+    "name",
+    "colors"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "_": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string",
+      "description": "El título: \"Bedrotting\""
+    },
+    "colors": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Los colores de su página.",
+      "properties": {
+        "bg": {
+          "type": "string",
+          "description": "Un color: \"#1a1225\" o \"rgba(…)\""
+        },
+        "title": {
+          "type": "string",
+          "description": "Un color: \"#1a1225\" o \"rgba(…)\""
+        },
+        "button": {
+          "type": "string",
+          "description": "Un color: \"#1a1225\" o \"rgba(…)\""
+        },
+        "buttonHover": {
+          "type": "string",
+          "description": "Un color: \"#1a1225\" o \"rgba(…)\""
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "../../schema/project.json",
+  "name": "Amore",
+  "colors": {
+    "bg": "#000000",
+    "title": "#ff3589",
+    "button": "#ccc",
+    "buttonHover": "#fff"
+  }
+}

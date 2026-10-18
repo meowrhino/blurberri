@@ -1,13 +1,14 @@
 // Animation detail page — loads config from data.json
 document.addEventListener("DOMContentLoaded", async () => {
-  const videoSlug = new URLSearchParams(location.search).get("v");
+  // de ?v= (la vista previa, y los enlaces viejos) o de la página /animacion/<slug>/ que escribe el build
+  const videoSlug = new URLSearchParams(location.search).get("v") || window.__SLUG__;
   if (!videoSlug) { window.location.replace("index.html"); return; }
 
   let data;
   try {
     data = window.__siteData
       ? await window.__siteData
-      : await (await fetch("data/data.json", { cache: "no-store" })).json();
+      : await CASA.loadData();
   } catch (e) { console.error("Error loading data.json", e); return; }
   const animCfg = data.animaciones || {};
   const anim = (animCfg.proyectos || []).find(a => a.slug === videoSlug);
@@ -21,22 +22,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (titleBottomEl) titleBottomEl.textContent = name;
   document.title = `${name} — ${data.siteTitle || "blurberrie930"}`;
 
-  // Update meta tags to reflect the current project
-  const canonicalUrl = `https://930blurberrie.com/animacion.html?v=${videoSlug}`;
-  const canonicalEl = document.querySelector('link[rel="canonical"]');
-  if (canonicalEl) canonicalEl.href = canonicalUrl;
-  const ogTitleEl = document.querySelector('meta[property="og:title"]');
-  if (ogTitleEl) ogTitleEl.content = `${name} — blurberrie930`;
-  const ogUrlEl = document.querySelector('meta[property="og:url"]');
-  if (ogUrlEl) ogUrlEl.content = canonicalUrl;
-  const twitterTitleEl = document.querySelector('meta[name="twitter:title"]');
-  if (twitterTitleEl) twitterTitleEl.content = `${name} — blurberrie930`;
+  // Las meta de cada animación ya las escribe el build en /animacion/<slug>/;
+  // aquí solo se ponen en la página de siempre (animacion.html?v=…)
+  if (!CASA.BUILT || !window.__SLUG__) {
+    const canonicalUrl = `https://930blurberrie.com/animacion/${videoSlug}/`;
+    const canonicalEl = document.querySelector('link[rel="canonical"]');
+    if (canonicalEl) canonicalEl.href = canonicalUrl;
+    const ogTitleEl = document.querySelector('meta[property="og:title"]');
+    if (ogTitleEl) ogTitleEl.content = `${name} — blurberrie930`;
+    const ogUrlEl = document.querySelector('meta[property="og:url"]');
+    if (ogUrlEl) ogUrlEl.content = canonicalUrl;
+    const twitterTitleEl = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitleEl) twitterTitleEl.content = `${name} — blurberrie930`;
+  }
 
   // Set video source
   const video = document.getElementById("anim-video");
   if (video) {
     const source = document.createElement("source");
-    source.src = `data/_ANIMATION/_VIDEOS/${videoSlug}.webm`;
+    source.src = `projects/${videoSlug}/video.webm`;
     source.type = "video/webm";
     video.appendChild(source);
     video.load();

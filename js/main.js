@@ -7,7 +7,7 @@ async function initHome() {
   try {
     data = window.__siteData
       ? await window.__siteData
-      : await (await fetch("data/data.json", { cache: "no-store" })).json();
+      : await CASA.loadData();
   } catch (e) { console.error("Error loading data.json", e); return; }
 
   // === LOGO LINK (from data.json social.instagram) ===
@@ -25,7 +25,7 @@ async function initHome() {
 
     proyectos.forEach((anim, i) => {
       const link = document.createElement("a");
-      link.href = `animacion.html?v=${anim.slug}`;
+      link.href = CASA.animUrl(anim.slug);
       link.className = "anim-thumb";
       link.style.top = positions[i].top;
       link.style.left = positions[i].left;
@@ -39,9 +39,9 @@ async function initHome() {
       video.setAttribute("webkit-playsinline", "");
       video.setAttribute("preload", "metadata");
       video.muted = true;
-      video.poster = `data/_ANIMATION/_MINIATURAS/${anim.slug}.png`;
+      video.poster = `projects/${anim.slug}/poster.png`;
       const source = document.createElement("source");
-      source.src = `data/_ANIMATION/_MINIATURAS/${anim.slug}_thumbnail.webm`;
+      source.src = `projects/${anim.slug}/thumbnail.webm`;
       source.type = "video/webm";
       video.appendChild(source);
       link.appendChild(video);
