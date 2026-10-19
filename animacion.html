@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="fonts/fonts.css">
     <link rel="stylesheet" href="css/styles.css">
     <script>if(sessionStorage.getItem('page-transition'))document.documentElement.classList.add('transitioning')</script>
+    <!-- animacion.html?v=X (la dirección vieja): en la web construida lleva a animacion/X/; en la vista previa pinta la animación aquí -->
+    <script>{ const v = new URLSearchParams(location.search).get("v"); if (v && document.documentElement.hasAttribute("data-built")) location.replace("animacion/" + encodeURIComponent(v) + "/"); }</script>
     <title>Animación — blurberrie930</title>
 </head>
 

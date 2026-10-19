@@ -55,6 +55,8 @@
 
   // La dirección de una animación: limpia en la web construida; en la vista previa, la de siempre
   const animUrl = (slug) => ROOT + (BUILT ? `animacion/${encodeURIComponent(slug)}/` : `animacion.html?v=${encodeURIComponent(slug)}`);
+  // about y dressme: /about/ en la web construida; en la vista previa, about.html
+  const pageUrl = (name) => ROOT + (BUILT ? `${name}/` : `${name}.html`);
 
-  window.CASA = { BUILT, loadData, animUrl, showErrors };
+  window.CASA = { BUILT, loadData, animUrl, pageUrl, showErrors };
 })();

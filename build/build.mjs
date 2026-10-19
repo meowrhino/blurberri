@@ -110,22 +110,47 @@ function animationPage(slug) {
   html = metaSet(html, /(<meta property="og:url" content=")[^"]*(")/, url, file);
   html = metaSet(html, /(<meta property="og:image" content=")[^"]*(")/, ogUrl(slug), file);
   html = swap(html, /(<meta charset="UTF-8">)/, `$1\n    <base href="../../">\n    <script>window.__SLUG__ = ${JSON.stringify(slug)};</script>`, file);
-  return swap(html, /(<body[^>]*>)/, `$1\n    <h1 style="${sr}">${esc(title)}</h1>`, file);
+  // el título y la vuelta a casa, escondidos a la vista (nav.js pinta el "back"): para Google y los lectores de pantalla
+  return swap(html, /(<body[^>]*>)/, `$1\n    <h1 style="${sr}">${esc(title)}</h1><a href="./" style="${sr}">home</a>`, file);
 }
 
 function homePage() {
   const file = 'index.html';
   let html = built(readFileSync(at(file), 'utf8'), file);
   const links = data.animaciones.proyectos.map((a) => `<a href="animacion/${encodeURIComponent(a.slug)}/">${esc(a.name)}</a>`).join(' ');
-  return swap(html, /(<body[^>]*>)/, `$1\n    <nav style="${sr}">${links} <a href="about.html">about</a> <a href="dressme.html">dress me</a></nav>`, file);
+  return swap(html, /(<body[^>]*>)/, `$1\n    <nav style="${sr}">${links} <a href="about/">about</a> <a href="dressme/">dress me</a></nav>`, file);
 }
+
+// about.html y dressme.html → /about/ y /dressme/, con su canonical; la dirección vieja (about.html) lleva a la nueva
+function page(name) {
+  const file = `${name}.html`;
+  const url = `${SITE}/${name}/`;
+  let html = built(readFileSync(at(file), 'utf8'), file);
+  html = metaSet(html, /(<link rel="canonical" href=")[^"]*(")/, url, file);
+  html = metaSet(html, /(<meta property="og:url" content=")[^"]*(")/, url, file);
+  html = swap(html, /(<meta charset="UTF-8">)/, `$1\n    <base href="../">`, file);
+  return swap(html, /(<body[^>]*>)/, `$1\n    <a href="./" style="${sr}">home</a>`, file);
+}
+const redirect = (name) => `<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=${name}/"><link rel="canonical" href="${SITE}/${name}/">
+<title>${esc(site.siteTitle)}</title></head><body><a href="${name}/">${name}</a></body></html>
+`;
 
 /* ---------- escribir dist/ ---------- */
 
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 for (const f of ['css', 'js', 'fonts', 'data', 'projects']) cpSync(at(f), join(OUT, f), { recursive: true, filter: (x) => !x.endsWith('.DS_Store') });
-for (const f of ['about.html', 'dressme.html', 'animacion.html', '404.html']) writeFileSync(join(OUT, f), built(readFileSync(at(f), 'utf8'), f));
+// animacion.html: la dirección vieja (?v=), que ya solo redirige a animacion/<slug>/: sin indexar
+writeFileSync(join(OUT, 'animacion.html'), built(readFileSync(at('animacion.html'), 'utf8'), 'animacion.html').replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex">'));
+// 404: la base desde la raíz de la web (GitHub Pages lo sirve en cualquier dirección, también en una subcarpeta)
+writeFileSync(join(OUT, '404.html'), swap(built(readFileSync(at('404.html'), 'utf8'), '404.html'), /(<meta charset="UTF-8">)/, `$1\n    <base href="${BASE}/">`, '404.html'));
+for (const name of ['about', 'dressme']) {
+  mkdirSync(join(OUT, name), { recursive: true });
+  writeFileSync(join(OUT, name, 'index.html'), page(name));
+  writeFileSync(join(OUT, `${name}.html`), redirect(name));
+}
 writeFileSync(join(OUT, 'index.html'), homePage());
 mkdirSync(join(OUT, 'og'), { recursive: true });
 for (const [slug, cached] of ogs) cpSync(cached, join(OUT, 'og', `${slug}.jpg`));
@@ -133,7 +158,7 @@ for (const slug of slugs) {
   mkdirSync(join(OUT, 'animacion', slug), { recursive: true });
   writeFileSync(join(OUT, 'animacion', slug, 'index.html'), animationPage(slug));
 }
-const urls = ['', 'about.html', 'dressme.html', ...slugs.map((s) => `animacion/${encodeURIComponent(s)}/`)].map((p) => `${SITE}/${p}`);
+const urls = ['', 'about/', 'dressme/', ...slugs.map((s) => `animacion/${encodeURIComponent(s)}/`)].map((p) => `${SITE}/${p}`);
 writeFileSync(join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}

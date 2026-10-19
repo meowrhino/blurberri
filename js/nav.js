@@ -146,9 +146,9 @@ function playEntrance() {
 function buildTopNav(pageType, data) {
   const labels = data?.ui?.nav || {};
   const items = [
-    { key: "home",    href: "index.html",   label: labels.home    || "home" },
-    { key: "about",   href: "about.html",   label: labels.about   || "about" },
-    { key: "dressme", href: "dressme.html", label: labels.dressme || "Dress me" },
+    { key: "home",    href: "./",                     label: labels.home    || "home" },
+    { key: "about",   href: CASA.pageUrl("about"),   label: labels.about   || "about" },
+    { key: "dressme", href: CASA.pageUrl("dressme"), label: labels.dressme || "Dress me" },
   ];
   const topRight = document.createElement("div");
   topRight.classList.add("nav-top-right");
@@ -160,7 +160,7 @@ function buildTopNav(pageType, data) {
 
 function buildBackLink(data) {
   const back = document.createElement("a");
-  back.href = "index.html";
+  back.href = "./";
   back.className = "nav-back";
   back.textContent = data?.ui?.back || "back";
   document.body.appendChild(back);

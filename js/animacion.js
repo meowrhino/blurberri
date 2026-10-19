@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   // de ?v= (la vista previa, y los enlaces viejos) o de la página /animacion/<slug>/ que escribe el build
   const videoSlug = new URLSearchParams(location.search).get("v") || window.__SLUG__;
-  if (!videoSlug) { window.location.replace("index.html"); return; }
+  if (!videoSlug) { window.location.replace("./"); return; }
 
   let data;
   try {
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (e) { console.error("Error loading data.json", e); return; }
   const animCfg = data.animaciones || {};
   const anim = (animCfg.proyectos || []).find(a => a.slug === videoSlug);
-  if (!anim) { window.location.replace("index.html"); return; }
+  if (!anim) { window.location.replace("./"); return; }
   const name = anim.name || videoSlug.charAt(0).toUpperCase() + videoSlug.slice(1);
 
   // Set page titles
