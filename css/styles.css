@@ -388,6 +388,10 @@ body[data-page-type="about"] {
   height: 40px;
   width: auto;
 }
+.about-credit {
+  flex-basis: 100%;
+  margin: 0;
+}
 
 /* Decorative floating elements (positioned dynamically by about.js) */
 .about-deco {
