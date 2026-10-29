@@ -2,7 +2,8 @@
 referencia/
 *.docx
 Thumbs.db
-.vscode/
+.vscode/*
+!.vscode/settings.json
 .claude/
 
 node_modules/
